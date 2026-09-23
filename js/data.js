@@ -38,6 +38,12 @@ const COURSE_DATA = {
           title: "OOP Principles, Classes & Objects",
           image: "images/oops_principles.jpg",
           imageCaption: "Visual Diagram: 4 Core Pillars of Object-Oriented Programming in Java",
+          analogyImages: [
+            {
+              src: "images/oops_4pillars_realworld_analogy.jpg",
+              caption: "Real-World Mental Models: 1) ATM Interface (Abstraction), 2) Medicine Capsule (Encapsulation), 3) Vehicle Lineage (Inheritance), 4) Universal Remote (Polymorphism)"
+            }
+          ],
           content: `
             <p>Object-Oriented Programming in Java is structured upon four foundational pillars:</p>
             <ul>
@@ -78,13 +84,49 @@ const COURSE_DATA = {
 }`,
             output: `Initial Balance: ₹5000.0
 Deposited: ₹2500.0 | Balance: ₹7500.0`
-          }
+          },
+          mcqs: [
+            {
+              id: "u3_t1_mcq1",
+              question: "Which statement accurately describes the core architectural difference between Abstraction and Encapsulation in Java?",
+              options: [
+                "Abstraction is achieved strictly through private fields, whereas Encapsulation is achieved exclusively via abstract classes and interfaces.",
+                "Encapsulation enables compile-time method overloading, whereas Abstraction handles dynamic runtime polymorphism across inheritance trees.",
+                "Abstraction focuses on exposing high-level functionality while hiding internal details, whereas Encapsulation binds data with methods and restricts direct state access.",
+                "Abstraction prevents classes from being subclassed in memory, whereas Encapsulation allows multiple inheritance of state across hierarchies."
+              ],
+              correct: 2,
+              explanation: "Abstraction addresses design by showing 'what' an entity does while hiding internal implementation details (e.g. interfaces, ATM interfaces). Encapsulation addresses implementation safety by bundling fields with methods into a cohesive unit and guarding state with access modifiers."
+            },
+            {
+              id: "u3_t1_mcq2",
+              question: "What occurs if an external class attempts to directly read or mutate a `private` instance variable of another class in standard Java code?",
+              options: [
+                "The Java compiler rejects the code with a compilation error stating the member has private access in the target class.",
+                "The code compiles successfully but throws an `IllegalAccessException` when executed by the Java Virtual Machine.",
+                "The code compiles successfully but throws a `NullPointerException` when the CPU attempts memory address resolution.",
+                "The compiler automatically transforms the private member into a package-private field to allow seamless interoperability."
+              ],
+              correct: 0,
+              explanation: "In Java, access control modifiers (private, package-private, protected, public) are enforced at compile time by `javac`. Direct access to private members from external classes fails compilation immediately."
+            }
+          ]
         },
         {
           id: "u3-t2",
           title: "Primitive vs Reference Data Types & Memory Allocation",
           image: "images/stack_vs_heap.jpg",
           imageCaption: "Visual Diagram: Stack Memory (Primitives & Reference Pointers) vs Heap Memory (Allocated Objects)",
+          analogyImages: [
+            {
+              src: "images/primitive_vs_reference_analogy.jpg",
+              caption: "Cash in Wallet (Primitive/Stack) vs Bank Locker Keycard pointing to Vault (Reference/Heap)"
+            },
+            {
+              src: "images/reference_aliasing_house_analogy.jpg",
+              caption: "Piggy Bank Value Copy (Primitive) vs Shared House Keys & Aliasing (Reference Pointers)"
+            }
+          ],
           content: `
             <p>Java memory architecture strictly separates <strong>Stack Memory</strong> from <strong>Heap Memory</strong>:</p>
             <div class="comparison-table-wrapper">
@@ -139,13 +181,45 @@ Deposited: ₹2500.0 | Balance: ₹7500.0`
             output: `primitiveA: 100 (Unchanged!)
 primitiveB: 200
 refArray1[0]: 999 (Mutated in Heap!)`
-          }
+          },
+          mcqs: [
+            {
+              id: "u3_t2_mcq1",
+              question: "Where are local primitive variables (e.g., `int count = 5;`) of an executing method allocated versus instance primitive variables of an object?",
+              options: [
+                "Both local primitives and instance primitives are allocated exclusively inside the JVM Metaspace along with class definitions.",
+                "Local primitive variables reside inside the Heap space, whereas instance primitives reside inside the calling thread's private Stack.",
+                "Both local primitives and instance primitives are allocated within the String Constant Pool to conserve memory.",
+                "Local primitives reside in the method's Stack frame, whereas instance primitives reside inside the object instance on the Heap."
+              ],
+              correct: 3,
+              explanation: "Local variables declared inside method bodies reside inside the thread's Stack Frame and are destroyed when the method exits. Instance variables belong to an instantiated object and reside inside that object's Heap allocation."
+            },
+            {
+              id: "u3_t2_mcq2",
+              question: "Given `Integer a = new Integer(100); Integer b = new Integer(100);`, what do `(a == b)` and `(a.equals(b))` evaluate to in standard Java?",
+              options: [
+                "`true` and `true` because autoboxing automatically canonicalizes all Integer values between -128 and 127.",
+                "`true` and `false` because memory pointer addresses match while overridden value comparison fails.",
+                "`false` and `true` because `==` checks distinct Heap reference addresses while `.equals()` compares wrapped numeric values.",
+                "`false` and `false` because explicit `new` instantiation disables both reference equality and semantic content equality."
+              ],
+              correct: 2,
+              explanation: "The `==` operator checks reference identity (memory addresses on Stack). Because `new` creates two distinct objects at different Heap addresses, `a == b` is `false`. The `.equals()` method compares underlying numeric values (100 == 100), returning `true`."
+            }
+          ]
         },
         {
           id: "u3-t3",
           title: "Pass by Value v/s Pass by Reference (The Java Memory Truth)",
           image: "images/pass_by_value.jpg",
           imageCaption: "Visual Diagram: Step-by-Step Proof of Java's Strict Pass-by-Value Parameter Passing",
+          analogyImages: [
+            {
+              src: "images/pass_by_value_googledoc_analogy.jpg",
+              caption: "Physical Paper Photocopy (Primitive Pass-by-Value) vs Shared Google Doc URL Link & Local Pointer Reassignment (Object Reference Pass-by-Value)"
+            }
+          ],
           content: `
             <p><strong>Universal Truth: Java is strictly 100% Pass-by-Value, ALWAYS!</strong></p>
             <ul>
@@ -179,13 +253,45 @@ public class PassByValueProof {
 }`,
             output: `Before call: Priya Singh
 After call:  Rahul Kumar (Caller pointer untouched!)`
-          }
+          },
+          mcqs: [
+            {
+              id: "u3_t3_mcq1",
+              question: "Consider a method `void update(Student s) { s.name = \"Priya\"; s = new Student(\"Amit\"); }`. If called with `s1` (`name = \"Rahul\"`), what will `s1.name` be after the method returns?",
+              options: [
+                "`\"Priya\"` because field modification mutates the shared Heap object while local reference reassignment does not affect the caller.",
+                "`\"Rahul\"` because all parameter variables in Java are completely isolated copies whose mutations never escape method scope.",
+                "`\"Amit\"` because reassigning the parameter pointer automatically redirects the caller's reference variable to the new object.",
+                "`null` because creating a second `Student` object inside the method invalidates previous Heap object references."
+              ],
+              correct: 0,
+              explanation: "Java passes reference pointers by value. Mutating `s.name` affects the actual Heap object. However, assigning `s = new Student(\"Amit\")` merely changes the local pointer variable in the stack frame without affecting the caller's reference `s1`."
+            },
+            {
+              id: "u3_t3_mcq2",
+              question: "Why does writing a generic `swap(Object a, Object b)` method fail to swap two caller reference variables in Java?",
+              options: [
+                "Because Java objects become immutable once passed through any method parameter boundary.",
+                "Because the Garbage Collector immediately reclaims object references that undergo binary pointer swapping.",
+                "Because the Java type system prohibits methods from accepting multiple parameters of type `Object`.",
+                "Because Java copies reference addresses onto the local stack frame, so swapping parameter variables only swaps local copies."
+              ],
+              correct: 3,
+              explanation: "Java is strictly 100% pass-by-value. When objects are passed into `swap(a, b)`, copies of their reference pointers are stored in `swap()`'s stack frame. Swapping those parameters only swaps local copies; caller variables remain unchanged."
+            }
+          ]
         },
         {
           id: "u3-t4",
           title: "Static Variables/Methods, Cross-Class Access & Reference vs Static",
           image: "images/static_vs_instance.jpg",
           imageCaption: "Visual Diagram: Metaspace (1 Shared Static Variable) vs Heap Memory (Separate Instance Copies)",
+          analogyImages: [
+            {
+              src: "images/static_vs_instance_noticeboard_analogy.jpg",
+              caption: "College Central Hall Notice Board (1 Shared Static Variable in Metaspace) vs Student Personal Backpack Notebooks (Separate Instance Copies in Heap)"
+            }
+          ],
           content: `
             <p>The <code>static</code> keyword associates a member with the Class itself rather than individual object instances:</p>
             <ul>
@@ -219,13 +325,45 @@ public class StaticCrossClassDemo {
             output: `Center: LNMI Patna (C-DAC ACTS Center)
 Enrolled: Aman Verma | Total: 1
 Enrolled: Sneha Roy | Total: 2`
-          }
+          },
+          mcqs: [
+            {
+              id: "u3_t4_mcq1",
+              question: "What happens when a static method attempts to use the `this` keyword or access a non-static instance field directly?",
+              options: [
+                "The code compiles successfully and resolves the field against the most recently instantiated object in Heap memory.",
+                "The code compiles cleanly but throws an `IllegalStateException` during runtime invocation by the JVM.",
+                "The Java compiler produces an error because static contexts have no implicit `this` object reference available.",
+                "The compiler automatically promotes the referenced non-static instance field into a global static variable."
+              ],
+              correct: 2,
+              explanation: "Static members belong to the class blueprint and can execute without any instance existing in Heap memory. Because there is no current instance (`this`), referencing non-static members directly results in a compile-time error."
+            },
+            {
+              id: "u3_t4_mcq2",
+              question: "If class `Child extends Parent` defines a static method `print()` matching `Parent`'s static `print()`, what is executed by `Parent p = new Child(); p.print();`?",
+              options: [
+                "`Child`'s static method executes because runtime dynamic method dispatch always inspects the actual Heap instance.",
+                "`Parent`'s static method executes because static methods undergo compile-time Method Hiding bound by reference type.",
+                "A runtime `ClassCastException` is thrown because static methods cannot be invoked through polymorphic instance handles.",
+                "Both `Parent` and `Child` static methods execute sequentially in hierarchical top-down order."
+              ],
+              correct: 1,
+              explanation: "Static methods cannot be overridden dynamically at runtime. Subclasses hide superclass static methods (Method Hiding). Method calls are resolved at compile-time based on the declared reference type (`Parent p`), executing `Parent.print()`."
+            }
+          ]
         },
         {
           id: "u3-t5",
           title: "Inheritance & Polymorphism Implementation",
           image: "images/inheritance_polymorphism.jpg",
           imageCaption: "Visual Diagram: Inheritance, Overriding and Dynamic Method Dispatch (Runtime Polymorphism)",
+          analogyImages: [
+            {
+              src: "images/polymorphism_payment_analogy.jpg",
+              caption: "Universal Merchant Counter UPI QR Stand (Parent Reference Handle: Payment) dynamically triggering specific subclass payment execution routines (GPay, PhonePe, Card) at runtime"
+            }
+          ],
           content: `
             <p>Polymorphism allows a parent reference to hold child objects and invoke overridden methods dynamically at runtime:</p>
             <ul>
@@ -262,7 +400,33 @@ public class PolymorphismDemo {
     }
 }`,
             output: `Vikram Malhotra executive managerial bonus: 20%`
-          }
+          },
+          mcqs: [
+            {
+              id: "u3_t5_mcq1",
+              question: "Given `class Parent { int x = 10; void show() { System.out.print(\"P\"); } }` and `class Child extends Parent { int x = 20; void show() { System.out.print(\"C\"); } }`, what is printed by `Parent obj = new Child(); System.out.print(obj.x); obj.show();`?",
+              options: [
+                "`20C` because both variable access and method execution are dynamically bound to the runtime Heap instance.",
+                "`10P` because parent reference variables strictly execute parent members for both fields and methods.",
+                "`20P` because child fields override parent fields while methods default to compile-time resolution.",
+                "`10C` because field access is resolved at compile time by reference type while method calls use dynamic dispatch."
+              ],
+              correct: 3,
+              explanation: "Instance variables are not polymorphic in Java—`obj.x` resolves at compile-time to `Parent.x` (10). Methods are polymorphic—`obj.show()` uses Dynamic Method Dispatch based on the runtime Heap instance (`Child`), printing 'C'. Output is '10C'."
+            },
+            {
+              id: "u3_t5_mcq2",
+              question: "Which of the following is a strict requirement for valid Method Overriding in standard Java?",
+              options: [
+                "The overriding method in the subclass must have the exact same name, parameter list, and a covariant or identical return type.",
+                "The overriding method in the subclass must declare a more restrictive access modifier than the superclass method.",
+                "The superclass method must be declared with both `final` and `synchronized` modifiers.",
+                "The overriding subclass method must be declared with the `static` keyword to enable virtual method table lookups."
+              ],
+              correct: 0,
+              explanation: "Method overriding requires matching method signature (name and parameter types), return type compatibility (covariant returns allowed), and cannot reduce visibility (e.g. public superclass method cannot become protected or private)."
+            }
+          ]
         }
       ]
     },
@@ -280,6 +444,12 @@ public class PolymorphismDemo {
           title: "InputStream, OutputStream, Reader and Writer Interfaces",
           image: "images/java_io_streams.jpg",
           imageCaption: "Visual Diagram: Byte Streams (InputStream/OutputStream) vs Character Streams (Reader/Writer) & Buffered I/O",
+          analogyImages: [
+            {
+              src: "images/io_streams_analogy.jpg",
+              caption: "Byte Droplets vs Character Blocks (Streams) & Spoon vs RAM Bucket (BufferedReader Batch Transfers)"
+            }
+          ],
           content: `
             <p>Java IO is split into two stream families:</p>
             <ul>
@@ -319,13 +489,45 @@ public class FileReadWriteDemo {
 }`,
             output: `Read: C-DAC ACTS & LNMI Patna - MCA Batch 2026
 Read: Course: MC101 - Problem Solving & Java`
-          }
+          },
+          mcqs: [
+            {
+              id: "u4_t1_mcq1",
+              question: "Why is `FileReader` preferred over `FileInputStream` when reading plain text files containing international UTF-8/Unicode characters?",
+              options: [
+                "`FileInputStream` is deprecated in modern Java releases and replaced by memory-mapped buffers.",
+                "`FileReader` decodes 16-bit Unicode characters per charset, preventing multi-byte character fragmentation across byte boundaries.",
+                "`FileInputStream` cannot read files larger than 64 Kilobytes due to 8-bit stream buffer constraints.",
+                "`FileReader` automatically executes file read operations asynchronously on the graphics processor."
+              ],
+              correct: 1,
+              explanation: "`FileInputStream` reads raw 8-bit bytes. Multi-byte Unicode characters (like Hindi or symbols) span 2 to 4 bytes and can get split/corrupted across byte buffers. Character streams like `FileReader` decode bytes into proper 16-bit Unicode `char` values."
+            },
+            {
+              id: "u4_t1_mcq2",
+              question: "What is the primary architectural and performance benefit of wrapping a `FileReader` inside a `BufferedReader`?",
+              options: [
+                "It automatically encrypts the file stream using hardware-accelerated AES-256 encryption.",
+                "It prevents other operating system threads from deleting or modifying the underlying file.",
+                "It maintains an in-memory buffer in RAM, significantly reducing costly OS-level physical disk read cycles.",
+                "It converts synchronous file reading into multi-threaded GPU parallel processing pipelines."
+              ],
+              correct: 2,
+              explanation: "Reading character-by-character from disk incurs costly OS system calls. `BufferedReader` reads a block (default 8KB) into RAM in one system call, allowing fast in-memory reads via `readLine()`."
+            }
+          ]
         },
         {
           id: "u4-t2",
           title: "Serialization, Deserialization, Shallow Copy & Deep Copy",
           image: "images/serialization_cloning.jpg",
           imageCaption: "Visual Diagram: Java Object Serialization / Deserialization & Shallow vs Deep Copy Graphs",
+          analogyImages: [
+            {
+              src: "images/serialization_shallow_deep_analogy.jpg",
+              caption: "Disassembled Flat-Pack Furniture Shipment (Serialization) & Shared Hotel Keycard vs Duplicate House (Shallow vs Deep Copy)"
+            }
+          ],
           content: `
             <p><strong>Serialization:</strong> Mechanism of writing object state into a byte stream. <strong>Deserialization:</strong> Reverse process of rebuilding the in-memory object from the byte stream.</p>
             <ul>
@@ -380,13 +582,45 @@ public class SerializationCloningDemo {
             output: `Username: aniket_sme
 Secret PIN: null (Skipped by transient!)
 City: Patna`
-          }
+          },
+          mcqs: [
+            {
+              id: "u4_t2_mcq1",
+              question: "If a class implements `Serializable` and has a `transient int balance = 5000;` field, what will `balance` be immediately after deserializing the object?",
+              options: [
+                "`5000` because the JVM restores the original instance field initialization value from the classfile.",
+                "`null` because transient fields are always restored as unallocated null references regardless of type.",
+                "A `NotSerializableException` is thrown because transient fields cannot undergo byte stream reconstruction.",
+                "`0` because transient fields are skipped during serialization and initialized to default primitive values on deserialization."
+              ],
+              correct: 3,
+              explanation: "`transient` fields are excluded from the serialized byte stream. When the object is reconstituted during deserialization, transient fields receive default language values (`0` for `int`, `false` for `boolean`, `null` for references)."
+            },
+            {
+              id: "u4_t2_mcq2",
+              question: "What is the primary architectural consequence of performing a Shallow Copy on an object containing a mutable nested reference field?",
+              options: [
+                "Both the original and cloned objects share pointers to the same nested object in Heap, so mutating it in one affects both.",
+                "The JVM throws a `CloneNotSupportedException` at runtime unless the nested field is marked `transient`.",
+                "The cloned object creates an entirely independent recursive duplicate of the entire object graph.",
+                "The original object's reference fields are automatically set to `null` to prevent memory aliasing."
+              ],
+              correct: 0,
+              explanation: "A shallow copy copies reference pointers as-is without duplicating nested objects. Both instances point to the same nested object on Heap, causing mutations in one instance to reflect in the other."
+            }
+          ]
         },
         {
           id: "u4-t3",
           title: "Exception Hierarchy: Errors vs Checked vs Unchecked",
           image: "images/exception_hierarchy.jpg",
           imageCaption: "Visual Diagram: Complete Java Exception Hierarchy (Throwable -> Error & Exception)",
+          analogyImages: [
+            {
+              src: "images/exception_hierarchy_airport_analogy.jpg",
+              caption: "Airport System Runway Grounding (Error) vs Mandatory Security Gate Check (Checked Exception) vs In-Flight Coffee Spill (Unchecked Exception)"
+            }
+          ],
           content: `
             <p>All exceptions and errors in Java inherit from <code>java.lang.Throwable</code>:</p>
             <ul>
@@ -414,13 +648,45 @@ City: Patna`
 }`,
             output: `Caught Expected Exception: ArithmeticException
 Message: / by zero`
-          }
+          },
+          mcqs: [
+            {
+              id: "u4_t3_mcq1",
+              question: "Which of the following exceptions is a **Checked Exception** that the Java compiler mandates you must catch or declare with `throws`?",
+              options: [
+                "`NullPointerException` which extends `RuntimeException` for uninitialized reference dereferences.",
+                "`ArithmeticException` which extends `RuntimeException` for integer division-by-zero errors.",
+                "`ClassNotFoundException` which directly extends `Exception` for dynamic class loading failures.",
+                "`IllegalArgumentException` which extends `RuntimeException` for invalid method parameter values."
+              ],
+              correct: 2,
+              explanation: "`ClassNotFoundException` extends `java.lang.Exception` directly (and is not under `RuntimeException`), making it a Checked Exception. The other options extend `RuntimeException` and are Unchecked."
+            },
+            {
+              id: "u4_t3_mcq2",
+              question: "What is the primary architectural difference between instances of `java.lang.Error` and `java.lang.Exception` in Java?",
+              options: [
+                "`Error` instances are checked by compiler; `Exception` instances are unchecked runtime events.",
+                "`Error` represents catastrophic system failures that programs should not catch, whereas `Exception` represents recoverable conditions.",
+                "`Error` is an interface implemented by native drivers, whereas `Exception` is an abstract class.",
+                "`Error` can only be thrown by C++ native methods, whereas `Exception` can only be thrown by pure Java bytecode."
+              ],
+              correct: 1,
+              explanation: "`Error` represents severe conditions like `OutOfMemoryError` or `StackOverflowError` where the JVM itself is compromised. `Exception` represents standard recoverable conditions that applications should handle gracefully."
+            }
+          ]
         },
         {
           id: "u4-t4",
           title: "Exception Propagation, try-catch-finally, throws & throw",
           image: "images/exception_propagation.jpg",
           imageCaption: "Visual Diagram: Exception Propagation down the Call Stack & try-catch-finally Flow",
+          analogyImages: [
+            {
+              src: "images/exception_propagation_hotpotato_analogy.jpg",
+              caption: "Team Hot Potato Escalation Chain (Call Stack Propagation) & Guaranteed Kitchen Stove Gas Safety Shutoff (finally Block)"
+            }
+          ],
           content: `
             <p>Java handles exceptions through a structured control flow:</p>
             <ul>
@@ -460,13 +726,45 @@ Message: / by zero`
 }`,
             output: `Caught propagated exception in methodA: / by zero
 Cleanup executed in finally block guaranteed!`
-          }
+          },
+          mcqs: [
+            {
+              id: "u4_t4_mcq1",
+              question: "Consider a method with `try { return 10; } catch (Exception e) { return 20; } finally { return 30; }`. What value does the method return when executed without errors?",
+              options: [
+                "`30` because the `finally` block executes before method completion and its return value overrides previous pending returns.",
+                "`10` because the `try` block completes successfully and immediate return halts subsequent block execution.",
+                "`20` because return statements inside `finally` blocks redirect execution flow to the catch handler.",
+                "Compilation Error because Java prohibits placing `return` statements inside `finally` blocks."
+              ],
+              correct: 0,
+              explanation: "A `finally` block is guaranteed to execute before the method exits. If `finally` contains a `return` statement, it discards and overrides any return value previously computed in `try` or `catch`."
+            },
+            {
+              id: "u4_t4_mcq2",
+              question: "Why does the multi-catch clause `catch (FileNotFoundException | IOException e)` fail to compile in Java?",
+              options: [
+                "Because multi-catch blocks in Java are strictly restricted to handling Unchecked RuntimeExceptions.",
+                "Because the pipe operator `|` is only valid for bitwise logical arithmetic evaluations.",
+                "Because the parameter variable `e` must be explicitly declared with the `volatile` modifier.",
+                "Because `FileNotFoundException` is a subclass of `IOException`, violating the rule that multi-catch types must be disjoint."
+              ],
+              correct: 3,
+              explanation: "In multi-catch syntax (`catch (A | B e)`), exception types must be disjoint (cannot have a subclass-superclass relationship). Since `FileNotFoundException` extends `IOException`, specifying both creates a compilation error."
+            }
+          ]
         },
         {
           id: "u4-t5",
           title: "Creating User-Defined Checked & Unchecked Exceptions",
           image: "images/custom_exceptions.jpg",
           imageCaption: "Visual Diagram: Defining, Throwing and Handling Custom Checked vs Unchecked Exceptions",
+          analogyImages: [
+            {
+              src: "images/custom_exception_banking_analogy.jpg",
+              caption: "Cryptic Vague System Error Code vs Context-Rich Custom Banking Alert Badge (InsufficientFundsException with shortfall amount)"
+            }
+          ],
           content: `
             <p>Custom exceptions give domain-specific meaning to business logic errors:</p>
             <ul>
@@ -512,7 +810,33 @@ public class CustomBankingExceptionDemo {
             output: `Attempting to withdraw ₹8,000 from balance ₹5,000...
 Caught Custom Exception: Transaction Failed: Short by ₹3000.0
 Shortfall amount: ₹3000.0`
-          }
+          },
+          mcqs: [
+            {
+              id: "u4_t5_mcq1",
+              question: "To create a custom **Checked Exception** that forces calling methods to explicitly handle it with `try-catch` or declare it with `throws`, your class must directly extend which class?",
+              options: [
+                "`java.lang.RuntimeException` or any of its standard derived unchecked subclasses.",
+                "`java.lang.Exception` (or any subclass other than `RuntimeException`).",
+                "`java.lang.Throwable` directly to bypass compiler exception classification rules.",
+                "`java.lang.Error` to indicate domain business validation failures."
+              ],
+              correct: 1,
+              explanation: "Classes extending `java.lang.Exception` (and not `RuntimeException`) are Checked Exceptions. The compiler enforces that callers must handle them with `try-catch` or declare them with `throws`."
+            },
+            {
+              id: "u4_t5_mcq2",
+              question: "When creating a custom exception class, why is it considered an essential best practice to provide a constructor accepting `(String message, Throwable cause)`?",
+              options: [
+                "It enables automatic serialization of stack frames across remote network endpoints.",
+                "It converts unchecked exceptions into checked exceptions automatically at runtime.",
+                "It enables Exception Chaining, preserving the underlying root-cause stack trace when wrapping low-level errors into domain exceptions.",
+                "It allows the garbage collector to immediately deallocate caught exception instances."
+              ],
+              correct: 2,
+              explanation: "Exception chaining (`super(message, cause)`) attaches the underlying root cause (e.g. low-level `SQLException`) to the domain exception (e.g. `UserNotFoundException`), ensuring complete diagnostic trace visibility in log files."
+            }
+          ]
         }
       ]
     },
@@ -530,6 +854,12 @@ Shortfall amount: ₹3000.0`
           title: "Introduction to Collections & Collection Hierarchy (List, Queue, Set, Map)",
           image: "images/collections_hierarchy.jpg",
           imageCaption: "Visual Diagram: Complete Java Collections Framework Hierarchy",
+          analogyImages: [
+            {
+              src: "images/collections_realworld_analogy.jpg",
+              caption: "Numbered Delivery Lockers (List), Unique VIP Entry Wristbands (Set), Hospital Emergency Triage (Queue) & Student Roll No Directory (Map)"
+            }
+          ],
           content: `
             <p>Java Collections Framework provides standardized, high-performance data structures:</p>
             <ul>
@@ -561,13 +891,45 @@ public class ListAndSetDemo {
             output: `ArrayList (Preserves Order + Duplicates): [Java, C-DAC, LNMI, Java]
 HashSet (Deduplicated Unordered): [LNMI, C-DAC, Java]
 TreeSet (Deduplicated & Red-Black Tree Sorted): [C-DAC, Java, LNMI]`
-          }
+          },
+          mcqs: [
+            {
+              id: "u5_t1_mcq1",
+              question: "Why does `HashSet` rely on both `hashCode()` and `equals()` methods when storing custom objects, and what bug occurs if only `equals()` is overridden?",
+              options: [
+                "`HashSet` fails to compile because the Java compiler enforces explicit `hashCode()` implementation on all Set elements.",
+                "`HashSet` automatically converts itself into a `TreeSet` and sorts elements using default reflection comparators.",
+                "The JVM throws an `IllegalStateException` whenever two objects evaluate to equal under the `equals()` method.",
+                "Equal objects may yield different hash codes and land in different hash buckets, causing `HashSet` to store duplicate entries."
+              ],
+              correct: 3,
+              explanation: "When storing an element in `HashSet`, `hashCode()` determines its bucket location. If two logically equal objects produce different hash codes, they land in different buckets where `equals()` is never invoked, allowing duplicates into the Set."
+            },
+            {
+              id: "u5_t1_mcq2",
+              question: "In what scenario is `LinkedList` theoretically faster than `ArrayList`, yet why is `ArrayList` preferred in almost all modern enterprise Java applications?",
+              options: [
+                "`LinkedList` provides O(1) insertions/deletions at ends, but `ArrayList` provides CPU cache-friendly contiguous memory with fast O(1) index access.",
+                "`LinkedList` uses less heap memory per node, but `ArrayList` is inherently thread-safe without synchronization locks.",
+                "`LinkedList` can store unboxed primitive types directly, whereas `ArrayList` requires wrapper class conversions.",
+                "`LinkedList` cannot be iterated with enhanced foreach loops due to lack of random access markers."
+              ],
+              correct: 0,
+              explanation: "`LinkedList` allows O(1) pointer updates at the ends, but each node has pointer overhead scattered in Heap. `ArrayList` uses contiguous internal array memory, making it cache-friendly for CPU prefetching and offering O(1) indexed lookup (`get(i)`)."
+            }
+          ]
         },
         {
           id: "u5-t2",
           title: "The `Collections` Utility Class, `Comparable` & `Comparator`",
           image: "images/comparable_comparator.jpg",
           imageCaption: "Visual Diagram: Comparable (Single Natural Sorting) vs Comparator (Multiple Custom Sorting)",
+          analogyImages: [
+            {
+              src: "images/comparable_comparator_analogy.jpg",
+              caption: "Classroom Natural Roll Number Sequence (Comparable / Inherent) vs Flexible CGPA / Sports Ranking Strategies (Comparator / External Lambdas)"
+            }
+          ],
           content: `
             <p>Sorting and algorithmic operations on collections in Java:</p>
             <ul>
@@ -622,7 +984,33 @@ public class ComparableVsComparatorDemo {
 }`,
             output: `Natural Sort (RollNo): [[101] Simran (CGPA: 9.6), [102] Amit (CGPA: 7.9), [103] Raj (CGPA: 8.2)]
 Placement Sort (CGPA Desc): [[101] Simran (CGPA: 9.6), [103] Raj (CGPA: 8.2), [102] Amit (CGPA: 7.9)]`
-          }
+          },
+          mcqs: [
+            {
+              id: "u5_t2_mcq1",
+              question: "What is the key architectural difference between `Comparable<T>` and `Comparator<T>` interfaces in Java?",
+              options: [
+                "`Comparable` is in `java.util` for multiple sorting strategies, while `Comparator` is in `java.lang` for default natural ordering.",
+                "`Comparable` can only sort numeric primitives, while `Comparator` is strictly reserved for sorting String arrays.",
+                "`Comparable` defines single natural ordering within the class via `compareTo`, while `Comparator` is an external strategy via `compare` for multiple sorting criteria.",
+                "`Comparable` uses lambda expressions, while `Comparator` requires anonymous inner classes exclusively."
+              ],
+              correct: 2,
+              explanation: "`Comparable` (in `java.lang`) modifies the class itself to define its intrinsic default natural ordering via `compareTo(T o)`. `Comparator` (in `java.util`) creates standalone sorting strategies via `compare(T o1, T o2)` without modifying the target class."
+            },
+            {
+              id: "u5_t2_mcq2",
+              question: "What will `Collections.binarySearch(list, key)` return if the specified list has NOT been sorted beforehand according to the natural ordering or supplied comparator?",
+              options: [
+                "It automatically sorts the list first and returns the correct index position.",
+                "The return value is undefined and may produce incorrect indices or negative insertion points.",
+                "It throws a checked `NotSortedException` at runtime before evaluating elements.",
+                "It always returns `-1` immediately without inspecting list elements."
+              ],
+              correct: 1,
+              explanation: "Binary search algorithms require the list to be sorted. If the list is unsorted, the binary division logic fails to eliminate search halves correctly, producing undefined results (e.g. wrong indices or failing to find existing items)."
+            }
+          ]
         },
         {
           id: "u5-t3",
@@ -668,7 +1056,33 @@ Placement Sort (CGPA Desc): [[101] Simran (CGPA: 9.6), [103] Raj (CGPA: 8.2), [1
 [Worker-1] processing task #3
 [Worker-2] processing task #3
 All threads finished execution!`
-          }
+          },
+          mcqs: [
+            {
+              id: "u5_t3_mcq1",
+              question: "What is the critical behavioral difference between invoking `thread.start()` versus invoking `thread.run()` on a Java `Thread` instance?",
+              options: [
+                "`start()` allocates OS resources and executes the task asynchronously on a new thread, while `run()` executes synchronously on the caller thread.",
+                "`start()` can only be called once, but `run()` throws an `IllegalThreadStateException` if invoked more than once.",
+                "`start()` executes tasks with higher OS thread priority, while `run()` assigns minimal background priority.",
+                "`run()` is deprecated in modern Java releases and replaced exclusively by virtual thread executor services."
+              ],
+              correct: 0,
+              explanation: "`start()` registers the thread with the OS/JVM scheduler to execute `run()` asynchronously on a separate thread stack. Calling `run()` directly merely invokes the method synchronously on the current calling thread like any normal Java method."
+            },
+            {
+              id: "u5_t3_mcq2",
+              question: "When a thread is waiting to acquire an intrinsic monitor lock held by another thread, what is its lifecycle state in `java.lang.Thread.State`?",
+              options: [
+                "`WAITING` because the thread is waiting indefinitely for an explicit notify signal from another thread.",
+                "`TIMED_WAITING` because monitor lock acquisition automatically times out after a JVM timeout interval.",
+                "`TERMINATED` because threads that fail monitor acquisition are deallocated and recreated by the scheduler.",
+                "`BLOCKED` because the thread is suspended waiting specifically to acquire a monitor lock to enter or re-enter a synchronized block."
+              ],
+              correct: 3,
+              explanation: "A thread enters the `BLOCKED` state specifically when waiting to acquire a monitor lock for a `synchronized` block/method. `WAITING` is entered when calling `wait()` or `join()`."
+            }
+          ]
         },
         {
           id: "u5-t4",
@@ -720,7 +1134,33 @@ All threads finished execution!`
             output: `[Thread 1] Acquired LockA & LockB safely
 [Thread 2] Acquired LockA & LockB safely
 Execution completed with ZERO deadlocks!`
-          }
+          },
+          mcqs: [
+            {
+              id: "u5_t4_mcq1",
+              question: "Which architectural practice is essential and sufficient to completely prevent Deadlocks between multiple concurrent threads accessing shared resources?",
+              options: [
+                "Declaring all shared class instance variables with the `volatile` modifier.",
+                "Enforcing a strict, identical global hierarchical order of lock acquisition across all concurrent threads.",
+                "Setting all executing worker threads to `Thread.MAX_PRIORITY` before acquiring locks.",
+                "Wrapping every method inside the application with the `synchronized` keyword."
+              ],
+              correct: 1,
+              explanation: "A deadlock requires a circular wait condition (Thread 1 holds A and waits for B, while Thread 2 holds B and waits for A). Enforcing a global lock acquisition order (always Lock A before Lock B) breaks circular wait, making deadlocks mathematically impossible."
+            },
+            {
+              id: "u5_t4_mcq2",
+              question: "Why are local variables declared inside a method intrinsically thread-safe in Java without requiring the `synchronized` keyword?",
+              options: [
+                "Local variables are automatically stored in the JVM Metaspace along with immutable class definitions.",
+                "The Java compiler wraps all local primitive variables in atomic thread-safe wrappers under the hood.",
+                "Each thread allocates its own private Stack frame where local variables reside independently of other threads.",
+                "Local variables are marked immutable by default and cannot be modified after initial assignment."
+              ],
+              correct: 2,
+              explanation: "Every thread in Java possesses its own private execution Stack. When a method is called, a private Stack Frame is pushed containing that thread's local variables. Since other threads cannot access another thread's stack frame, local variables are inherently thread-safe."
+            }
+          ]
         },
         {
           id: "u5-t5",
@@ -785,7 +1225,33 @@ public class ProducerConsumerDemo {
   [- CONSUMED] AdmitCard-MCA-101
   [+ PRODUCED] AdmitCard-MCA-102
   [- CONSUMED] AdmitCard-MCA-102`
-          }
+          },
+          mcqs: [
+            {
+              id: "u5_t5_mcq1",
+              question: "Why must `wait()`, `notify()`, and `notifyAll()` be invoked exclusively from within a `synchronized` block or method on the object monitor?",
+              options: [
+                "Because the Java type system requires all Object methods to be invoked inside synchronized blocks.",
+                "Because `wait()` and `notify()` spawn new operating system threads that require synchronization locks.",
+                "To prevent the Garbage Collector from finalizing the object while threads are communicating.",
+                "Because the calling thread must hold the object's monitor lock before releasing it or signaling waiting threads, otherwise JVM throws `IllegalMonitorStateException`."
+              ],
+              correct: 3,
+              explanation: "`wait()` suspends the thread and releases the monitor lock so other threads can proceed. `notify()` signals waiting threads on that monitor. If the thread does not hold the lock on that object, the JVM throws `IllegalMonitorStateException`."
+            },
+            {
+              id: "u5_t5_mcq2",
+              question: "Why is it an established concurrency best practice to always call `wait()` inside a `while (condition)` loop rather than an `if (condition)` statement?",
+              options: [
+                "To protect against Spurious Wakeups and race conditions where another thread consumes the resource before the awakened thread re-acquires the lock.",
+                "Because `while` loops execute significantly faster in JVM bytecode than `if` conditional branches.",
+                "Because `if` blocks cannot catch or propagate `InterruptedException` thrown by `wait()`.",
+                "Because `notifyAll()` can only wake up threads that are suspended inside iterative loop constructs."
+              ],
+              correct: 0,
+              explanation: "Threads can wake up spuriously without receiving a signal, or another thread may reacquire the monitor first and consume the condition. Testing in a `while` loop forces the awakened thread to re-check the condition before proceeding."
+            }
+          ]
         }
       ]
     }

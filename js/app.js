@@ -12,7 +12,7 @@ const App = {
   currentSlideIndex: 0,
   activeTab: "overview",
 
-  init: function() {
+  init: function () {
     this.renderCurriculum();
     this.renderInterviewVault();
     this.renderLabs();
@@ -25,7 +25,7 @@ const App = {
   },
 
   // 1. Render Curriculum Modules
-  renderCurriculum: function() {
+  renderCurriculum: function () {
     COURSE_DATA.modules.forEach(mod => {
       const container = document.getElementById(`content-${mod.id}`);
       if (!container) return;
@@ -42,6 +42,24 @@ const App = {
             <div class="concept-visual-container">
               <img src="${topic.image}" alt="${topic.title}" class="concept-diagram-img" loading="lazy">
               ${topic.imageCaption ? `<div class="concept-caption">📊 ${topic.imageCaption}</div>` : ''}
+            </div>
+          ` : ''}
+
+          ${topic.analogyImages && topic.analogyImages.length > 0 ? `
+            <div class="analogy-gallery-wrapper" style="margin: 1.25rem 0;">
+              <div style="font-size: 0.95rem; font-weight: 700; color: var(--primary-700); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;">
+                <span>🌍 Real-World Mental Models & Analogies:</span>
+              </div>
+              <div class="analogy-gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.15rem;">
+                ${topic.analogyImages.map(imgObj => `
+                  <div class="concept-visual-container" style="margin: 0; background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm);">
+                    <img src="${imgObj.src}" alt="${imgObj.caption || 'Real-World Example Analogy'}" class="concept-diagram-img" loading="lazy" style="border-radius: 0; border: none; width: 100%;">
+                    <div class="concept-caption" style="background: #f8fafc; color: #1e293b; font-weight: 600; padding: 0.65rem 1rem; border-top: 1px solid #e2e8f0; font-size: 0.85rem;">
+                      💡 ${imgObj.caption}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
             </div>
           ` : ''}
 
@@ -69,15 +87,13 @@ const App = {
 
           ${topic.analogy ? `
             <div class="callout callout-analogy">
-              <div class="callout-icon">💡</div>
-              <div><strong>Example:</strong> ${topic.analogy}</div>
+             <div><strong>Example:</strong> ${topic.analogy}</div>
             </div>
           ` : ''}
 
           ${topic.trap ? `
             <div class="callout callout-trap">
-              <div class="callout-icon">⚠️</div>
-              <div><strong>Interview:</strong> ${topic.trap}</div>
+             <div><strong>Q&A:</strong> ${topic.trap}</div>
             </div>
           ` : ''}
 
@@ -101,6 +117,42 @@ const App = {
                   <div class="pane-header" style="color:#34d399;">⚡ Terminal Output</div>
                   <pre class="output-content-inner"><code>${App.escapeHtml(topic.codeSnippet.output || "// Output will appear here upon execution")}</code></pre>
                 </div>
+              </div>
+            </div>
+          ` : ''}
+
+          ${topic.mcqs && topic.mcqs.length > 0 ? `
+            <div class="concept-mcq-wrapper">
+              <div class="mcq-header-bar">
+                  <span class="college-tag" style="margin-left:0; margin-bottom:0.25rem;">📝 MCQ's</span>
+              </div>
+              <div class="mcqs-container">
+                ${topic.mcqs.map((mcq, mIdx) => `
+                  <div class="mcq-card" id="mcq-${topic.id}-${mIdx}">
+                    <div class="mcq-question-text">
+                      <span style="color:var(--primary-600); margin-right:0.35rem;">Q${mIdx + 1}.</span>
+                      ${mcq.question.replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}
+                    </div>
+                    <div class="mcq-options-list">
+                      ${mcq.options.map((opt, oIdx) => {
+        const optChar = String.fromCharCode(65 + oIdx);
+        return `
+                          <button class="mcq-opt-btn" onclick="App.checkMCQ('${topic.id}', ${mIdx}, ${oIdx}, this)">
+                            <span class="mcq-opt-key">${optChar}</span>
+                            <span>${opt.replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</span>
+                          </button>
+                        `;
+      }).join('')}
+                    </div>
+                    <div class="mcq-explanation-box" id="exp-${topic.id}-${mIdx}">
+                      <div style="font-weight:700; margin-bottom:0.35rem; display:flex; justify-content:space-between; align-items:center;">
+                        <span class="exp-status-text">💡 Explanation:</span>
+                        <button onclick="App.resetMCQ('${topic.id}', ${mIdx}, this)" style="background:none; border:none; color:var(--primary-600); cursor:pointer; font-size:0.75rem; font-weight:600; text-decoration:underline;">🔄 Reset / Try Again</button>
+                      </div>
+                      <div class="exp-content">${mcq.explanation.replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>
+                    </div>
+                  </div>
+                `).join('')}
               </div>
             </div>
           ` : ''}
@@ -142,7 +194,7 @@ const App = {
   },
 
   // 2. Render Interview Vault
-  renderInterviewVault: function() {
+  renderInterviewVault: function () {
     const container = document.getElementById("interview-vault-list");
     if (!container) return;
 
@@ -165,7 +217,7 @@ const App = {
           ${item.trap ? `
             <div class="callout callout-trap" style="margin-bottom:0;">
               <div class="callout-icon">🎯</div>
-              <div><strong>Interview:</strong> ${item.trap}</div>
+              <div><strong>Q&A:</strong> ${item.trap}</div>
             </div>
           ` : ''}
         </div>
@@ -173,7 +225,7 @@ const App = {
     `).join("");
   },
 
-  filterInterview: function(difficulty, btnEl) {
+  filterInterview: function (difficulty, btnEl) {
     if (btnEl) {
       btnEl.parentElement.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
       btnEl.classList.add("active");
@@ -189,7 +241,7 @@ const App = {
     });
   },
 
-  filterInterviewCategory: function(category, btnEl) {
+  filterInterviewCategory: function (category, btnEl) {
     if (btnEl) {
       btnEl.parentElement.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
       btnEl.classList.add("active");
@@ -206,7 +258,7 @@ const App = {
   },
 
   // 3. Render Lab Exercises with Output beside code
-  renderLabs: function() {
+  renderLabs: function () {
     const container = document.getElementById("labs-container");
     if (!container) return;
 
@@ -223,9 +275,9 @@ const App = {
         <div style="padding:0.6rem 0.8rem; background:var(--accent-blue-bg); border-radius:6px; font-size:0.85rem; color:#1e40af; margin-bottom:0.75rem;">
           <strong>🧪 Test Case / Verification:</strong> ${lab.testCase}
         </div>
-        <button class="solution-toggle-btn" onclick="App.toggleSolution(this)">
+       <!-- <button class="solution-toggle-btn" onclick="App.toggleSolution(this)">
           <span>👁️ Reveal Model Solution</span>
-        </button>
+        </button> --!>
         <div class="solution-box">
           <div class="code-output-split-wrapper" style="margin-top:0.75rem;">
             <div class="split-top-bar">
@@ -248,7 +300,7 @@ const App = {
     `).join("");
   },
 
-  filterLabs: function(difficulty, btnEl) {
+  filterLabs: function (difficulty, btnEl) {
     if (btnEl) {
       btnEl.parentElement.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
       btnEl.classList.add("active");
@@ -264,7 +316,7 @@ const App = {
     });
   },
 
-  filterLabsUnit: function(unit, btnEl) {
+  filterLabsUnit: function (unit, btnEl) {
     if (btnEl) {
       btnEl.parentElement.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
       btnEl.classList.add("active");
@@ -280,19 +332,19 @@ const App = {
     });
   },
 
-  toggleAllSolutions: function(show) {
-    document.querySelectorAll("#labs-container .lab-card").forEach(card => {
-      const box = card.querySelector(".solution-box");
-      const btn = card.querySelector(".solution-toggle-btn");
-      if (box && btn) {
-        box.classList.toggle("active", show);
-        btn.innerHTML = show ? "<span>🙈 Hide Model Solution</span>" : "<span>👁️ Reveal Model Solution</span>";
-      }
-    });
-  },
+  // toggleAllSolutions: function(show) {
+  //   document.querySelectorAll("#labs-container .lab-card").forEach(card => {
+  //     const box = card.querySelector(".solution-box");
+  //     const btn = card.querySelector(".solution-toggle-btn");
+  //     if (box && btn) {
+  //       box.classList.toggle("active", show);
+  //       // btn.innerHTML = show ? "<span>🙈 Hide Model Solution</span>" : "<span>👁️ Reveal Model Solution</span>";
+  //     }
+  //   });
+  // },
 
   // 4. Slide Deck Controller
-  setupSlideDeck: function() {
+  setupSlideDeck: function () {
     this.renderCurrentSlide();
 
     document.addEventListener("keydown", (e) => {
@@ -309,19 +361,19 @@ const App = {
     });
   },
 
-  openSlideDeck: function(slideIdx = 0) {
+  openSlideDeck: function (slideIdx = 0) {
     this.currentSlideIndex = slideIdx;
     this.renderCurrentSlide();
     document.getElementById("slideDeckModal").classList.add("active");
     document.body.style.overflow = "hidden";
   },
 
-  closeSlideDeck: function() {
+  closeSlideDeck: function () {
     document.getElementById("slideDeckModal").classList.remove("active");
     document.body.style.overflow = "auto";
   },
 
-  renderCurrentSlide: function() {
+  renderCurrentSlide: function () {
     const slide = COURSE_DATA.slides[this.currentSlideIndex];
     const total = COURSE_DATA.slides.length;
     const container = document.getElementById("slideCanvas");
@@ -362,14 +414,14 @@ const App = {
     }
   },
 
-  nextSlide: function() {
+  nextSlide: function () {
     if (this.currentSlideIndex < COURSE_DATA.slides.length - 1) {
       this.currentSlideIndex++;
       this.renderCurrentSlide();
     }
   },
 
-  prevSlide: function() {
+  prevSlide: function () {
     if (this.currentSlideIndex > 0) {
       this.currentSlideIndex--;
       this.renderCurrentSlide();
@@ -377,7 +429,7 @@ const App = {
   },
 
   // 5. General Event Listeners
-  setupEventListeners: function() {
+  setupEventListeners: function () {
     document.querySelectorAll(".nav-tab").forEach(tab => {
       tab.addEventListener("click", () => {
         const tabTarget = tab.getAttribute("data-tab");
@@ -394,7 +446,7 @@ const App = {
     }
   },
 
-  switchTab: function(tabId) {
+  switchTab: function (tabId) {
     this.activeTab = tabId;
     document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
     document.querySelectorAll(".tab-pane").forEach(p => p.style.display = "none");
@@ -409,24 +461,24 @@ const App = {
     }
   },
 
-  toggleQA: function(headerEl) {
+  toggleQA: function (headerEl) {
     const card = headerEl.closest(".qa-card");
     if (card) {
       card.classList.toggle("open");
     }
   },
 
-  toggleSolution: function(btnEl) {
-    const solutionBox = btnEl.nextElementSibling;
-    if (solutionBox) {
-      solutionBox.classList.toggle("open");
-      btnEl.innerHTML = solutionBox.classList.contains("open") 
-        ? "<span>🙈 Hide Solution</span>" 
-        : "<span>👁️ Reveal Model Solution</span>";
-    }
-  },
+  // toggleSolution: function(btnEl) {
+  //   const solutionBox = btnEl.nextElementSibling;
+  //   if (solutionBox) {
+  //     solutionBox.classList.toggle("open");
+  //     btnEl.innerHTML = solutionBox.classList.contains("open") 
+  //       ? "<span>🙈 Hide Solution</span>" 
+  //       : "<span>👁️ Reveal Model Solution</span>";
+  //   }
+  // },
 
-  copyCode: function(btn) {
+  copyCode: function (btn) {
     const wrapper = btn.closest(".code-output-split-wrapper") || btn.closest(".code-block-container");
     const code = wrapper.querySelector(".code-content-inner code, pre code").innerText;
     navigator.clipboard.writeText(code).then(() => {
@@ -440,7 +492,7 @@ const App = {
     });
   },
 
-  performSearch: function(query) {
+  performSearch: function (query) {
     if (!query) {
       document.querySelectorAll(".qa-card").forEach(c => c.style.display = "block");
       document.querySelectorAll(".topic-section").forEach(s => s.style.display = "block");
@@ -458,7 +510,65 @@ const App = {
     });
   },
 
-  escapeHtml: function(str) {
+  checkMCQ: function (topicId, mcqIdx, selectedOptIdx, btnEl) {
+    const mcqCard = document.getElementById(`mcq-${topicId}-${mcqIdx}`);
+    if (!mcqCard) return;
+
+    // Find the MCQ in data
+    let foundMCQ = null;
+    for (const mod of COURSE_DATA.modules) {
+      const topic = mod.topics.find(t => t.id === topicId);
+      if (topic && topic.mcqs && topic.mcqs[mcqIdx]) {
+        foundMCQ = topic.mcqs[mcqIdx];
+        break;
+      }
+    }
+    if (!foundMCQ) return;
+
+    const optButtons = mcqCard.querySelectorAll(".mcq-opt-btn");
+    optButtons.forEach(btn => btn.disabled = true);
+
+    const isCorrect = selectedOptIdx === foundMCQ.correct;
+
+    if (isCorrect) {
+      btnEl.classList.add("correct");
+    } else {
+      btnEl.classList.add("incorrect");
+      // Highlight correct option as well
+      if (optButtons[foundMCQ.correct]) {
+        optButtons[foundMCQ.correct].classList.add("correct");
+      }
+    }
+
+    const expBox = document.getElementById(`exp-${topicId}-${mcqIdx}`);
+    if (expBox) {
+      const statusText = expBox.querySelector(".exp-status-text");
+      if (statusText) {
+        statusText.innerHTML = isCorrect
+          ? '<span style="color:#059669; font-weight:800;">✅ Correct!</span>'
+          : '<span style="color:#dc2626; font-weight:800;">❌ Incorrect.</span> <span style="color:#475569;">(Correct answer highlighted in green)</span>';
+      }
+      expBox.classList.add("active");
+    }
+  },
+
+  resetMCQ: function (topicId, mcqIdx, btnEl) {
+    const mcqCard = document.getElementById(`mcq-${topicId}-${mcqIdx}`);
+    if (!mcqCard) return;
+
+    const optButtons = mcqCard.querySelectorAll(".mcq-opt-btn");
+    optButtons.forEach(btn => {
+      btn.disabled = false;
+      btn.classList.remove("correct", "incorrect");
+    });
+
+    const expBox = document.getElementById(`exp-${topicId}-${mcqIdx}`);
+    if (expBox) {
+      expBox.classList.remove("active");
+    }
+  },
+
+  escapeHtml: function (str) {
     return str
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
