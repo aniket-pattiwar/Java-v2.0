@@ -1017,6 +1017,12 @@ Placement Sort (CGPA Desc): [[101] Simran (CGPA: 9.6), [103] Raj (CGPA: 8.2), [1
           title: "Multithreading: Thread Class, Runnable Interface & Lifecycle",
           image: "images/multithreading_lifecycle.jpg",
           imageCaption: "Visual Diagram: Java Multithreading Lifecycle, State Machine & Synchronized Monitor Transitions",
+          analogyImages: [
+            {
+              src: "images/multithreading_kitchen_analogy.svg",
+              caption: "Single Lone Chef Bottleneck (Sequential) vs 4 Specialized Chefs in Shared Kitchen (Concurrent Multithreading & Thread Lifecycle States)"
+            }
+          ],
           content: `
             <p>Multithreading enables concurrent execution of two or more parts of a program for maximum CPU utilization:</p>
             <ul>
@@ -1089,6 +1095,12 @@ All threads finished execution!`
           title: "Thread Synchronization, Locks & Deadlock Avoidance",
           image: "images/multithreading_lifecycle.jpg",
           imageCaption: "Visual Diagram: Thread Synchronization, Monitor Locks & Critical Section State Transitions",
+          analogyImages: [
+            {
+              src: "images/thread_synchronization_deadlock_analogy.svg",
+              caption: "Airplane Restroom Door Lock (Synchronized Monitor) & 2 Chefs Circular Wait vs Strict Lock Acquisition Order (Deadlock Avoidance)"
+            }
+          ],
           content: `
             <p>When multiple threads modify shared mutable state, race conditions occur:</p>
             <ul>
@@ -1167,6 +1179,12 @@ Execution completed with ZERO deadlocks!`
           title: "Inter-Thread Communication: `wait()`, `notify()` & `notifyAll()`",
           image: "images/multithreading_lifecycle.jpg",
           imageCaption: "Visual Diagram: Producer-Consumer Coordination via wait(), notify() & Monitor Release",
+          analogyImages: [
+            {
+              src: "images/interthread_producer_consumer_analogy.svg",
+              caption: "Restaurant Serving Counter Producer-Consumer Coordination via wait(), notify() and notifyAll() on the Shared Buffer Monitor"
+            }
+          ],
           content: `
             <p>Threads communicate through shared objects using methods in <code>java.lang.Object</code>:</p>
             <ul>
