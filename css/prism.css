@@ -1,82 +1,113 @@
-/* PrismJS Light Theme Custom Styles for Java Masterclass */
+/* ==========================================================================
+   Java SME Masterclass - High-Contrast Vibrant Syntax Highlighting
+   Designed for Dark Editor Panes (#0f172a / #1e293b)
+   ========================================================================== */
+
 code[class*="language-"],
-pre[class*="language-"] {
-  color: #f8fafc;
+pre[class*="language-"],
+.code-content-inner,
+.code-pane pre code {
+  color: #f1f5f9;
   background: none;
-  font-family: var(--font-mono, monospace);
-  font-size: 0.875rem;
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, monospace;
+  font-size: 0.84rem;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
-  line-height: 1.6;
+  line-height: 1.65;
   tab-size: 4;
   hyphens: none;
+  font-feature-settings: "liga" 1, "calt" 1;
 }
 
+/* Comments: Cool Muted Slate, Italic */
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #94a3b8;
-  font-style: italic;
+  color: #94a3b8 !important;
+  font-style: italic !important;
+  opacity: 0.9;
 }
 
-.token.punctuation {
-  color: #cbd5e1;
+/* Java Keywords: Vibrant Violet / Purple */
+.token.keyword,
+.token.atrule {
+  color: #c084fc !important;
+  font-weight: 700 !important;
 }
 
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-  color: #f59e0b;
+/* Classes, Interfaces, Types, Enums: Electric Sky Blue */
+.token.class-name,
+.token.type {
+  color: #38bdf8 !important;
+  font-weight: 600 !important;
 }
 
-.token.selector,
-.token.attr-name,
+/* Methods / Function Calls: Bright Cyan Aqua */
+.token.function,
+.token.method {
+  color: #67e8f9 !important;
+  font-weight: 500 !important;
+}
+
+/* String Literals: Bright Emerald / Spring Green */
 .token.string,
-.token.char,
-.token.builtin,
 .token.inserted {
-  color: #34d399;
+  color: #4ade80 !important;
 }
 
+/* Character Literals: Gold / Yellow */
+.token.char {
+  color: #fde047 !important;
+}
+
+/* Numbers: Vibrant Amber / Orange */
+.token.number {
+  color: #fb923c !important;
+  font-weight: 600 !important;
+}
+
+/* Booleans & Null: Vibrant Rose / Magenta */
+.token.boolean,
+.token.constant,
+.token.symbol {
+  color: #f472b6 !important;
+  font-weight: 700 !important;
+}
+
+/* Annotations (@Override, etc.): Bright Gold */
+.token.annotation {
+  color: #facc15 !important;
+  font-weight: 700 !important;
+}
+
+/* Operators: Coral Rose / Red */
 .token.operator,
 .token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: #38bdf8;
+.token.url {
+  color: #fb7185 !important;
 }
 
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-  color: #c084fc;
-  font-weight: bold;
+/* Punctuation: Soft Silver Blue */
+.token.punctuation {
+  color: #94a3b8 !important;
 }
 
-.token.function,
-.token.class-name {
-  color: #60a5fa;
-  font-weight: 600;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-  color: #fb7185;
+/* Variables / Properties */
+.token.property,
+.token.variable,
+.token.attr-name {
+  color: #e2e8f0 !important;
 }
 
 .token.important,
 .token.bold {
   font-weight: bold;
 }
+
 .token.italic {
   font-style: italic;
 }

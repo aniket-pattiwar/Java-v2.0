@@ -2353,3 +2353,740 @@ img {
   will-change: transform;
 }
 
+/* ==========================================================================
+   Eclipse IDE Installation Handbook & Multi-OS Guide Styles
+   ========================================================================== */
+
+.eclipse-hero-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 60%, #eef2ff 100%);
+  border: 1px solid #c7d2fe;
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.25rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.08), 0 8px 10px -6px rgba(99, 102, 241, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.eclipse-hero-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--primary-600), #7c3aed, var(--accent-blue));
+}
+
+.badge-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+
+.guide-badge-pill {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.eclipse-hero-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+  line-height: 1.25;
+}
+
+.eclipse-hero-desc {
+  font-size: 0.96rem;
+  color: var(--text-secondary);
+  max-width: 960px;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.eclipse-action-toolbar {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-print-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary-600), #7c3aed);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  transition: all var(--transition-normal);
+}
+
+.btn-print-pdf:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+}
+
+.btn-ext-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.btn-warning-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-warning-pill:hover {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  transform: translateY(-1px);
+}
+
+/* 2. Trust Artifacts Resolution Banner (User Screenshot Fix) */
+.trust-fix-banner {
+  background: #ffffff;
+  border: 2px solid #f59e0b;
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.12);
+  position: relative;
+}
+
+.trust-fix-header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #fef3c7;
+}
+
+.trust-fix-icon-badge {
+  font-size: 2.2rem;
+  width: 54px;
+  height: 54px;
+  background: #fffbeb;
+  border: 2px solid #fde68a;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.trust-fix-alert-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: #fef3c7;
+  color: #92400e;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.35rem;
+}
+
+.trust-fix-heading {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+
+.trust-fix-subheading {
+  font-size: 0.88rem;
+  color: #64748b;
+}
+
+.trust-fix-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .trust-fix-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trust-explain-lead {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.trust-steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.trust-step-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.85rem 1rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.trust-step-card.highlight-step {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.step-badge-num {
+  width: 28px;
+  height: 28px;
+  background: var(--primary-600);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.step-detail strong {
+  display: block;
+  font-size: 0.92rem;
+  color: #0f172a;
+  margin-bottom: 0.2rem;
+}
+
+.step-detail p {
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.45;
+}
+
+.trust-callout-note {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background: #f8fafc;
+  border-left: 4px solid #f59e0b;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.trust-visual-card {
+  background: #0f172a;
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  border: 1px solid #334155;
+  box-shadow: var(--shadow-md);
+}
+
+.visual-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0.5rem 0.6rem;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.live-indicator {
+  color: #34d399;
+  font-weight: 700;
+}
+
+/* 3. Multi-OS Switcher Bar */
+.eclipse-os-switcher-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: #f1f5f9;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  border: 1px solid #cbd5e1;
+}
+
+.switcher-prompt {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.os-pills-list {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.os-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  background: #ffffff;
+  color: var(--text-secondary);
+  border: 1px solid #cbd5e1;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.os-tab-btn:hover {
+  background: #f8fafc;
+  border-color: var(--primary-500);
+  color: var(--primary-700);
+}
+
+.os-tab-btn.active {
+  background: var(--primary-600);
+  color: white;
+  border-color: var(--primary-600);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+}
+
+.os-icon {
+  font-size: 1.05rem;
+}
+
+.os-pane-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.os-pane-title h4 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.os-pane-title p {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+/* Vertical Timeline for OS steps */
+.steps-vertical-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.timeline-step-card {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.35rem;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.timeline-step-card:hover {
+  border-color: var(--primary-300);
+  box-shadow: var(--shadow-md);
+}
+
+.timeline-step-card.highlight-step {
+  border-color: #f59e0b;
+  background: #fffdf5;
+}
+
+.timeline-marker {
+  width: 34px;
+  height: 34px;
+  background: var(--primary-600);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-heading h5 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.step-tag-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+}
+
+.timeline-content p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 0.5rem;
+}
+
+.steps-bullet-list {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+
+.steps-bullet-list li {
+  margin-bottom: 0.3rem;
+}
+
+.tip-box {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+  color: #1e3a8a;
+  margin-top: 0.5rem;
+}
+
+.success-box {
+  background: #ecfdf5;
+  border-left: 4px solid #10b981;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+  color: #064e3b;
+  margin-top: 0.5rem;
+}
+
+.code-box-styled {
+  background: #0f172a;
+  color: #cbd5e1;
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  overflow-x: auto;
+}
+
+/* Step Image Cards for Visual Installation Guides */
+.step-image-card {
+  margin-top: 0.9rem;
+  margin-bottom: 0.5rem;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  padding: 0.65rem;
+  max-width: 620px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.step-image-card:hover {
+  border-color: var(--primary-500);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
+  transform: translateY(-1px);
+}
+
+.step-preview-img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: var(--radius-sm);
+  border: 1px solid #e2e8f0;
+}
+
+.step-img-caption {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Program Tab Switcher for Eclipse Guide Code Section */
+.code-tab-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.code-tab-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.code-tab-btn:hover {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.code-tab-btn.active {
+  background: var(--primary-600);
+  color: white;
+  border-color: var(--primary-600);
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+}
+
+/* Linux Methods Grid */
+.grid-2col-equal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .grid-2col-equal {
+    grid-template-columns: 1fr;
+  }
+}
+
+.method-card {
+  background: #f8fafc;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.method-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: #ecfdf5;
+  color: #065f46;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.5rem;
+}
+
+.method-card h5 {
+  font-size: 0.98rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+/* First Project Step Grid */
+.project-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.project-step-box {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.project-step-box:hover {
+  border-color: var(--primary-400);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.project-step-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: #eef2ff;
+  color: #4338ca;
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.5rem;
+}
+
+.project-step-box h6 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.project-step-box p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* FAQ List */
+.faq-accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.35rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-q {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.4rem;
+}
+
+.faq-a {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   PRINT / EXPORT PDF STYLING FOR ECLIPSE HANDBOOK
+   ========================================================================== */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+  }
+
+  .site-header,
+  .nav-tabs-bar,
+  .site-zoom-controls,
+  .btn-magnifier-mode,
+  .page-magnifier-lens,
+  .site-footer,
+  .slide-deck-modal,
+  .image-lightbox-modal,
+  .eclipse-action-toolbar,
+  .copy-btn,
+  .diagram-zoom-badge,
+  .lightbox-btn {
+    display: none !important;
+  }
+
+  .main-wrapper {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .tab-pane {
+    display: none !important;
+  }
+
+  #tab-eclipse-guide {
+    display: block !important;
+  }
+
+  .eclipse-hero-card {
+    border: 1px solid #666666 !important;
+    background: #f9f9f9 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  .trust-fix-banner {
+    border: 2px solid #333333 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  /* When printing handbook, reveal all OS panes so student has complete manual */
+  .os-guide-pane {
+    display: block !important;
+    margin-bottom: 1.5rem;
+    page-break-inside: avoid;
+  }
+
+  .content-card {
+    border: 1px solid #cccccc !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  .zoomable-diagram-img {
+    max-height: 380px !important;
+  }
+
+  .code-pane, .output-pane {
+    border: 1px solid #333333 !important;
+  }
+
+  pre {
+    white-space: pre-wrap !important;
+  }
+}
+
+

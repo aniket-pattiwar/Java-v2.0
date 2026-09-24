@@ -16,6 +16,7 @@ const App = {
     this.renderCurriculum();
     this.renderInterviewVault();
     this.renderLabs();
+    this.highlightAllCodeBlocks();
     this.setupEventListeners();
     this.setupSlideDeck();
     this.setupImageLightbox();
@@ -123,7 +124,7 @@ const App = {
               <div class="code-output-grid">
                 <div class="code-pane">
                   <div class="pane-header">📄 Java Source Code</div>
-                  <pre class="code-content-inner language-java"><code>${App.escapeHtml(topic.codeSnippet.code)}</code></pre>
+                  <pre class="code-content-inner language-java"><code>${App.highlightJava(topic.codeSnippet.code)}</code></pre>
                 </div>
                 <div class="output-pane">
                   <div class="pane-header" style="color:#34d399;">⚡ Terminal Output</div>
@@ -306,7 +307,7 @@ const App = {
             <div class="code-output-grid">
               <div class="code-pane">
                 <div class="pane-header">📄 Solution Code</div>
-                <pre class="code-content-inner language-java"><code>${App.escapeHtml(lab.solutionCode)}</code></pre>
+                <pre class="code-content-inner language-java"><code>${App.highlightJava(lab.solutionCode)}</code></pre>
               </div>
               <div class="output-pane">
                 <div class="pane-header" style="color:#34d399;">⚡ Expected Execution Output</div>
@@ -471,6 +472,9 @@ const App = {
       activePane.style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
 
+      // Highlight any static or dynamically revealed code blocks in this pane
+      this.highlightAllCodeBlocks();
+
       // Refresh ScrollSpy for newly visible module
       setTimeout(() => {
         this.setupScrollSpy();
@@ -511,6 +515,50 @@ const App = {
     if (window.history && window.history.pushState) {
       window.history.pushState(null, null, `#${topicId}`);
     }
+  },
+
+  // Switch between Windows / macOS / Linux in Eclipse IDE Setup Handbook
+  selectEclipseOS: function (os) {
+    document.querySelectorAll(".os-tab-btn").forEach(btn => btn.classList.remove("active"));
+    document.querySelectorAll(".os-guide-pane").forEach(pane => pane.style.display = "none");
+
+    const activeBtn = document.getElementById(`btn-os-${os}`);
+    const activePane = document.getElementById(`pane-os-${os}`);
+
+    if (activeBtn) activeBtn.classList.add("active");
+    if (activePane) activePane.style.display = "block";
+  },
+
+  // Switch between Code Masterclass tabs (Arrays / Strings / FirstProgram) in Eclipse Guide
+  switchEclipseCodeTab: function (tab) {
+    document.querySelectorAll(".code-tab-btn").forEach(btn => btn.classList.remove("active"));
+    document.querySelectorAll(".eclipse-code-pane-wrapper").forEach(pane => pane.style.display = "none");
+
+    const activeBtn = document.getElementById(`btn-code-tab-${tab}`);
+    const activePane = document.getElementById(`eclipse-code-${tab}`);
+
+    if (activeBtn) activeBtn.classList.add("active");
+    if (activePane) {
+      activePane.style.display = "grid";
+      this.highlightAllCodeBlocks();
+    }
+  },
+
+  // Print or Export Eclipse Installation Handbook as PDF
+  printEclipseHandbook: function () {
+    this.switchTab("eclipse-guide");
+    window.print();
+  },
+
+  // Smooth Scroll to any element ID
+  scrollToElement: function (id, e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
   },
 
   // Dynamic ScrollSpy to track currently running / in-view concept
@@ -629,10 +677,92 @@ const App = {
   //   }
   // },
 
+  // High-Precision Java Syntax Highlighting Engine
+  highlightJava: function (code) {
+    if (!code) return "";
+
+    const rules = [
+      { type: "comment", regex: /\/\*[\s\S]*?\*\/|\/\/[^\r\n]*/y },
+      { type: "string", regex: /"(?:\\.|[^"\\\r\n])*"/y },
+      { type: "char", regex: /'(?:\\.|[^'\\\r\n])'/y },
+      { type: "annotation", regex: /@[A-Za-z0-9_]+/y },
+      { type: "number", regex: /\b(?:0x[0-9a-fA-F]+|\d+(?:\.\d+)?(?:[fFdDlL])?)\b/y },
+      { type: "boolean", regex: /\b(?:true|false|null)\b/y },
+      { type: "keyword", regex: /\b(?:abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|native|new|package|private|protected|public|return|short|static|strictfp|super|switch|synchronized|this|throw|throws|transient|try|void|volatile|while|record|yield|var|sealed|permits|non-sealed)\b/y },
+      { type: "function", regex: /\b[a-zA-Z_$][a-zA-Z0-9_$]*(?=\s*\()/y },
+      { type: "class-name", regex: /\b[A-Z][a-zA-Z0-9_$]*\b/y },
+      { type: "operator", regex: /==|!=|<=|>=|&&|\|\||->|::|\+=|-=|\*=|\/=|%=|<<|>>|\+\+|--|[+\-*/%=<>!&|^~?:]/y },
+      { type: "punctuation", regex: /[{}\[\]();,.]/y },
+      { type: "plain", regex: /[a-z_$][a-zA-Z0-9_$]*|\s+|[^\s\w]/y }
+    ];
+
+    let result = "";
+    let pos = 0;
+    const len = code.length;
+
+    while (pos < len) {
+      let matched = false;
+      for (let i = 0; i < rules.length; i++) {
+        rules[i].regex.lastIndex = pos;
+        const m = rules[i].regex.exec(code);
+        if (m && m.index === pos) {
+          const text = m[0];
+          pos += text.length;
+          matched = true;
+          if (rules[i].type === "plain") {
+            result += App.escapeHtml(text);
+          } else {
+            result += `<span class="token ${rules[i].type}">${App.escapeHtml(text)}</span>`;
+          }
+          break;
+        }
+      }
+      if (!matched) {
+        result += App.escapeHtml(code[pos]);
+        pos++;
+      }
+    }
+
+    return result;
+  },
+
+  // Colorize all code blocks across the website
+  highlightAllCodeBlocks: function () {
+    const codeElements = document.querySelectorAll(
+      "pre.code-content-inner code, pre.language-java code, .code-pane pre code, .code-block-wrapper pre code"
+    );
+    codeElements.forEach(el => {
+      // Don't re-highlight if already contains token spans
+      if (el.querySelector(".token")) return;
+      
+      const rawCode = el.textContent || el.innerText;
+      if (rawCode && rawCode.trim().length > 0) {
+        el.innerHTML = this.highlightJava(rawCode);
+      }
+    });
+  },
+
   copyCode: function (btn) {
-    const wrapper = btn.closest(".code-output-split-wrapper") || btn.closest(".code-block-container");
-    const code = wrapper.querySelector(".code-content-inner code, pre code").innerText;
-    navigator.clipboard.writeText(code).then(() => {
+    const wrapper = btn.closest(".code-output-split-wrapper") || btn.closest(".code-output-container") || btn.closest(".code-block-container") || btn.closest(".code-pane") || btn.parentElement;
+    const codeEl = wrapper ? wrapper.querySelector(".code-content-inner code, .code-content-inner, pre code, code") : null;
+    const codeText = codeEl ? (codeEl.innerText || codeEl.textContent) : "";
+    if (!codeText) return;
+
+    navigator.clipboard.writeText(codeText.trim()).then(() => {
+      const originalText = btn.innerHTML;
+      btn.classList.add("copied");
+      btn.innerHTML = "<span>✅ Copied!</span>";
+      setTimeout(() => {
+        btn.classList.remove("copied");
+        btn.innerHTML = originalText;
+      }, 2000);
+    }).catch(() => {
+      const ta = document.createElement("textarea");
+      ta.value = codeText.trim();
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
       const originalText = btn.innerHTML;
       btn.classList.add("copied");
       btn.innerHTML = "<span>✅ Copied!</span>";
@@ -784,6 +914,59 @@ const App = {
         });
       });
     }
+
+    // 4. Index Eclipse IDE Setup Guide
+    const eclipseTopics = [
+      {
+        targetId: "eclipse-trust-fix",
+        title: "Fix Eclipse Trust Artifacts / Expired Signers Certificate Dialog",
+        content: "How to fix Trust Artifacts dialog in Eclipse Installer: check Remember selected signers, click Select All, click Trust Selected button to continue installation. Eclipse Foundation Inc. DigiCert SHA2 Assured ID Code Signing CA expired certificate fix.",
+        badge: "FIX"
+      },
+      {
+        targetId: "pane-os-windows",
+        title: "Install Eclipse IDE on Windows 11 / 10",
+        content: "Download eclipse-inst-jre-win64.exe from eclipse.org/downloads. Run installer, select Eclipse IDE for Java Developers, keep default installation path, click Install and Launch with workspace folder.",
+        badge: "WINDOWS"
+      },
+      {
+        targetId: "pane-os-macos",
+        title: "Install Eclipse IDE on macOS (Apple Silicon M1 M2 M3 & Intel)",
+        content: "Download eclipse-inst-mac-aarch64.dmg for Apple Silicon M1 M2 M3 or x86_64 for Intel. Drag to Applications, resolve Gatekeeper Privacy & Security if needed, select Eclipse IDE for Java Developers.",
+        badge: "MACOS"
+      },
+      {
+        targetId: "pane-os-linux",
+        title: "Install Eclipse IDE on Linux (Ubuntu / Debian / Fedora / Arch / Snap)",
+        content: "Extract tar.gz or run sudo snap install --classic eclipse. Launch eclipse-inst, select Eclipse IDE for Java Developers, configure workspace.",
+        badge: "LINUX"
+      },
+      {
+        targetId: "eclipse-first-program",
+        title: "Create First Java Project & Class in Eclipse IDE",
+        content: "File New Java Project, enter project name, right click src New Class, select public static void main, write System.out.println, press Ctrl+F11 to run.",
+        badge: "QUICKSTART"
+      },
+      {
+        targetId: "eclipse-shortcuts-card",
+        title: "Essential Eclipse IDE Keyboard Shortcuts Cheatsheet",
+        content: "Ctrl+Space Content Assist autocomplete sysout, Ctrl+Shift+F Auto Format source, Ctrl+Shift+O Organize Imports, Ctrl+F11 Run Program, F3 Open Declaration, Alt+Shift+S Source Menu.",
+        badge: "SHORTCUTS"
+      }
+    ];
+
+    eclipseTopics.forEach(et => {
+      index.push({
+        type: "eclipse",
+        category: "🛠️ Eclipse IDE Setup Guide",
+        unitId: "eclipse-guide",
+        unitTitle: "Eclipse IDE Guide",
+        targetId: et.targetId,
+        title: et.title,
+        content: `${et.title} ${et.content}`,
+        badge: et.badge
+      });
+    });
 
     this.searchIndex = index;
   },

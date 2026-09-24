@@ -85,6 +85,9 @@
       <button class="nav-tab" data-tab="unit5-collections-threads">
         <span>Unit 5: Collections & Threads</span>
       </button>
+      <button class="nav-tab" data-tab="eclipse-guide">
+        <span>🛠️ Eclipse IDE Setup</span>
+      </button>
       <button class="nav-tab" data-tab="visualizers">
         <span>🧠 Concept Visualizers</span>
       </button>
@@ -487,6 +490,911 @@ Rank #3 -> [STUDENT] ID: 101 | Name: Vikram Malhotra | Course: MCA | CGPA: 8.90 
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- ==========================================================================
+         ECLIPSE IDE SETUP & INSTALLATION GUIDE TAB (WINDOWS / MACOS / LINUX)
+         ========================================================================== -->
+    <div class="tab-pane" id="tab-eclipse-guide" style="display: none;">
+      
+      <!-- 1. Hero Banner & Action Toolbar -->
+      <section class="eclipse-hero-card">
+        <div class="eclipse-hero-header">
+          <div class="badge-row">
+            <span class="guide-badge-pill" style="background:#e0e7ff; color:#3730a3; border:1px solid #c7d2fe;">⚙️ Java IDE Lab Manual</span>
+            <span class="guide-badge-pill" style="background:#ecfdf5; color:#065f46; border:1px solid #a7f3d0;">✓ Multi-OS: Windows 11/10 • macOS • Linux</span>
+            <span class="guide-badge-pill" style="background:#fef3c7; color:#92400e; border:1px solid #fde68a;">JDK 17 / 21 Certified</span>
+          </div>
+          <h2 class="eclipse-hero-title">
+            Eclipse IDE for Java Developers: Comprehensive Download &amp; Setup Handbook
+          </h2>
+          <p class="eclipse-hero-desc">
+            An end-to-end visual handbook for installing and configuring the official Eclipse IDE on your personal computer, resolving installer security certificates, configuring your Java workspace, and building your first MCA Java program.
+          </p>
+          
+          <div class="eclipse-action-toolbar">
+            <button class="btn btn-primary btn-print-pdf" onclick="App.printEclipseHandbook()" title="Print or Save this handbook as a PDF file">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span>📄 Print / Export PDF Handbook</span>
+            </button>
+            <a href="https://www.eclipse.org/downloads/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-ext-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              <span>🌐 Official Eclipse Downloads Portal ↗</span>
+            </a>
+            <a href="#eclipse-trust-fix" onclick="App.scrollToElement('eclipse-trust-fix', event)" class="btn btn-warning-pill">
+              <span>🛡️ Fix "Trust Artifacts" Screen</span>
+            </a>
+            <a href="#eclipse-first-program" onclick="App.scrollToElement('eclipse-first-program', event)" class="btn btn-secondary">
+              <span>🚀 First Java Program Walkthrough</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. URGENT FIX CALLOUT: "Trust Artifacts" Certificate Prompt (User's Screenshot) -->
+      <section class="trust-fix-banner" id="eclipse-trust-fix">
+        <div class="trust-fix-header">
+          <div class="trust-fix-icon-badge">🛡️</div>
+          <div class="trust-fix-title-block">
+            <div class="trust-fix-alert-tag">CRITICAL STEP FOR ALL OPERATING SYSTEMS</div>
+            <h3 class="trust-fix-heading">How to Resolve the "Trust Artifacts" Installer Dialog</h3>
+            <p class="trust-fix-subheading">Stuck on the certificate verification screen during installation? Follow this 10-second fix to complete setup.</p>
+          </div>
+        </div>
+        
+        <div class="trust-fix-grid">
+          <div class="trust-fix-text-side">
+            <p class="trust-explain-lead">
+              When installing Eclipse, the installer (Oomph) verifies the cryptographic signatures of internal plugins (such as <code>org.eclipse.m2e.workspace.cli</code>). Because certificate authorities renew periodically, Eclipse asks you to confirm trust. <strong>This is 100% normal, safe, and expected.</strong>
+            </p>
+            
+            <div class="trust-steps-container">
+              <div class="trust-step-card">
+                <div class="step-badge-num">1</div>
+                <div class="step-detail">
+                  <strong>Check "Remember selected signers"</strong>
+                  <p>Tick the checkbox at the bottom left so Eclipse remembers this verified certificate for future updates.</p>
+                </div>
+              </div>
+              <div class="trust-step-card">
+                <div class="step-badge-num">2</div>
+                <div class="step-detail">
+                  <strong>Click the [Select All] Button</strong>
+                  <p>Click the <code>Select All</code> button on the right side. This marks all certificate rows (including Eclipse Foundation Inc. and DigiCert SHA2 CA) with a checkmark (✓).</p>
+                </div>
+              </div>
+              <div class="trust-step-card highlight-step">
+                <div class="step-badge-num" style="background:#0284c7;">3</div>
+                <div class="step-detail">
+                  <strong>Click the Blue [Trust Selected] Button</strong>
+                  <p>Click the blue <code>Trust Selected</code> button at the bottom right. The installer will instantly continue and complete in 1 to 2 minutes!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="trust-callout-note">
+              <span class="note-icon">💡</span>
+              <div class="note-text">
+                <strong>Why does the certificate say "Expired" or "Uncertified"?</strong><br>
+                Legacy Eclipse bundle timestamps are anchored to long-lived root keys. Choosing <em>Trust Selected</em> tells the installer to trust Eclipse's official open-source packages.
+              </div>
+            </div>
+          </div>
+
+          <div class="trust-fix-visual-side">
+            <div class="trust-visual-card">
+              <div class="visual-card-top">
+                <span>🔍 Visual Step-by-Step Pointer</span>
+                <span class="live-indicator">● Verified Fix</span>
+              </div>
+              <div class="zoomable-image-container" onclick="App.openImageLightbox('images/eclipse_trust_artifacts_guide.svg', 'Eclipse Installer Trust Artifacts Resolution Guide')">
+                <img src="images/eclipse_trust_artifacts_guide.svg" alt="Eclipse Installer Trust Artifacts Resolution Guide" class="zoomable-diagram-img" loading="lazy" />
+                <div class="diagram-zoom-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                  <span>Click to Zoom &amp; Magnify</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Universal 5-Step Pipeline Flowchart -->
+      <section class="content-card mb-4" id="eclipse-flowchart-section">
+        <div class="card-header-styled">
+          <div class="header-left">
+            <span class="icon-tag">🗺️</span>
+            <h3>Eclipse IDE Universal Installation &amp; Workspace Setup Pipeline</h3>
+          </div>
+          <span class="type-badge" style="background:#e0e7ff; color:#3730a3;">Visual Workflow</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size:0.92rem; color:var(--text-secondary); margin-bottom:1rem;">
+            Whether you are on Windows 11, macOS, or Linux, every standard Eclipse setup follows this 5-stage pipeline:
+          </p>
+          <div class="zoomable-image-container" onclick="App.openImageLightbox('images/eclipse_install_flowchart_all_os.svg', 'Eclipse IDE Universal Installation & Workspace Setup Pipeline')">
+            <img src="images/eclipse_install_flowchart_all_os.svg" alt="Eclipse IDE Universal Installation & Workspace Setup Pipeline" class="zoomable-diagram-img" loading="lazy" style="max-height: 520px; width:100%; object-fit:contain; background:#090d16; border-radius:8px;" />
+            <div class="diagram-zoom-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+              <span>Click to Zoom High-Res Flowchart</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Interactive Operating System Switcher & Step Guides -->
+      <section class="content-card mb-4" id="eclipse-os-guide-section">
+        <div class="card-header-styled">
+          <div class="header-left">
+            <span class="icon-tag">💻</span>
+            <h3>Operating System Specific Installation Walkthrough</h3>
+          </div>
+          <span class="type-badge" style="background:#ecfdf5; color:#065f46;">Interactive Switcher</span>
+        </div>
+        
+        <div class="card-body">
+          <!-- OS Selector Pill Tabs -->
+          <div class="eclipse-os-switcher-bar">
+            <div class="switcher-prompt">Select Your System:</div>
+            <div class="os-pills-list">
+              <button class="os-tab-btn active" id="btn-os-windows" onclick="App.selectEclipseOS('windows')">
+                <span class="os-icon">🪟</span>
+                <span>Windows 11 / 10 (x86_64)</span>
+              </button>
+              <button class="os-tab-btn" id="btn-os-macos" onclick="App.selectEclipseOS('macos')">
+                <span class="os-icon">🍏</span>
+                <span>macOS (Apple Silicon &amp; Intel)</span>
+              </button>
+              <button class="os-tab-btn" id="btn-os-linux" onclick="App.selectEclipseOS('linux')">
+                <span class="os-icon">🐧</span>
+                <span>Linux (Ubuntu / Fedora / Debian)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- WINDOWS GUIDE PANE -->
+          <div class="os-guide-pane" id="pane-os-windows" style="display: block;">
+            <div class="os-pane-header">
+              <div class="os-pane-title">
+                <h4>🪟 Windows 11 &amp; 10 Setup Guide (Step-by-Step)</h4>
+                <p>Simple 5-minute automated setup for Windows 64-bit architecture.</p>
+              </div>
+              <a href="https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2024-03/R/eclipse-inst-jre-win64.exe" target="_blank" rel="noopener" class="btn btn-sm btn-primary" style="background:#0284c7; border-color:#0284c7;">
+                <span>⬇️ Download Windows Installer (.exe)</span>
+              </a>
+            </div>
+
+            <div class="steps-vertical-timeline">
+              <!-- Step 1 -->
+              <div class="timeline-step-card">
+                <div class="timeline-marker">1</div>
+                <div class="timeline-content">
+                  <div class="timeline-heading">
+                    <h5>Step 1: Open the Official Eclipse Website</h5>
+                    <span class="step-tag-pill">Browser</span>
+                  </div>
+                  <p>Open your web browser (Chrome, Edge, Firefox) and navigate to <a href="https://www.eclipse.org/downloads/" target="_blank" rel="noopener" class="text-link"><strong>eclipse.org/downloads</strong></a>.</p>
+                  <p>Click the orange <strong>"Download"</strong> button under <em>"Get Eclipse IDE"</em>.</p>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="timeline-step-card">
+                <div class="timeline-marker">2</div>
+                <div class="timeline-content">
+                  <div class="timeline-heading">
+                    <h5>Step 2: Download the Windows Installer</h5>
+                    <span class="step-tag-pill">Download</span>
+                  </div>
+                  <p>Click <strong>"Download x86_64"</strong>. If a mirror selection page opens, click the orange <strong>"Download"</strong> button to download <code>eclipse-inst-win64.exe</code> (or <code>eclipse-inst-jre-win64.exe</code>).</p>
+                  
+                  <div class="step-image-card">
+                    <div class="zoomable-image-container" onclick="App.openImageLightbox('images/eclipse_step1_download_mirror.png', 'Step 2: Eclipse Downloads Mirror Page - Click Download Button')">
+                      <img src="images/eclipse_step1_download_mirror.png" alt="Eclipse Mirror Download Screen" class="zoomable-diagram-img step-preview-img" loading="lazy" />
+                      <div class="diagram-zoom-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to Zoom &amp; Magnify</span>
+                      </div>
+                    </div>
+                    <div class="step-img-caption">📸 <strong>Step 2 Screen:</strong> Click the highlighted orange <em>Download</em> button to start downloading the installer.</div>
+                  </div>
+
+                  <div class="tip-box" style="margin-top:0.75rem;">
+                    <span>💡 <strong>Note:</strong> Since you already have Java (JDK 17/21) installed on Windows 11, the installer will automatically detect your JDK!</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="timeline-step-card">
+                <div class="timeline-marker">3</div>
+                <div class="timeline-content">
+                  <div class="timeline-heading">
+                    <h5>Step 3: Run the Eclipse Installer &amp; Select Package</h5>
+                    <span class="step-tag-pill">Execution</span>
+                  </div>
+                  <p>Open your <code>Downloads</code> folder and double-click <code>eclipse-inst-win64.exe</code>.</p>
+                  <p>When the <strong>eclipseinstaller by Oomph</strong> menu opens, select <strong>"Eclipse IDE for Java Developers"</strong> (the first option highlighted in red).</p>
+                  
+                  <div class="step-image-card">
+                    <div class="zoomable-image-container" onclick="App.openImageLightbox('images/eclipse_step2_select_package.png', 'Step 3: Select Eclipse IDE for Java Developers Package')">
+                      <img src="images/eclipse_step2_select_package.png" alt="Select Eclipse IDE for Java Developers" class="zoomable-diagram-img step-preview-img" loading="lazy" />
+                      <div class="diagram-zoom-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to Zoom &amp; Magnify</span>
+                      </div>
+                    </div>
+                    <div class="step-img-caption">📸 <strong>Step 3 Screen:</strong> Choose the top package <em>Eclipse IDE for Java Developers</em>.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="timeline-step-card">
+                <div class="timeline-marker">4</div>
+                <div class="timeline-content">
+                  <div class="timeline-heading">
+                    <h5>Step 4: Verify Folder &amp; Click Install</h5>
+                    <span class="step-tag-pill">Installation</span>
+                  </div>
+                  <p>Verify that <strong>Java 17+ VM</strong> is detected, leave the default installation path, and click the orange <strong>INSTALL</strong> button.</p>
+                  <p>Accept the Eclipse User Agreement when prompted.</p>
+
+                  <div class="step-image-card">
+                    <div class="zoomable-image-container" onclick="App.openImageLightbox('images/eclipse_step3_click_install.png', 'Step 4: Verify Java 17+ VM and Click Install Button')">
+                      <img src="images/eclipse_step3_click_install.png" alt="Click Install Button in Eclipse Installer" class="zoomable-diagram-img step-preview-img" loading="lazy" />
+                      <div class="diagram-zoom-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to Zoom &amp; Magnify</span>
+                      </div>
+                    </div>
+                    <div class="step-img-caption">📸 <strong>Step 4 Screen:</strong> Click the highlighted orange <em>INSTALL</em> button.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 5 -->
+              <div class="timeline-step-card highlight-step">
+                <div class="timeline-marker" style="background:#f59e0b;">5</div>
+                <div class="timeline-content">
+                  <div class="timeline-heading">
+                    <h5>Step 5: Handle "Trust Artifacts" Certificate Prompt</h5>
+                    <span class="step-tag-pill" style="background:#fef3c7; color:#92400e;">Action Required</span>
+                  </div>
+                  <p>If the <strong>"Trust Artifacts — Do you trust these signers?"</strong> window appears:</p>
+                  <ul class="steps-bullet-list">
+                    <li>Tick the checkbox <strong>[✓] Remember selected signers</strong> (bottom left).</li>
+                    <li>Click the <strong>[Select All]</strong> button on the right side.</li>
+                    <li>Click the blue <strong>[Trust Selected]</strong> button.</li>
+                  </ul>
+                  
+                  <div class="step-image-card">
+                    <div class="zoomable-image-container" onclick="App.openImageLightbox('images/eclipse_step4_trust_artifacts.png', 'Step 5: Trust Artifacts Dialog - Select All and Trust Selected')">
+                      <img src="images/eclipse_step4_trust_artifacts.png" alt="Trust Artifacts Dialog" class="zoomable-diagram-img step-preview-img" loading="lazy" />
+                      <div class="diagram-zoom-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to Zoom &amp; Magnify</span>
+                      </div>
+                    </div>
+                    <div class="step-img-caption">📸 <strong>Step 5 Screen:</strong> Check <em>Remember selected signers</em>, click <em>Select All</em>, and click <em>Trust Selected</em>.</div>
+                  </div>
+                  <p style="margin-top:0.5rem;">The progress bar will smoothly finish to 100%.</p>
+                </div>
+              </div>
+
+              <!-- Step 6 -->
+              <div class="timeline-step-card">
+                <div class="timeline-marker">6</div>
+                <div class="timeline-content">
+                  <div class="timeline-heading">
+                    <h5>Step 6: Launch Eclipse &amp; Select Workspace</h5>
+                    <span class="step-tag-pill">Ready</span>
+                  </div>
+                  <p>Click the green <strong>LAUNCH</strong> button.</p>
+                  <p>When the <strong>Eclipse IDE Launcher</strong> asks to select a directory as workspace (default: <code>C:\Users\&lt;your-username&gt;\eclipse-workspace</code>), leave it as default, check <strong>"Use this as the default and do not ask again"</strong>, and click the blue <strong>Launch</strong> button.</p>
+                  
+                  <div class="step-image-card">
+                    <div class="zoomable-image-container" onclick="App.openImageLightbox('images/eclipse_step5_workspace_launcher.png', 'Step 6: Eclipse IDE Launcher Workspace Selection')">
+                      <img src="images/eclipse_step5_workspace_launcher.png" alt="Eclipse Workspace Launcher" class="zoomable-diagram-img step-preview-img" loading="lazy" />
+                      <div class="diagram-zoom-badge">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span>Click to Zoom &amp; Magnify</span>
+                      </div>
+                    </div>
+                    <div class="step-img-caption">📸 <strong>Step 6 Screen:</strong> Check <em>Use this as the default</em> and click <em>Launch</em>.</div>
+                  </div>
+
+                  <div class="success-box" style="margin-top:0.75rem;">
+                    <span>🎉 <strong>Done!</strong> Eclipse IDE is fully installed, configured, and ready for Java coding!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MACOS GUIDE PANE -->
+          <div class="os-guide-pane" id="pane-os-macos" style="display: none;">
+            <div class="os-pane-header">
+              <div class="os-pane-title">
+                <h4>🍏 macOS Setup Guide (Apple Silicon M1/M2/M3 &amp; Intel)</h4>
+                <p>Native macOS package setup with Gatekeeper verification guidance.</p>
+              </div>
+              <a href="https://www.eclipse.org/downloads/" target="_blank" rel="noopener" class="btn btn-sm btn-primary" style="background:#7c3aed; border-color:#7c3aed;">
+                <span>⬇️ Download macOS DMG</span>
+              </a>
+            </div>
+
+            <div class="steps-vertical-timeline">
+              <!-- Mac Step 1 -->
+              <div class="timeline-step-card">
+                <div class="timeline-marker">1</div>
+                <div class="timeline-content">
+                  <div class="timeline-heading">
+                    <h5>Step 1: Choose Your Mac Processor Architecture</h5>
+                    <span class="step-tag-pill">Chip Selection</span>
+                  </div>
+                  <p>Go to <a href="https://www.eclipse.org/downloads/" target="_blank" rel="noopener" class="text-link">eclipse.org/downloads</a> and click <em>"Download Packages"</em>:</p>
+                  <ul class="steps-bullet-list">
+                    <li><strong>Apple Silicon (M1 / M2 / M3 / M4):</strong> Download <code>macOS AArch64 (ARM)</code>.</li>
+                    <li><strong>Intel Mac:</strong> Download <code>macOS x86_64</code>.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Mac Step 2 -->
+              <div class="timeline-step-card">
+                <div class="timeline-marker">2</div>
+                <div class="timeline-content">
+                  <div class="timeline-heading">
+                    <h5>Step 2: Mount DMG &amp; Launch Installer</h5>
+                    <span class="step-tag-pill">DMG</span>
+                  </div>
+                  <p>Double-click the downloaded <code>.dmg</code> file to mount it, then double-click <strong>Eclipse Installer.app</strong>.</p>
+                </div>
+              </div>
+
+              <!-- Mac Step 3 -->
+              <div class="timeline-step-card">
+                <div class="timeline-marker">3</div>
+                <div class="timeline-content">
+                  <div class="timeline-heading">
+                    <h5>Step 3: Handle macOS Gatekeeper Security (If Prompted)</h5>
+                    <span class="step-tag-pill">Security</span>
+                  </div>
+                  <p>If macOS displays <em>"Eclipse Installer is an app downloaded from the Internet. Are you sure you want to open it?"</em>, click <strong>Open</strong>.</p>
+                  <p>If blocked by Gatekeeper, go to <code>Apple Menu  → System Settings → Privacy &amp; Security</code>, scroll down, and click <strong>"Open Anyway"</strong>.</p>
+                </div>
+              </div>
+
+              <!-- Mac Step 4 -->
+              <div class="timeline-step-card">
+                <div class="timeline-marker">4</div>
+                <div class="timeline-content">
+                  <div class="timeline-heading">
+                    <h5>Step 4: Select Java Package &amp; Trust Artifacts</h5>
+                    <span class="step-tag-pill">Install</span>
+                  </div>
+                  <p>Select <strong>"Eclipse IDE for Java Developers"</strong> $\rightarrow$ Click <strong>Install</strong>.</p>
+                  <p>When the "Trust Artifacts" screen appears, click <strong>Select All</strong> $\rightarrow$ <strong>Trust Selected</strong>.</p>
+                  <p>Once finished, launch Eclipse and choose your workspace (e.g. <code>/Users/&lt;name&gt;/eclipse-workspace</code>).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LINUX GUIDE PANE -->
+          <div class="os-guide-pane" id="pane-os-linux" style="display: none;">
+            <div class="os-pane-header">
+              <div class="os-pane-title">
+                <h4>🐧 Linux Setup Guide (Ubuntu, Debian, Fedora, Arch)</h4>
+                <p>GUI installer or 1-command Snap package installation for Linux workstations.</p>
+              </div>
+            </div>
+
+            <div class="grid-2col-equal" style="margin-bottom:1rem;">
+              <!-- Method A -->
+              <div class="method-card">
+                <div class="method-badge">METHOD A (RECOMMENDED)</div>
+                <h5>Official Tarball Installer</h5>
+                <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:0.75rem;">Download and extract the official installer via terminal:</p>
+                <div class="code-block-wrapper" style="background-color:#000000">
+                  <pre class="code-content-inner language-bash"><code># 1. Extract tarball
+tar -zxvf eclipse-inst-jre-linux64.tar.gz
+
+# 2. Run the installer
+cd eclipse-installer
+./eclipse-inst
+
+# 3. Choose "Eclipse IDE for Java Developers" & click Install</code></pre>
+                </div>
+              </div>
+
+              <!-- Method B -->
+              <div class="method-card">
+                <div class="method-badge" style="background:#e0e7ff; color:#3730a3;">METHOD B (SNAP PACKAGE)</div>
+                <h5>Universal Linux Snap</h5>
+                <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:0.75rem;">One-line installation on Ubuntu / Debian / Fedora:</p>
+                <div class="code-block-wrapper" style="background-color: #000000;">
+                  <pre class="code-content-inner language-bash"><code># Install Eclipse via Snap
+sudo snap install --classic eclipse
+
+# Launch Eclipse from terminal or application menu
+eclipse &</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="tip-box">
+              <span>💡 <strong>Prerequisite Check on Linux:</strong> Ensure OpenJDK is installed via <code>sudo apt install openjdk-17-jdk</code> or <code>sudo dnf install java-17-openjdk-devel</code>.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Creating Your First Java Program & Running Coursework in Eclipse -->
+      <section class="content-card mb-4" id="eclipse-first-program">
+        <div class="card-header-styled">
+          <div class="header-left">
+            <span class="icon-tag">🚀</span>
+            <h3>Hands-On Eclipse Walkthrough: Ready-to-Run Java Code &amp; Terminal Outputs</h3>
+          </div>
+          <span class="type-badge" style="background:#fef3c7; color:#92400e;">Copy &amp; Paste Ready</span>
+        </div>
+        
+        <div class="card-body">
+          <p style="font-size:0.92rem; color:var(--text-secondary); margin-bottom:1.25rem;">
+            Follow these 4 simple steps in Eclipse IDE, then select any of the complete masterclass classes below to copy-paste directly into your editor:
+          </p>
+
+          <div class="project-steps-grid">
+            <div class="project-step-box">
+              <div class="project-step-num">Step 1</div>
+              <h6>Create Java Project</h6>
+              <p>Click <code>File → New → Java Project</code>.<br>Enter Project name: <strong>MCA_Java_Coursework</strong>.<br>JRE: Select <em>JavaSE-17</em> or <em>JavaSE-21</em>.<br>Click <strong>Finish</strong>.</p>
+            </div>
+            <div class="project-step-box">
+              <div class="project-step-num">Step 2</div>
+              <h6>Create Java Class</h6>
+              <p>Right-click the <code>src</code> folder in Package Explorer → <code>New → Class</code>.<br>Name: <code>ArraysMasterclass</code> (or <code>StringsMasterclass</code>).<br>Check <code>[✓] public static void main</code>→ Click <strong>Finish</strong>.</p>
+            </div>
+            <div class="project-step-box">
+              <div class="project-step-num">Step 3</div>
+              <h6>Paste Code</h6>
+              <p>Select all contents of your new class and paste the code from any tab below.</p>
+            </div>
+            <div class="project-step-box">
+              <div class="project-step-num">Step 4</div>
+              <h6>Run &amp; Inspect Output</h6>
+              <p>Click the green <strong>Run (▶)</strong> button on the toolbar or press <strong><code>Ctrl + F11</code></strong>.<br>The bottom <strong>Console</strong> pane will instantly print the execution output!</p>
+            </div>
+          </div>
+
+          <!-- Interactive Code Tab Navigation -->
+          <div class="code-tab-nav" style="margin-top:1.75rem;">
+            <button class="code-tab-btn active" id="btn-code-tab-arrays" onclick="App.switchEclipseCodeTab('arrays')">
+              <span>📊 1. Arrays Architecture (1D, 2D &amp; Jagged)</span>
+            </button>
+            <button class="code-tab-btn" id="btn-code-tab-strings" onclick="App.switchEclipseCodeTab('strings')">
+              <span>🧵 2. Strings Architecture (Immutability, SCP, Builders)</span>
+            </button>
+            <button class="code-tab-btn" id="btn-code-tab-first" onclick="App.switchEclipseCodeTab('first')">
+              <span>☕ 3. Quickstart Starter (FirstProgram.java)</span>
+            </button>
+          </div>
+
+          <!-- TAB 1: ARRAYS MASTERCLASS -->
+          <div class="code-output-container eclipse-code-pane-wrapper" id="eclipse-code-arrays" style="display: grid;">
+            <div class="code-pane" style="background-color:#000000;">
+              <div class="pane-header">
+                <span>📄 ArraysMasterclass.java (1D, 2D Grid &amp; Jagged Arrays)</span>
+                <button class="btn btn-sm btn-secondary copy-btn" onclick="App.copyCode(this)" style="font-size:0.75rem; padding:0.2rem 0.6rem;">Copy Code</button>
+              </div>
+              <pre class="code-content-inner language-java"><code>/**
+ * JAVA ARRAYS ARCHITECTURE MASTERCLASS (1D, 2D &amp; JAGGED ARRAYS)
+ * Course: MC101 - Problem Solving &amp; Programming Concepts using Java
+ * Directly copy-paste into Eclipse and press [Ctrl + F11]
+ */
+public class ArraysMasterclass {
+
+    public static void main(String[] args) {
+        System.out.println("===============================================================");
+        System.out.println("   JAVA ARRAYS ARCHITECTURE: 1D, 2D REGULAR &amp; JAGGED ARRAYS    ");
+        System.out.println("===============================================================\n");
+
+        // A. 1D ARRAY (Linear Sequence in Heap)
+        System.out.println("+-------------------------------------------------------------+");
+        System.out.println("| A. 1D Array (Linear Sequence in Heap Memory)                |");
+        System.out.println("+-------------------------------------------------------------+");
+        int[] marks = { 85, 92, 78, 90, 88 }; // length = 5
+        System.out.println("Total Elements (marks.length): " + marks.length);
+        
+        int totalSum = 0;
+        for (int i = 0; i &lt; marks.length; i++) {
+            System.out.println("  Index [" + i + "] -> Value: " + marks[i] + " (Instant O(1) Access)");
+            totalSum += marks[i];
+        }
+        double average = (double) totalSum / marks.length;
+        System.out.printf("  -> Total Score: %d | Class Average: %.2f%n%n", totalSum, average);
+
+        // B. 2D REGULAR MATRIX (Uniform Grid)
+        System.out.println("+-------------------------------------------------------------+");
+        System.out.println("| B. 2D Regular Array (3x3 Symmetric Grid Matrix)             |");
+        System.out.println("+-------------------------------------------------------------+");
+        int[][] matrix = {
+            { 10, 20, 30 },
+            { 40, 50, 60 },
+            { 70, 80, 90 }
+        };
+        System.out.println("Rows: " + matrix.length + " | Columns per row: " + matrix[0].length);
+        int diagonalSum = 0;
+        for (int r = 0; r &lt; matrix.length; r++) {
+            System.out.print("  Row " + r + " -> ");
+            for (int c = 0; c &lt; matrix[r].length; c++) {
+                System.out.printf("[%d][%d]: %-3d  ", r, c, matrix[r][c]);
+                if (r == c) diagonalSum += matrix[r][c];
+            }
+            System.out.println();
+        }
+        System.out.println("  -> Primary Diagonal Sum (10 + 50 + 90) = " + diagonalSum + "\n");
+
+        // C. JAGGED / RAGGED ARRAY (Custom Row Column Lengths)
+        System.out.println("+-------------------------------------------------------------+");
+        System.out.println("| C. Jagged Array (Custom Column Lengths - Zero Memory Waste) |");
+        System.out.println("+-------------------------------------------------------------+");
+        int[][] batches = new int[3][];
+        batches[0] = new int[]{ 95, 88 };             // Row 0: 2 students
+        batches[1] = new int[]{ 72, 85, 90, 94 };     // Row 1: 4 students
+        batches[2] = new int[]{ 60, 75, 80 };         // Row 2: 3 students
+
+        for (int r = 0; r &lt; batches.length; r++) {
+            int batchTotal = 0;
+            int maxScore = batches[r][0];
+            System.out.printf("  Batch #%d (Size: %d) -> Scores: ", (r + 1), batches[r].length);
+            for (int c = 0; c &lt; batches[r].length; c++) {
+                int score = batches[r][c];
+                System.out.print(score + " ");
+                batchTotal += score;
+                if (score > maxScore) maxScore = score;
+            }
+            double batchAvg = (double) batchTotal / batches[r].length;
+            System.out.printf("| Avg: %.2f | Highest: %d%n", batchAvg, maxScore);
+        }
+        System.out.println("\n===============================================================");
+        System.out.println("  Key Takeaway: Jagged Arrays prevent unused heap memory cells!");
+        System.out.println("===============================================================");
+    }
+}</code></pre>
+            </div>
+            <div class="output-pane">
+              <div class="pane-header" style="color:#34d399;">⚡ Eclipse Console Output</div>
+              <pre class="output-content-inner"><code>===============================================================
+   JAVA ARRAYS ARCHITECTURE: 1D, 2D REGULAR &amp; JAGGED ARRAYS    
+===============================================================
+
++-------------------------------------------------------------+
+| A. 1D Array (Linear Sequence in Heap Memory)                |
++-------------------------------------------------------------+
+Total Elements (marks.length): 5
+  Index [0] -> Value: 85 (Instant O(1) Access)
+  Index [1] -> Value: 92 (Instant O(1) Access)
+  Index [2] -> Value: 78 (Instant O(1) Access)
+  Index [3] -> Value: 90 (Instant O(1) Access)
+  Index [4] -> Value: 88 (Instant O(1) Access)
+  -> Total Score: 433 | Class Average: 86.60
+
++-------------------------------------------------------------+
+| B. 2D Regular Array (3x3 Symmetric Grid Matrix)             |
++-------------------------------------------------------------+
+Rows: 3 | Columns per row: 3
+  Row 0 -> [0][0]: 10   [0][1]: 20   [0][2]: 30   
+  Row 1 -> [1][0]: 40   [1][1]: 50   [1][2]: 60   
+  Row 2 -> [2][0]: 70   [2][1]: 80   [2][2]: 90   
+  -> Primary Diagonal Sum (10 + 50 + 90) = 150
+
++-------------------------------------------------------------+
+| C. Jagged Array (Custom Column Lengths - Zero Memory Waste) |
++-------------------------------------------------------------+
+  Batch #1 (Size: 2) -> Scores: 95 88 | Avg: 91.50 | Highest: 95
+  Batch #2 (Size: 4) -> Scores: 72 85 90 94 | Avg: 85.25 | Highest: 94
+  Batch #3 (Size: 3) -> Scores: 60 75 80 | Avg: 71.67 | Highest: 80
+
+===============================================================
+  Key Takeaway: Jagged Arrays prevent unused heap memory cells!
+===============================================================
+
+&lt;terminated, exit code: 0&gt; ArraysMasterclass [Java Application]</code></pre>
+            </div>
+          </div>
+
+          <!-- TAB 2: STRINGS MASTERCLASS -->
+          <div class="code-output-container eclipse-code-pane-wrapper" id="eclipse-code-strings" style="display: none;">
+            <div class="code-pane" style="background-color:#000000;">
+              <div class="pane-header">
+                <span>📄 StringsMasterclass.java (Immutability, SCP, StringBuilder &amp; StringBuffer)</span>
+                <button class="btn btn-sm btn-secondary copy-btn" onclick="App.copyCode(this)" style="font-size:0.75rem; padding:0.2rem 0.6rem;">Copy Code</button>
+              </div>
+              <pre class="code-content-inner language-java"><code>/**
+ * JAVA STRINGS ARCHITECTURE MASTERCLASS:
+ * Immutability, String Constant Pool (SCP), StringBuilder &amp; StringBuffer
+ * Course: MC101 - Problem Solving &amp; Programming Concepts using Java
+ * Directly copy-paste into Eclipse and press [Ctrl + F11]
+ */
+public class StringsMasterclass {
+
+    public static void main(String[] args) {
+        System.out.println("===============================================================");
+        System.out.println("   JAVA STRINGS MASTERCLASS: IMMUTABILITY, SCP &amp; BUILDERS     ");
+        System.out.println("===============================================================\n");
+
+        // 1. STRING IMMUTABILITY
+        System.out.println("+-------------------------------------------------------------+");
+        System.out.println("| 1. String Immutability Mechanics                            |");
+        System.out.println("+-------------------------------------------------------------+");
+        String original = "Java";
+        original.concat(" Masterclass");
+        System.out.println("After original.concat(...)  : " + original + "  <- Unchanged! (Immutable)");
+        original = original.concat(" Masterclass");
+        System.out.println("After explicit reassignment : " + original + " <- Reference updated!\n");
+
+        // 2. STRING CONSTANT POOL (SCP) & EQUALITY
+        System.out.println("+-------------------------------------------------------------+");
+        System.out.println("| 2. String Constant Pool (SCP): '==' vs '.equals()' &amp; intern |");
+        System.out.println("+-------------------------------------------------------------+");
+        String s1 = "MCA";
+        String s2 = "MCA";
+        String s3 = new String("MCA");
+        String s4 = s3.intern();
+
+        System.out.printf("  s1 == s2      : %-5b (Points to identical SCP memory address)%n", (s1 == s2));
+        System.out.printf("  s1 == s3      : %-5b (Different memory addresses: SCP vs General Heap)%n", (s1 == s3));
+        System.out.printf("  s1.equals(s3) : %-5b (Content characters are identical: \"MCA\")%n", s1.equals(s3));
+        System.out.printf("  s1 == s4      : %-5b (s3.intern() returns pool address matching s1)%n%n", (s1 == s4));
+
+        // 3. STRINGBUILDER (Mutable, Fast)
+        System.out.println("+-------------------------------------------------------------+");
+        System.out.println("| 3. StringBuilder (Mutable Buffer for Single-Threaded Logic) |");
+        System.out.println("+-------------------------------------------------------------+");
+        StringBuilder sb = new StringBuilder("Problem Solving");
+        sb.append(" &amp; Programming");
+        sb.insert(0, "MC101: ");
+        sb.replace(7, 22, "Java Concepts");
+        System.out.println("StringBuilder modified: " + sb);
+        sb.reverse();
+        System.out.println("Reversed              : " + sb + "\n");
+
+        // 4. STRINGBUFFER (Thread-Safe, Synchronized)
+        System.out.println("+-------------------------------------------------------------+");
+        System.out.println("| 4. StringBuffer (Thread-Safe &amp; Synchronized for Threads)    |");
+        System.out.println("+-------------------------------------------------------------+");
+        StringBuffer sbf = new StringBuffer("ThreadSafe-Buffer-Demo");
+        System.out.println("StringBuffer value    : " + sbf);
+        System.out.println("Capacity              : " + sbf.capacity() + " characters\n");
+
+        // 5. PERFORMANCE BENCHMARK (25,000 Iterations)
+        System.out.println("+-------------------------------------------------------------+");
+        System.out.println("| 5. Performance Benchmark (Concatenating 25,000 Iterations)  |");
+        System.out.println("+-------------------------------------------------------------+");
+        int iterations = 25000;
+
+        long startTime = System.currentTimeMillis();
+        String strTest = "";
+        for (int i = 0; i &lt; iterations; i++) strTest += "X";
+        long stringDuration = System.currentTimeMillis() - startTime;
+        System.out.printf("  String (+) Concatenation   : %4d ms  (Slow - High GC Overhead)%n", stringDuration);
+
+        startTime = System.currentTimeMillis();
+        StringBuilder sbTest = new StringBuilder();
+        for (int i = 0; i &lt; iterations; i++) sbTest.append("X");
+        long sbDuration = System.currentTimeMillis() - startTime;
+        System.out.printf("  StringBuilder.append()     : %4d ms  (Blazing Fast - Zero Garbage)%n", sbDuration);
+
+        startTime = System.currentTimeMillis();
+        StringBuffer sbfTest = new StringBuffer();
+        for (int i = 0; i &lt; iterations; i++) sbfTest.append("X");
+        long sbfDuration = System.currentTimeMillis() - startTime;
+        System.out.printf("  StringBuffer.append()      : %4d ms  (Thread-Safe Synchronized)%n", sbfDuration);
+    }
+}</code></pre>
+            </div>
+            <div class="output-pane">
+              <div class="pane-header" style="color:#34d399;">⚡ Eclipse Console Output</div>
+              <pre class="output-content-inner"><code>===============================================================
+   JAVA STRINGS MASTERCLASS: IMMUTABILITY, SCP &amp; BUILDERS     
+===============================================================
+
++-------------------------------------------------------------+
+| 1. String Immutability Mechanics                            |
++-------------------------------------------------------------+
+Initial String value        : Java
+After original.concat(...)  : Java  <- Unchanged! (Immutable)
+After explicit reassignment : Java Masterclass <- Reference updated!
+
++-------------------------------------------------------------+
+| 2. String Constant Pool (SCP): '==' vs '.equals()' &amp; intern |
++-------------------------------------------------------------+
+  s1 == s2      : true  (Points to identical SCP memory address)
+  s1 == s3      : false (Different memory addresses: SCP vs General Heap)
+  s1.equals(s3) : true  (Content characters are identical: "MCA")
+  s1 == s4      : true  (s3.intern() returns pool address matching s1)
+
++-------------------------------------------------------------+
+| 3. StringBuilder (Mutable Buffer for Single-Threaded Logic) |
++-------------------------------------------------------------+
+StringBuilder modified: MC101: Java Concepts &amp; Programming
+Reversed              : gnimmargorP &amp; stpecnoC avaJ :101CM
+
++-------------------------------------------------------------+
+| 4. StringBuffer (Thread-Safe &amp; Synchronized for Threads)    |
++-------------------------------------------------------------+
+StringBuffer value    : ThreadSafe-Buffer-Demo
+Capacity              : 38 characters
+
++-------------------------------------------------------------+
+| 5. Performance Benchmark (Concatenating 25,000 Iterations)  |
++-------------------------------------------------------------+
+  String (+) Concatenation   :   58 ms  (Slow - High GC Overhead)
+  StringBuilder.append()     :    1 ms  (Blazing Fast - Zero Garbage)
+  StringBuffer.append()      :    1 ms  (Thread-Safe Synchronized)
+
+&lt;terminated, exit code: 0&gt; StringsMasterclass [Java Application]</code></pre>
+            </div>
+          </div>
+
+          <!-- TAB 3: FIRST PROGRAM STARTER -->
+          <div class="code-output-container eclipse-code-pane-wrapper" id="eclipse-code-first" style="display: none;">
+            <div class="code-pane" style="background-color: #000000">
+              <div class="pane-header">
+                <span>📄 FirstProgram.java (Quickstart Starter)</span>
+                <button class="btn btn-sm btn-secondary copy-btn" onclick="App.copyCode(this)" style="font-size:0.75rem; padding:0.2rem 0.6rem;">Copy Code</button>
+              </div>
+              <pre class="code-content-inner language-java"><code>/**
+ * Course: MC101 - Problem Solving &amp; Programming Concepts using Java
+ * First Java Program executed inside Eclipse IDE
+ */
+public class FirstProgram {
+    public static void main(String[] args) {
+        System.out.println("==================================================");
+        System.out.println("  🎉 Congratulations! Eclipse IDE is Ready!      ");
+        System.out.println("==================================================");
+        System.out.println("Java Vendor  : " + System.getProperty("java.vendor"));
+        System.out.println("Java Version : " + System.getProperty("java.version"));
+        System.out.println("OS Name      : " + System.getProperty("os.name"));
+        System.out.println("User Working : " + System.getProperty("user.dir"));
+        System.out.println("==================================================");
+        System.out.println("Status       : System Environment is 100% Configured!");
+    }
+}</code></pre>
+            </div>
+            <div class="output-pane">
+              <div class="pane-header" style="color:#34d399;">⚡ Eclipse Console Output</div>
+              <pre class="output-content-inner"><code>==================================================
+  🎉 Congratulations! Eclipse IDE is Ready!      
+==================================================
+Java Vendor  : Oracle Corporation / Eclipse Adoptium
+Java Version : 17.0.10 / 21.0.2
+OS Name      : Windows 11 / macOS / Linux
+User Working : C:\Users\student\eclipse-workspace\MCA_Java_Coursework
+==================================================
+Status       : System Environment is 100% Configured!
+
+&lt;terminated, exit code: 0&gt; FirstProgram [Java Application]</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Essential Eclipse Productivity Shortcuts Cheatsheet -->
+      <section class="content-card mb-4" id="eclipse-shortcuts-card">
+        <div class="card-header-styled">
+          <div class="header-left">
+            <span class="icon-tag">⚡</span>
+            <h3>Eclipse Keyboard Shortcuts Cheatsheet for MCA Students</h3>
+          </div>
+          <span class="type-badge" style="background:#e0e7ff; color:#3730a3;">Productivity Vault</span>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="styled-table">
+              <thead>
+                <tr>
+                  <th style="width: 22%;">Shortcut (Win / Linux)</th>
+                  <th style="width: 22%;">Shortcut (macOS)</th>
+                  <th style="width: 26%;">Action / Command</th>
+                  <th style="width: 30%;">Why Every Student Must Know This</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><kbd>Ctrl</kbd> + <kbd>Space</kbd></td>
+                  <td><kbd>Cmd ⌘</kbd> + <kbd>Space</kbd></td>
+                  <td><strong>Content Assist / Autocomplete</strong></td>
+                  <td>Type <code>sysout</code> then press shortcut $\rightarrow$ instantly expands to <code>System.out.println();</code>!</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd></td>
+                  <td><kbd>Cmd ⌘</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd></td>
+                  <td><strong>Source Auto-Format &amp; Indent</strong></td>
+                  <td>Instantly cleans messy indentation, spaces, and brackets across your entire Java file.</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd></td>
+                  <td><kbd>Cmd ⌘</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd></td>
+                  <td><strong>Organize Imports</strong></td>
+                  <td>Automatically adds missing <code>import java.util.*</code> packages and removes unused imports.</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl</kbd> + <kbd>F11</kbd></td>
+                  <td><kbd>Cmd ⌘</kbd> + <kbd>F11</kbd></td>
+                  <td><strong>Run Active Java Program</strong></td>
+                  <td>Compiles and executes the current class immediately without touching the mouse.</td>
+                </tr>
+                <tr>
+                  <td><kbd>F3</kbd> or <kbd>Ctrl</kbd> + Click</td>
+                  <td><kbd>F3</kbd> or <kbd>Cmd ⌘</kbd> + Click</td>
+                  <td><strong>Open Declaration / Definition</strong></td>
+                  <td>Jumps directly to the source code definition of any class, method, or variable.</td>
+                </tr>
+                <tr>
+                  <td><kbd>Ctrl</kbd> + <kbd>/</kbd></td>
+                  <td><kbd>Cmd ⌘</kbd> + <kbd>/</kbd></td>
+                  <td><strong>Toggle Comment Lines</strong></td>
+                  <td>Quickly comments/uncomments selected lines with double forward slashes (<code>//</code>).</td>
+                </tr>
+                <tr>
+                  <td><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd></td>
+                  <td><kbd>Option ⌥</kbd> + <kbd>Cmd ⌘</kbd> + <kbd>S</kbd></td>
+                  <td><strong>Generate Source Code Menu</strong></td>
+                  <td>Auto-generates Getters, Setters, Constructors, <code>toString()</code>, and <code>equals()</code> methods!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Frequently Asked Questions & Troubleshooting -->
+      <section class="content-card mb-4" id="eclipse-faq-section">
+        <div class="card-header-styled">
+          <div class="header-left">
+            <span class="icon-tag">❓</span>
+            <h3>Frequently Asked Questions &amp; Troubleshooting</h3>
+          </div>
+          <span class="type-badge" style="background:#ecfdf5; color:#065f46;">FAQ &amp; Diagnostics</span>
+        </div>
+        <div class="card-body">
+          <div class="faq-accordion-list">
+            
+            <div class="faq-item-card">
+              <h5 class="faq-q">Q1: Do I need to install Java/JDK separately if I already installed Eclipse?</h5>
+              <div class="faq-a">
+                <p>Eclipse includes an embedded lightweight Java runtime (JustJ JRE) to run the IDE itself. However, for developing, compiling, debugging MCA programs, and utilizing JDK command-line tools (like <code>javap</code>, <code>javadoc</code>, <code>jdb</code>), you should have an official <strong>JDK (Java Development Kit 17 or 21)</strong> installed. Since your Windows 11 PC already has Java installed, Eclipse will automatically bind to it!</p>
+              </div>
+            </div>
+
+            <div class="faq-item-card">
+              <h5 class="faq-q">Q2: Where are my Java files and projects stored on my computer?</h5>
+              <div class="faq-a">
+                <p>All your projects, <code>.java</code> source files, and compiled <code>.class</code> binaries are stored inside your designated <strong>Workspace directory</strong>:</p>
+                <ul class="steps-bullet-list">
+                  <li><strong>Windows:</strong> <code>C:\Users\&lt;YourUsername&gt;\eclipse-workspace\&lt;ProjectName&gt;\src</code></li>
+                  <li><strong>macOS:</strong> <code>/Users/&lt;YourUsername&gt;/eclipse-workspace/&lt;ProjectName&gt;/src</code></li>
+                  <li><strong>Linux:</strong> <code>/home/&lt;YourUsername&gt;/eclipse-workspace/&lt;ProjectName&gt;/src</code></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item-card">
+              <h5 class="faq-q">Q3: How do I increase code font size and change theme in Eclipse?</h5>
+              <div class="faq-a">
+                <p>To enlarge editor text font: Go to <code>Window → Preferences → General → Appearance → Colors and Fonts → Java → Java Editor Text Font → Edit...</code> (set to 14pt or 16pt for comfortable reading).</p>
+                <p>To enable Dark Theme: Go to <code>Window → Preferences → General → Appearance</code> and change <em>Theme</em> to <strong>Dark</strong>.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
     </div>
 
   </main>
