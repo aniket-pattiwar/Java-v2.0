@@ -2,7 +2,7 @@ package day04_multithreading;
 
 /**
  * Demo 3: Deadlock Creation and Deadlock Avoidance Strategy
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 public class DeadlockDemo {
 

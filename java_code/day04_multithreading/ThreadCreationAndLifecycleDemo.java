@@ -2,7 +2,7 @@ package day04_multithreading;
 
 /**
  * Demo 1: Thread Creation (Thread vs Runnable) & Lifecycle States
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 class CustomThread extends Thread {
     public CustomThread(String name) {

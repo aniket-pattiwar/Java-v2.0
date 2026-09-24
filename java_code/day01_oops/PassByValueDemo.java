@@ -2,7 +2,7 @@ package day01_oops;
 
 /**
  * Demo 2: The Universal Truth - Java is 100% Pass-by-Value
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 class Student {
     String name;

@@ -2,7 +2,7 @@ package day01_oops;
 
 /**
  * Demo 1: Primitive vs Reference Data Types & JVM Memory (Stack vs Heap)
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 public class MemoryAndPrimitivesDemo {
 
@@ -31,8 +31,8 @@ public class MemoryAndPrimitivesDemo {
         System.out.println("copiedArray[0]: " + copiedArray[0]);
 
         System.out.println("\n=== 3. Reference Equality (==) vs Content Equality (.equals()) ===");
-        String s1 = new String("LNMC");
-        String s2 = new String("LNMC");
+        String s1 = new String("Java");
+        String s2 = new String("Java");
 
         System.out.println("s1 == s2: " + (s1 == s2) + " (False! Compares Stack memory pointers)");
         System.out.println("s1.equals(s2): " + s1.equals(s2) + " (True! Compares character content)");

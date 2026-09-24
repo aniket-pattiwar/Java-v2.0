@@ -4,20 +4,20 @@ import java.io.*;
 
 /**
  * Demo 1: Java I/O Streams (Byte Streams vs Character Streams) & Buffering
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 public class IOStreamsAndReadersDemo {
 
     public static void main(String[] args) {
-        File dataFile = new File("college_records.txt");
+        File dataFile = new File("academic_records.txt");
 
         System.out.println("=== 1. Writing Text using Character Stream (BufferedWriter) ===");
         // Try-with-resources: Automatically closes streams and flushes buffers
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile))) {
-            writer.write("L.N. Mishra College of Business Management\n");
-            writer.write("MCA & MBA Batch: 2024-2026\n");
+            writer.write("Master of Computer Applications (MCA)\n");
+            writer.write("Academic Batch: 2024-2026\n");
             writer.write("Subject: Advanced Java & Distributed Systems\n");
-            writer.write("Location: Patna, Bihar\n");
+            writer.write("Program: Postgraduate Computing Curriculum\n");
             System.out.println("Data successfully written to " + dataFile.getAbsolutePath());
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());

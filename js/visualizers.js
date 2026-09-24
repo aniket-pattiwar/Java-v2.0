@@ -336,7 +336,7 @@ const Visualizers = {
             </div>
             <div class="atm-screen-mock" id="atmMockScreen">
               <div style="font-size:0.75rem; color:#94a3b8; margin-bottom:0.35rem; display:flex; justify-content:space-between;">
-                <span>[ BANK OF LNMI // ATM TERMINAL ]</span>
+                <span>[ APEX GLOBAL BANK // ATM TERMINAL ]</span>
                 <span style="color:#22c55e;">● ONLINE</span>
               </div>
               <div id="atmStatusText" style="font-size:1rem; font-weight:bold; color:#38bdf8; min-height:45px; display:flex; align-items:center;">
@@ -736,5 +736,117 @@ const Visualizers = {
         <span style="color:#f472b6;">▶ Runtime Execution:</span> P2P Node Handshake established! 0.0001 BTC settled across Lightning Network channel.
       `;
     }
+  },
+
+  // 5. Unit 1: Number System & 2's Complement Simulator
+  setNumberConverterPreset: function(val) {
+    const input = document.getElementById("numConvInput");
+    if (input) input.value = val;
+    this.updateNumberConverter(val);
+  },
+
+  updateNumberConverter: function(valStr) {
+    const stage = document.getElementById("number-converter-stage");
+    if (!stage) return;
+
+    let num = parseInt(valStr, 10);
+    if (isNaN(num)) num = 0;
+
+    // Constrain to 8-bit range [-128, 255]
+    const byteVal = (num < 0) ? ((num & 0xFF) - 256) : (num > 127 ? (num - 256) : num);
+    const u8 = num & 0xFF;
+    const binStr = u8.toString(2).padStart(8, '0');
+    const octStr = u8.toString(8);
+    const hexStr = u8.toString(16).toUpperCase();
+
+    // 1's complement of 8-bit
+    const onesCompU8 = (~u8) & 0xFF;
+    const onesBinStr = onesCompU8.toString(2).padStart(8, '0');
+
+    // 2's complement of 8-bit
+    const twosCompU8 = ((-num) & 0xFF);
+    const twosBinStr = twosCompU8.toString(2).padStart(8, '0');
+
+    // Bit cells HTML
+    const bitCells = binStr.split('').map((bit, idx) => {
+      const bitWeight = Math.pow(2, 7 - idx);
+      const isMSB = idx === 0;
+      return `
+        <div style="display:flex; flex-direction:column; align-items:center; background:${bit === '1' ? 'var(--primary-600)' : 'var(--bg-surface-secondary)'}; color:${bit === '1' ? '#ffffff' : 'var(--text-primary)'}; border:1.5px solid ${bit === '1' ? 'var(--primary-700)' : 'var(--border-medium)'}; border-radius:var(--radius-md); padding:0.6rem 0.4rem; min-width:48px; box-shadow:var(--shadow-sm); transition:all 0.2s;">
+          <span style="font-family:var(--font-mono); font-size:1.35rem; font-weight:800;">${bit}</span>
+          <span style="font-size:0.65rem; opacity:0.8; margin-top:0.25rem;">2<sup>${7 - idx}</sup></span>
+          <span style="font-size:0.65rem; font-weight:700; opacity:0.9;">(${bitWeight})</span>
+          ${isMSB ? '<span style="font-size:0.6rem; font-weight:800; background:#ef4444; color:#fff; border-radius:3px; padding:0 3px; margin-top:3px;">SIGN</span>' : ''}
+        </div>
+      `;
+    }).join('');
+
+    stage.innerHTML = `
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem;">
+        
+        <!-- 8-Bit Visual Register -->
+        <div style="background:var(--bg-surface-primary); border:1.5px solid var(--border-subtle); border-radius:var(--radius-lg); padding:1.25rem;">
+          <div style="font-size:0.85rem; font-weight:700; color:var(--text-secondary); margin-bottom:0.75rem; display:flex; justify-content:space-between; align-items:center;">
+            <span>8-Bit Hardware Register Bits (MSB → LSB)</span>
+            <span class="college-tag" style="margin:0;">Decimal: ${num}</span>
+          </div>
+          <div style="display:flex; gap:0.4rem; justify-content:space-between; flex-wrap:nowrap; overflow-x:auto; padding-bottom:0.5rem;">
+            ${bitCells}
+          </div>
+          <div style="margin-top:0.75rem; font-size:0.825rem; color:var(--text-secondary); background:var(--bg-surface-secondary); padding:0.6rem 0.85rem; border-radius:var(--radius-md); font-family:var(--font-mono);">
+            Positional Sum: ${binStr.split('').map((b, i) => b === '1' ? Math.pow(2, 7 - i) : null).filter(Boolean).join(' + ') || '0'} = ${u8}
+          </div>
+        </div>
+
+        <!-- Radix Conversions Table -->
+        <div style="background:var(--bg-surface-primary); border:1.5px solid var(--border-subtle); border-radius:var(--radius-lg); padding:1.25rem;">
+          <div style="font-size:0.85rem; font-weight:700; color:var(--text-secondary); margin-bottom:0.75rem;">
+            Multi-Base Representations
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.6rem; font-family:var(--font-mono); font-size:0.875rem;">
+            <div style="background:var(--bg-surface-secondary); padding:0.6rem 0.75rem; border-radius:var(--radius-md); border-left:3px solid #6366f1;">
+              <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Binary (Base 2)</div>
+              <strong style="color:var(--text-primary); font-size:1rem;">${binStr}₂</strong>
+            </div>
+            <div style="background:var(--bg-surface-secondary); padding:0.6rem 0.75rem; border-radius:var(--radius-md); border-left:3px solid #0ea5e9;">
+              <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Octal (Base 8)</div>
+              <strong style="color:var(--text-primary); font-size:1rem;">${octStr}₈</strong>
+            </div>
+            <div style="background:var(--bg-surface-secondary); padding:0.6rem 0.75rem; border-radius:var(--radius-md); border-left:3px solid #10b981;">
+              <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Hexadecimal (Base 16)</div>
+              <strong style="color:var(--text-primary); font-size:1rem;">0x${hexStr}</strong>
+            </div>
+            <div style="background:var(--bg-surface-secondary); padding:0.6rem 0.75rem; border-radius:var(--radius-md); border-left:3px solid #f59e0b;">
+              <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Signed 8-bit byte</div>
+              <strong style="color:var(--text-primary); font-size:1rem;">${(num > 127) ? (num - 256) : (num < -128 ? (num + 256) : num)}</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1's & 2's Complement Inspector -->
+        <div style="background:var(--bg-surface-primary); border:1.5px solid var(--border-subtle); border-radius:var(--radius-lg); padding:1.25rem; grid-column:1 / -1;">
+          <div style="font-size:0.85rem; font-weight:700; color:var(--text-secondary); margin-bottom:0.75rem;">
+            Arithmetic Complement Pipeline (~X & 2's Complement Negation)
+          </div>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:0.75rem; font-family:var(--font-mono); font-size:0.85rem;">
+            <div style="background:var(--bg-surface-secondary); padding:0.75rem; border-radius:var(--radius-md);">
+              <div style="color:var(--text-muted); font-size:0.75rem;">Original Binary (X):</div>
+              <div style="font-size:1.05rem; font-weight:700; color:var(--text-primary); margin-top:0.25rem;">${binStr}</div>
+            </div>
+            <div style="background:var(--bg-surface-secondary); padding:0.75rem; border-radius:var(--radius-md);">
+              <div style="color:var(--text-muted); font-size:0.75rem;">1's Complement (~X):</div>
+              <div style="font-size:1.05rem; font-weight:700; color:#0284c7; margin-top:0.25rem;">${onesBinStr}</div>
+              <div style="font-size:0.7rem; color:var(--text-secondary); margin-top:0.2rem;">(All bits inverted)</div>
+            </div>
+            <div style="background:var(--bg-surface-secondary); padding:0.75rem; border-radius:var(--radius-md);">
+              <div style="color:var(--text-muted); font-size:0.75rem;">2's Complement (~X + 1 = -X):</div>
+              <div style="font-size:1.05rem; font-weight:700; color:#16a34a; margin-top:0.25rem;">${twosBinStr}</div>
+              <div style="font-size:0.7rem; color:var(--text-secondary); margin-top:0.2rem;">(Represents ${-num} in ALU hardware)</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    `;
   }
 };

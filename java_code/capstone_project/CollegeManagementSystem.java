@@ -5,8 +5,8 @@ import java.util.*;
 
 /**
  * ============================================================================
- * L.N. MISHRA COLLEGE OF BUSINESS MANAGEMENT
- * Java SME Masterclass - Capstone Project: Enterprise College Management System
+ * Enterprise Java Masterclass - MCA Program
+ * Capstone Project: Enterprise Student & Academic Management System
  * ============================================================================
  * Demonstrates:
  * 1. Object-Oriented Principles (Abstraction, Inheritance, Polymorphism)
@@ -87,10 +87,10 @@ class Student extends Person implements Comparable<Student> {
     }
 }
 
-// --- 3. College Registry Service with Collections & I/O ---
-class CollegeService {
+// --- 3. Academic Registry Service with Collections & I/O ---
+class StudentService {
     private final Map<Integer, Student> studentMap = new HashMap<>();
-    private static final String AUDIT_LOG = "college_transaction_audit.txt";
+    private static final String AUDIT_LOG = "transaction_audit.txt";
 
     public void registerStudent(Student student) {
         studentMap.put(student.getId(), student);
@@ -100,7 +100,7 @@ class CollegeService {
     public Student getStudent(int id) throws StudentNotFoundException {
         Student s = studentMap.get(id);
         if (s == null) {
-            throw new StudentNotFoundException("Student with ID " + id + " not found in LNMC registry!");
+            throw new StudentNotFoundException("Student with ID " + id + " not found in registry!");
         }
         return s;
     }
@@ -126,19 +126,19 @@ public class CollegeManagementSystem {
 
     public static void main(String[] args) {
         System.out.println("===============================================================");
-        System.out.println(" L.N. MISHRA COLLEGE OF BUSINESS MANAGEMENT (PATNA)");
-        System.out.println(" Enterprise Java SME Capstone Management System");
+        System.out.println(" ENTERPRISE STUDENT & ACADEMIC MANAGEMENT SYSTEM");
+        System.out.println(" Core Java & Distributed Computing Capstone");
         System.out.println("===============================================================\n");
 
-        CollegeService service = new CollegeService();
+        StudentService service = new StudentService();
 
         // 1. Enrollment & Collections
         System.out.println("--- 1. Enrolling Students into System ---");
-        service.registerStudent(new Student(101, "Vikram Malhotra", "vikram@lnmc.ac.in", "MCA", 8.9, 45000));
-        service.registerStudent(new Student(102, "Ananya Roy", "ananya@lnmc.ac.in", "MBA", 9.6, 50000));
-        service.registerStudent(new Student(103, "Rohan Verma", "rohan@lnmc.ac.in", "MCA", 7.8, 30000));
-        service.registerStudent(new Student(104, "Priya Kumari", "priya@lnmc.ac.in", "MBA", 9.6, 40000));
-        service.registerStudent(new Student(105, "Amitabh Sen", "amitabh@lnmc.ac.in", "MCA", 8.4, 35000));
+        service.registerStudent(new Student(101, "Vikram Malhotra", "vikram@univ.edu", "MCA", 8.9, 45000));
+        service.registerStudent(new Student(102, "Ananya Roy", "ananya@univ.edu", "MBA", 9.6, 50000));
+        service.registerStudent(new Student(103, "Rohan Verma", "rohan@univ.edu", "MCA", 7.8, 30000));
+        service.registerStudent(new Student(104, "Priya Kumari", "priya@univ.edu", "MBA", 9.6, 40000));
+        service.registerStudent(new Student(105, "Amitabh Sen", "amitabh@univ.edu", "MCA", 8.4, 35000));
 
         // 2. Polymorphic Display
         System.out.println("\n--- 2. Merit Ranking via Custom Comparator ---");
@@ -192,7 +192,7 @@ public class CollegeManagementSystem {
         }
 
         System.out.println("\n===============================================================");
-        System.out.println(" Capstone Execution Complete. Audit logs written to college_transaction_audit.txt");
+        System.out.println(" Capstone Execution Complete. Audit logs written to transaction_audit.txt");
         System.out.println("===============================================================");
     }
 }

@@ -6,7 +6,7 @@ import java.util.Queue;
 /**
  * Demo 4: Inter-Thread Communication via wait(), notify() & notifyAll()
  * Producer-Consumer Pattern (Printing Press / Hall Ticket Generation)
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 class AdmitCardQueue {
     private final Queue<String> queue = new LinkedList<>();

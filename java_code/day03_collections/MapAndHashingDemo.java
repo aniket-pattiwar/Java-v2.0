@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Demo 2: Map Architecture, HashMap Buckets & The hashCode / equals Contract
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 class StudentKey {
     int rollNumber;

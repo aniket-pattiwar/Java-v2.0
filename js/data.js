@@ -1,17 +1,12 @@
 /**
- * ACTS, C-DAC Patna & LNMI Patna
- * Course Code: MC101 - Problem Solving & OOPs with Java (MCA Sem-I)
- * Subject Matter Expert (SME): Aniket
+ * Course Code: MC101 - Problem Solving & Programming Concepts using Java
+ * Program: MCA (Master of Computer Applications) - Semester I
  */
 
 const COURSE_DATA = {
-  institution: "LNMI, Patna in association with ACTS, C-DAC Patna",
   program: "MCA (Master of Computer Applications) - Semester I",
   courseTitle: "Problem Solving & Programming Concepts using Java",
   courseCode: "MC101",
-  credits: 4,
-  assessment: "IA: 30 Marks | ESE: 70 Marks",
-  smeName: "Aniket",
 
   // Reference Textbooks from Syllabus
   references: [
@@ -22,8 +17,1145 @@ const COURSE_DATA = {
     "NPTEL E-Resources (http://nptel.ac.in/)"
   ],
 
-  // Units 3, 4, 5
+  // Complete Syllabus Modules (Units 1 to 5)
   modules: [
+    {
+      id: "unit1-problem-solving",
+      unitNumber: 1,
+      navTitle: "Problem Solving & Numbers",
+      unitCode: "UNIT 1",
+      title: "Problem Solving & Number System",
+      summary: "Logical thinking, Problem-solving Process, Flowchart & Algorithm, Pseudo Code, Number Systems (Binary, Octal, Decimal, Hexadecimal), Positional Notation, Number Base Conversions, Binary Arithmetic, Signed & Unsigned Number Representations, Computer Arithmetic.",
+      outcomes: "CO1: Apply problem-solving techniques to analyze requirements and develop efficient algorithmic solutions for real-world problems.",
+      topics: [
+        {
+          id: "u1-t1",
+          title: "Problem-Solving Process, Flowcharts, Algorithms & Pseudocode",
+          image: "images/unit1_flowcharts_algorithms.jpg",
+          imageCaption: "Technical Diagram: Standard Flowchart Symbols & Euclidean GCD Logic Execution Flow",
+          analogyImages: [
+            {
+              src: "images/unit1_algorithm_recipe_navigation_analogy.jpg",
+              caption: "Real-World Mental Models: 1) Master Chef's Recipe (Sequential Ingredients & Steps), 2) GPS Turn-by-Turn Navigation (Dynamic Decision Diamonds & Rerouting)"
+            }
+          ],
+          content: `
+            <p>Solving complex computational problems systematically requires structured methodologies before writing any Java code:</p>
+            <ul>
+              <li><strong>1. Problem Analysis & Specification:</strong> Clearly understanding inputs, expected outputs, boundary edge-cases, and operational constraints.</li>
+              <li><strong>2. Algorithmic Formulation:</strong> Developing an unambiguous, finite step-by-step sequence of computational instructions.</li>
+              <li><strong>3. Flowchart Design:</strong> Graphically modeling the logic flow using standard ANSI/ISO visual symbols.</li>
+              <li><strong>4. Pseudocode Drafting:</strong> Writing language-independent, human-readable structured logic using programming control constructs.</li>
+              <li><strong>5. Coding & Verification:</strong> Implementing the solution in Java and verifying with boundary test vectors.</li>
+            </ul>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">Standard Flowchart Geometric Symbols</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Symbol</th>
+                    <th>Geometric Shape</th>
+                    <th>Functional Purpose in Flowcharting</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Terminal</strong></td>
+                    <td>Oval / Rounded Rectangle</td>
+                    <td>Indicates the start (<code>Start</code>) or termination (<code>End</code> / <code>Stop</code>) of a program.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Input / Output</strong></td>
+                    <td>Parallelogram</td>
+                    <td>Reading input data from user (<code>Read N</code>) or displaying output (<code>Print Result</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Process</strong></td>
+                    <td>Rectangle</td>
+                    <td>Arithmetic computation or data assignment (e.g. <code>sum = a + b</code>, <code>i = i + 1</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Decision</strong></td>
+                    <td>Diamond (Rhombus)</td>
+                    <td>Conditional branch test (e.g. <code>is b == 0?</code>) yielding two output paths: <strong>Yes / True</strong> and <strong>No / False</strong>.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Connector</strong></td>
+                    <td>Small Circle</td>
+                    <td>Connects fragmented flowlines without crossing intersecting lines.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Flow Line</strong></td>
+                    <td>Arrowed Line (→)</td>
+                    <td>Indicates the sequential direction of program execution flow.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">5 Essential Properties of a Valid Algorithm</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Criterion</th>
+                    <th>Formal Definition</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>Finiteness</strong></td><td>Must terminate after a countable, finite number of steps for all valid inputs.</td></tr>
+                  <tr><td><strong>Definiteness</strong></td><td>Every step must be precisely defined and completely unambiguous (no contradictory logic).</td></tr>
+                  <tr><td><strong>Input</strong></td><td>Accepts 0 or more well-defined external inputs.</td></tr>
+                  <tr><td><strong>Output</strong></td><td>Produces at least 1 well-defined output related to the input requirements.</td></tr>
+                  <tr><td><strong>Effectiveness</strong></td><td>Every operation must be basic enough to be carried out exactly in a finite duration.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+          analogy: "An Algorithm is a chef's exact culinary recipe; a Flowchart is the visual kitchen assembly diagram; Pseudocode is the plain-English prep instructions before baking it in the Java compiler.",
+          trap: "Is Pseudocode programming-language specific? No! Pseudocode is strictly language-agnostic. Using Java-specific syntax like 'public static void main' in pseudocode violates universal design standards.",
+          codeSnippet: {
+            filename: "FlowchartAndAlgorithmsDemo.java",
+            code: `public class FlowchartAndAlgorithmsDemo {
+    // 1. Euclidean Algorithm for GCD: O(log(min(a,b)))
+    // Flowchart: [Start] -> [Read a,b] -> <is b==0?> --Yes--> [Return a]
+    //                                         |--No--> [rem=a%b, a=b, b=rem] (Loop)
+    public static int computeGcd(int a, int b) {
+        while (b != 0) {
+            int remainder = a % b;
+            a = b;
+            b = remainder;
+        }
+        return a;
+    }
+
+    // 2. Primality Test: O(sqrt(N))
+    public static boolean isPrime(int n) {
+        if (n <= 1) return false;
+        if (n <= 3) return true;
+        if (n % 2 == 0 || n % 3 == 0) return false;
+        for (int i = 5; (long) i * i <= n; i += 6) {
+            if (n % i == 0 || n % (i + 2) == 0) return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        int x = 72, y = 120;
+        System.out.println("GCD(" + x + ", " + y + ") = " + computeGcd(x, y));
+        System.out.println("Is 97 Prime? -> " + isPrime(97));
+    }
+}`,
+            output: `GCD(72, 120) = 24
+Is 97 Prime? -> true`
+          },
+          mcqs: [
+            {
+              id: "u1_t1_mcq1",
+              question: "Which geometric symbol is universally designated in flowchart standards for conditional branching and decision making?",
+              options: [
+                "Parallelogram",
+                "Diamond (Rhombus)",
+                "Rectangle",
+                "Oval"
+              ],
+              correct: 1,
+              explanation: "In flowchart standards (ISO/ANSI), a Diamond (Rhombus) represents a Decision/Conditional check with two or more exiting flowlines (e.g. True/False), whereas Parallelogram is for I/O, Rectangle is for Processing, and Oval is for Terminals (Start/Stop)."
+            },
+            {
+              id: "u1_t1_mcq2",
+              question: "Which algorithm property dictates that every instruction must be clear, unambiguous, and have only one possible interpretation?",
+              options: [
+                "Finiteness",
+                "Definiteness",
+                "Effectiveness",
+                "Generality"
+              ],
+              correct: 1,
+              explanation: "Definiteness requires that each algorithmic step must be clearly and unambiguously defined. Finiteness ensures the algorithm terminates, while Effectiveness guarantees steps are fundamentally feasible."
+            }
+          ]
+        },
+        {
+          id: "u1-t2",
+          title: "Number Systems & Positional Notation (Binary, Octal, Decimal, Hexadecimal)",
+          image: "images/unit1_number_systems_positional.jpg",
+          imageCaption: "Technical Diagram: Number Base Radices (Base 2, 8, 10, 16) & Mathematical Positional Notation Formula",
+          analogyImages: [
+            {
+              src: "images/unit1_number_system_abacus_odometer_analogy.jpg",
+              caption: "Real-World Mental Models: Mechanical Car Odometer & Wooden Bead Abacus (Modular Base Increments & Place-Value Carrying)"
+            }
+          ],
+          content: `
+            <p>A <strong>Number System</strong> is a mathematical framework for representing numerical quantities using a consistent set of symbols (digits) and rules.</p>
+            
+            <h4 style="margin-top:1rem; margin-bottom:0.5rem; color:var(--text-primary);">Positional Weighting Principle</h4>
+            <p>In a positional number system with base (radix) <code>r</code>, the total value <code>N</code> of any number is determined by the sum of its digits multiplied by their positional weights:</p>
+            <div style="background:var(--bg-surface-secondary); padding:1rem; border-radius:var(--radius-md); font-family:var(--font-mono); font-size:0.95rem; margin:0.75rem 0; border:1px solid var(--border-subtle);">
+              N = (d<sub>n-1</sub> · r<sup>n-1</sup>) + ... + (d<sub>1</sub> · r<sup>1</sup>) + (d<sub>0</sub> · r<sup>0</sup>) + (d<sub>-1</sub> · r<sup>-1</sup>) + ... + (d<sub>-m</sub> · r<sup>-m</sup>)
+            </div>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">The 4 Fundamental Computing Number Systems</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Number System</th>
+                    <th>Base (Radix)</th>
+                    <th>Allowed Digits / Symbols</th>
+                    <th>Bit Grouping</th>
+                    <th>Primary Use in Computer Science</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Binary</strong></td>
+                    <td><code>2</code></td>
+                    <td><code>0, 1</code></td>
+                    <td>1 bit</td>
+                    <td>Physical digital electronics (transistor ON/OFF voltage states).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Octal</strong></td>
+                    <td><code>8</code></td>
+                    <td><code>0, 1, 2, 3, 4, 5, 6, 7</code></td>
+                    <td>3 bits (2<sup>3</sup> = 8)</td>
+                    <td>Compact representation of 3-bit Unix file permissions (<code>chmod 755</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Decimal</strong></td>
+                    <td><code>10</code></td>
+                    <td><code>0, 1, 2, 3, 4, 5, 6, 7, 8, 9</code></td>
+                    <td>—</td>
+                    <td>Human readable counting and arithmetic.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Hexadecimal</strong></td>
+                    <td><code>16</code></td>
+                    <td><code>0-9, A, B, C, D, E, F</code> (A=10...F=15)</td>
+                    <td>4 bits / 1 nibble (2<sup>4</sup> = 16)</td>
+                    <td>Memory addresses (e.g. <code>0x7FFEE4</code>), IPv6, color hex codes (<code>#FF5733</code>), bytecode.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+          analogy: "Counting in Decimal is like using ₹10 and ₹100 denomination notes. Binary is like a room with single on/off light switches. Hexadecimal is a shorthand way for humans to read 4 binary switches at a single glance.",
+          trap: "What is the maximum allowed single digit value in base r? Always (r - 1)! For example, an Octal number can NEVER contain the digit '8' or '9'. Writing 078 in Java throws a compilation error!",
+          codeSnippet: {
+            filename: "PositionalNotationDemo.java",
+            code: `public class PositionalNotationDemo {
+    public static void main(String[] args) {
+        // Decimal 254 represented in different Java integer literal bases
+        int dec = 254;
+        int binLit = 0b11111110;  // 0b prefix for Binary
+        int octLit = 0376;        // 0  prefix for Octal
+        int hexLit = 0xFE;        // 0x prefix for Hexadecimal
+
+        System.out.println("Decimal Value        : " + dec);
+        System.out.println("Binary Literal 0b... : " + binLit);
+        System.out.println("Octal Literal  0...  : " + octLit);
+        System.out.println("Hex Literal    0x... : " + hexLit);
+        System.out.println("Are all literals equal in memory? -> " + (dec == binLit && binLit == octLit && octLit == hexLit));
+    }
+}`,
+            output: `Decimal Value        : 254
+Binary Literal 0b... : 254
+Octal Literal  0...  : 254
+Hex Literal    0x... : 254
+Are all literals equal in memory? -> true`
+          },
+          mcqs: [
+            {
+              id: "u1_t2_mcq1",
+              question: "How many binary bits (binary digits) are directly represented by a single Hexadecimal digit?",
+              options: [
+                "2 bits",
+                "3 bits",
+                "4 bits (1 Nibble)",
+                "8 bits (1 Byte)"
+              ],
+              correct: 2,
+              explanation: "Since 16 = 2^4, exactly 4 binary bits (one nibble) map 1-to-1 to a single hexadecimal digit (e.g., binary 1111 = Hex F = Decimal 15)."
+            },
+            {
+              id: "u1_t2_mcq2",
+              question: "What is the decimal equivalent of the Octal number (347)₈ using positional expansion?",
+              options: [
+                "231",
+                "256",
+                "215",
+                "347"
+              ],
+              correct: 0,
+              explanation: "(347)₈ = (3 × 8²) + (4 × 8¹) + (7 × 8⁰) = (3 × 64) + (4 × 8) + (7 × 1) = 192 + 32 + 7 = 231₁₀."
+            }
+          ]
+        },
+        {
+          id: "u1-t3",
+          title: "Number Base Conversions (Decimal ↔ Binary ↔ Octal ↔ Hexadecimal)",
+          image: "images/unit1_base_conversions_grouping.jpg",
+          imageCaption: "Technical Diagram: Repeated Division Algorithm, Fractional Multiplication & 3-bit/4-bit Direct Grouping",
+          analogyImages: [
+            {
+              src: "images/unit1_base_conversion_color_currency_analogy.jpg",
+              caption: "Real-World Mental Models: Web Design 24-bit RGB Hex Color Codes (#FF5733) & International Currency Conversion Counters"
+            }
+          ],
+          content: `
+            <p>Inter-base conversions follow rigorous mathematical algorithms depending on source and destination radices:</p>
+
+            <h4 style="margin-top:1rem; margin-bottom:0.5rem; color:var(--text-primary);">1. Decimal to Any Target Base (r)</h4>
+            <ul>
+              <li><strong>Integer Part:</strong> Repeated Division by <code>r</code>. Record remainders from bottom-to-top (Last remainder is Most Significant Digit).</li>
+              <li><strong>Fractional Part:</strong> Repeated Multiplication by <code>r</code>. Record generated integer parts from top-to-bottom.</li>
+            </ul>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">2. Any Base (r) to Decimal</h4>
+            <p>Multiply each digit by its positional power <code>r<sup>i</sup></code> and calculate the algebraic sum.</p>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">3. Direct 3-Bit and 4-Bit Grouping (Binary ↔ Octal / Hexadecimal)</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Conversion Rule</th>
+                    <th>Grouping Strategy</th>
+                    <th>Example Walkthrough</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Binary → Octal</strong></td>
+                    <td>Group bits into <strong>3-bit sets</strong> starting from the right (radix point). Pad leading zeros on left if needed.</td>
+                    <td><code>(11010110)₂</code> → <code>[011][010][110]</code> → <code>(326)₈</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Binary → Hexadecimal</strong></td>
+                    <td>Group bits into <strong>4-bit sets</strong> (nibbles) starting from the right. Pad leading zeros on left.</td>
+                    <td><code>(11010110)₂</code> → <code>[1101][0110]</code> → <code>(D6)₁₆</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Octal → Hexadecimal</strong></td>
+                    <td>Convert Octal digits to 3-bit binary, concatenate, then regroup into 4-bit nibbles.</td>
+                    <td><code>(376)₈</code> → <code>011 111 110</code> → <code>[1111][1110]</code> → <code>(FE)₁₆</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+          analogy: "Direct grouping conversion is like currency exchange: instead of converting coins one-by-one through decimal, 3 binary bits package directly into 1 Octal unit (2³ = 8) and 4 binary bits package into 1 Hex unit (2⁴ = 16).",
+          trap: "When converting a fractional binary number like 0.1011₂ to Hexadecimal, group by 4 bits starting from LEFT to RIGHT after the point and pad trailing zeros (0.1011₂ = 0.B₁₆), NOT from the right!",
+          codeSnippet: {
+            filename: "NumberBaseConversionsDemo.java",
+            code: `public class NumberBaseConversionsDemo {
+    // 1. Repeated Division Algorithm (Decimal -> Any Base)
+    public static String decimalToBase(long num, int base) {
+        if (num == 0) return "0";
+        char[] digits = "0123456789ABCDEF".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        while (num > 0) {
+            sb.append(digits[(int)(num % base)]);
+            num /= base;
+        }
+        return sb.reverse().toString();
+    }
+
+    // 2. Positional Expansion (Any Base -> Decimal)
+    public static long baseToDecimal(String s, int base) {
+        long result = 0;
+        for (char ch : s.toUpperCase().toCharArray()) {
+            int val = (ch >= '0' && ch <= '9') ? (ch - '0') : (10 + ch - 'A');
+            result = result * base + val;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        long val = 254;
+        System.out.println("254 in Binary (Base 2)  : " + decimalToBase(val, 2));
+        System.out.println("254 in Octal  (Base 8)  : " + decimalToBase(val, 8));
+        System.out.println("254 in Hex    (Base 16) : " + decimalToBase(val, 16));
+        System.out.println("Reverse Check FE_16     : " + baseToDecimal("FE", 16));
+    }
+}`,
+            output: `254 in Binary (Base 2)  : 11111110
+254 in Octal  (Base 8)  : 376
+254 in Hex    (Base 16) : FE
+Reverse Check FE_16     : 254`
+          },
+          mcqs: [
+            {
+              id: "u1_t3_mcq1",
+              question: "What is the binary representation of the Hexadecimal number (2B.4)₁₆?",
+              options: [
+                "00101011.0100",
+                "00101010.0100",
+                "01001011.0010",
+                "00101100.0100"
+              ],
+              correct: 0,
+              explanation: "Convert each hex digit to a 4-bit nibble: 2 -> 0010, B (11) -> 1011, and 4 -> 0100. Concatenating gives 00101011.0100₂."
+            },
+            {
+              id: "u1_t3_mcq2",
+              question: "What is the result of converting the Decimal fraction 0.625₁₀ to Binary?",
+              options: [
+                "0.101₂",
+                "0.110₂",
+                "0.011₂",
+                "0.111₂"
+              ],
+              correct: 0,
+              explanation: "Successive multiplication by 2: (0.625 × 2 = 1.25 -> int 1, frac 0.25), (0.25 × 2 = 0.5 -> int 0, frac 0.5), (0.5 × 2 = 1.0 -> int 1, frac 0.0). Reading integers from top to bottom gives 0.101₂."
+            }
+          ]
+        },
+        {
+          id: "u1-t4",
+          title: "Binary Arithmetic, Signed/Unsigned Numbers & 1's / 2's Complement",
+          image: "images/unit1_binary_arithmetic_twos_complement.jpg",
+          imageCaption: "Technical Diagram: 8-Bit 2's Complement Pipeline, Sign Bit, Hardware Subtraction & Circular Boundary Wrap-Around",
+          analogyImages: [
+            {
+              src: "images/unit1_twos_complement_clock_analogy.jpg",
+              caption: "Real-World Mental Models: Circular 12-Hour Wall Clock Modular Subtraction & Mechanical Speedometer Mileage Overflow"
+            }
+          ],
+          content: `
+            <p>Modern computer processors (ALUs) perform all arithmetic computations using binary addition circuits. Subtraction, negative numbers, and logic are handled via <strong>Complements</strong>.</p>
+
+            <h4 style="margin-top:1rem; margin-bottom:0.5rem; color:var(--text-primary);">1. Binary Addition Rules</h4>
+            <div style="background:var(--bg-surface-secondary); padding:0.75rem 1rem; border-radius:var(--radius-md); font-family:var(--font-mono); font-size:0.9rem; margin-bottom:1rem; border:1px solid var(--border-subtle);">
+              0 + 0 = 0 (Carry 0)<br>
+              0 + 1 = 1 (Carry 0)<br>
+              1 + 0 = 1 (Carry 0)<br>
+              1 + 1 = 0 (Carry 1)  -> (10₂)<br>
+              1 + 1 + 1 = 1 (Carry 1) -> (11₂)
+            </div>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">2. Signed Number Representations in Hardware</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Representation</th>
+                    <th>Method to Negate a Value</th>
+                    <th>Range (n-bit word)</th>
+                    <th>Flaws / Engineering Issues</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Sign-Magnitude</strong></td>
+                    <td>Set MSB (Sign bit) = 1 (0 = positive, 1 = negative).</td>
+                    <td>-(2<sup>n-1</sup> - 1) to +(2<sup>n-1</sup> - 1)</td>
+                    <td>Two representations of zero (<code>+0</code> and <code>-0</code>); requires separate subtractor hardware.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>1's Complement</strong></td>
+                    <td>Invert (flip) every bit (<code>~x</code>: 0 becomes 1, 1 becomes 0).</td>
+                    <td>-(2<sup>n-1</sup> - 1) to +(2<sup>n-1</sup> - 1)</td>
+                    <td>Still has dual zeros (<code>00000000</code> and <code>11111111</code>); requires end-around carry addition.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>2's Complement (Industry Standard)</strong></td>
+                    <td>Invert all bits and add 1 (<code>2's Comp = 1's Comp + 1</code>).</td>
+                    <td><strong>-2<sup>n-1</sup> to +(2<sup>n-1</sup> - 1)</strong></td>
+                    <td><strong>Zero is unique (00000000).</strong> Allows subtraction using standard binary addition circuits (<code>A - B = A + 2'sComp(B)</code>).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">3. Computer Arithmetic Overflow & Bitwise Shifts</h4>
+            <p>An <strong>Arithmetic Overflow</strong> occurs when the result of an arithmetic operation exceeds the fixed bit capacity of the data type (e.g. an 8-bit signed byte exceeding +127 wraps around into negative territory: <code>127 + 1 = -128</code>).</p>
+            <ul>
+              <li><code>&lt;&lt;</code> (Arithmetic Left Shift): Multiplies integer by 2<sup>k</sup> by shifting bits left and inserting trailing 0s.</li>
+              <li><code>&gt;&gt;</code> (Signed Arithmetic Right Shift): Divides by 2<sup>k</sup> while <strong>preserving the sign bit (MSB)</strong>.</li>
+              <li><code>&gt;&gt;&gt;</code> (Unsigned Logical Right Shift): Shifts bits right and <strong>always fills left MSB with 0</strong> regardless of sign.</li>
+            </ul>
+          `,
+          analogy: "An automobile odometer rolling over from 999999 to 000000 is identical to fixed 8-bit byte overflow wrapping from +127 to -128 in computer memory.",
+          trap: "Why can an 8-bit signed byte store -128 to +127 (asymmetric range)? Because zero (00000000) takes up one of the positive bit combinations (0 to 127 = 128 positive/zero states), leaving all 128 negative states (10000000 to 11111111 = -128 to -1)!",
+          codeSnippet: {
+            filename: "BinaryArithmeticAndComplementsDemo.java",
+            code: `public class BinaryArithmeticAndComplementsDemo {
+    public static void main(String[] args) {
+        int a = 25; // 00011001
+        int b = 14; // 00001110
+
+        // Subtraction using 2's Complement: A - B = A + (~B + 1)
+        int twosCompB = (-b) & 0xFF; // 8-bit mask
+        int result = (a + twosCompB) & 0xFF;
+
+        System.out.printf("A = 25 (Binary)              : %8s%n", Integer.toBinaryString(a));
+        System.out.printf("B = 14 (Binary)              : %8s%n", Integer.toBinaryString(b));
+        System.out.printf("2's Complement of B (-14)    : %8s%n", Integer.toBinaryString(twosCompB));
+        System.out.printf("Binary Addition (25 + (-14)) : %8s = %d%n%n", Integer.toBinaryString(result), (byte)result);
+
+        // Hardware Overflow in Java byte (8-bit signed)
+        byte maxByte = 127;
+        byte overflow = (byte)(maxByte + 1);
+        System.out.println("Max Byte Value (127) + 1     : " + overflow + " (Wraps to Byte.MIN_VALUE!)");
+    }
+}`,
+            output: `A = 25 (Binary)              :    11001
+B = 14 (Binary)              :     1110
+2's Complement of B (-14)    : 11110010
+Binary Addition (25 + (-14)) :     1011 = 11
+
+Max Byte Value (127) + 1     : -128 (Wraps to Byte.MIN_VALUE!)`
+          },
+          mcqs: [
+            {
+              id: "u1_t4_mcq1",
+              question: "What is the 2's complement representation of the decimal number -19 in an 8-bit signed binary format?",
+              options: [
+                "11101101₂",
+                "11101100₂",
+                "10010011₂",
+                "11110011₂"
+              ],
+              correct: 0,
+              explanation: "+19 in 8-bit binary is 00010011₂. Step 1 (1's complement): flip all bits -> 11101100₂. Step 2 (add 1): 11101100₂ + 1 = 11101101₂."
+            },
+            {
+              id: "u1_t4_mcq2",
+              question: "In Java, what is the key difference between the right shift operators `>>` and `>>>`?",
+              options: [
+                "`>>` is for floating-point numbers, while `>>>` is for integer data types.",
+                "`>>` preserves the sign bit (sign-extension), while `>>>` always fills the highest-order bits with zeros (logical zero-fill).",
+                "`>>>` rotates bits cyclically, while `>>` discards shifted bits.",
+                "`>>` divides by 4, while `>>>` divides by 2."
+              ],
+              correct: 1,
+              explanation: "`>>` is the signed/arithmetic right shift operator which copies the MSB (sign bit) to preserve negative numbers. `>>>` is the unsigned/logical right shift operator which always inserts 0 into the leftmost bit position."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "unit2-java-basics",
+      unitNumber: 2,
+      navTitle: "Java Basics",
+      unitCode: "UNIT 2",
+      title: "Java Basics",
+      summary: "Introduction to Java, Features of Java, JVM / JRE / JDK Architecture & JIT Compiler, Data Types, Type Casting & Promotion, Operators, Control Statements, Arrays (1D, 2D, Jagged) and Strings (Immutability, SCP, StringBuilder).",
+      outcomes: "CO3: Develop Java applications using control structures, arrays, methods, exception handling, and file handling to create robust software solutions.",
+      topics: [
+        {
+          id: "u2-t1",
+          title: "Introduction to Java, Language Features & JVM / JRE / JDK Architecture",
+          image: "images/unit2_jvm_architecture.jpg",
+          imageCaption: "Technical Architecture: JDK vs JRE vs JVM Hierarchy, Bytecode Compilation & HotSpot JIT Execution Engine",
+          analogyImages: [
+            {
+              src: "images/unit2_jvm_orchestra_analogy.jpg",
+              caption: "Real-World Mental Models: Universal Sheet Music (Bytecode) played across Grand Piano, Guitar & Synthesizer (Cross-Platform Execution)"
+            }
+          ],
+          content: `
+            <p>Developed by James Gosling at Sun Microsystems in 1995 (now Oracle), Java was designed with the core philosophy: <em>\"Write Once, Run Anywhere\"</em> (WORA).</p>
+
+            <h4 style="margin-top:1rem; margin-bottom:0.5rem; color:var(--text-primary);">Key Architectural Features of Java</h4>
+            <ul>
+              <li><strong>Platform Independent:</strong> Java source code (<code>.java</code>) is compiled into platform-neutral Bytecode (<code>.class</code>), which runs on any OS equipped with a Java Virtual Machine (JVM).</li>
+              <li><strong>Robust & Safe:</strong> Eliminates error-prone manual memory pointers, provides automatic Garbage Collection (GC), and strictly enforces type safety at compile and runtime.</li>
+              <li><strong>Secure:</strong> Operates inside a JVM sandbox with a Bytecode Verifier ensuring no illegal memory accesses occur.</li>
+              <li><strong>High Performance:</strong> Uses HotSpot Just-In-Time (JIT) compilation to dynamically compile frequently executed bytecode (hotspots) into native CPU machine instructions.</li>
+              <li><strong>Multithreaded:</strong> Native language-level support for concurrent execution via the <code>Thread</code> class and <code>synchronized</code> keyword.</li>
+            </ul>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">JDK vs. JRE vs. JVM Architecture</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Component</th>
+                    <th>Full Name</th>
+                    <th>What It Contains</th>
+                    <th>Target Audience</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>JDK</strong></td>
+                    <td>Java Development Kit</td>
+                    <td>JRE + Development Tools (<code>javac</code> compiler, <code>jar</code> packager, <code>javadoc</code>, <code>jdb</code> debugger).</td>
+                    <td>Software Developers writing and compiling Java applications.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>JRE</strong></td>
+                    <td>Java Runtime Environment</td>
+                    <td>JVM + Core Java Class Libraries (<code>java.base</code>, <code>rt.jar</code>) + Supporting runtime files.</td>
+                    <td>End users who only need to run existing compiled Java programs.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>JVM</strong></td>
+                    <td>Java Virtual Machine</td>
+                    <td>ClassLoader Subsystem + JVM Memory Areas + Execution Engine (Interpreter, JIT, GC).</td>
+                    <td>Abstract computing machine that physically executes Java Bytecode.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">JVM Internal Subsystems & Memory Areas</h4>
+            <ul>
+              <li><strong>ClassLoader Subsystem:</strong> Loads, Links (Verifies, Prepares, Resolves), and Initializes <code>.class</code> files.</li>
+              <li><strong>Method Area / Metaspace:</strong> Stores class metadata, bytecode instructions, static variables, and constant pool.</li>
+              <li><strong>Heap Memory:</strong> Runtime data area where all Class instances (Objects) and Arrays are dynamically allocated.</li>
+              <li><strong>Java Thread Stack:</strong> Stores Stack Frames (local variables, operand stacks, partial results) created per thread per method invocation.</li>
+              <li><strong>PC (Program Counter) Registers:</strong> Keeps track of the address of the currently executing JVM instruction per thread.</li>
+              <li><strong>Execution Engine:</strong> Contains the Bytecode Interpreter, JIT Compiler, and Automatic Garbage Collector.</li>
+            </ul>
+          `,
+          analogy: "JDK is the complete workshop with blueprints, hammer, and saw; JRE is the finished construction site; JVM is the engine that powers the machinery.",
+          trap: "Is the JVM platform-independent? NO! Java Bytecode (.class) is platform-independent, but the JVM itself is platform-dependent (there are distinct JVM binaries for Windows, Linux, and macOS).",
+          codeSnippet: {
+            filename: "JvmArchitectureDemo.java",
+            code: `public class JvmArchitectureDemo {
+    public static void main(String[] args) {
+        System.out.println("=== JVM Environment Information ===");
+        System.out.println("Java Version      : " + System.getProperty("java.version"));
+        System.out.println("JVM Architecture  : " + System.getProperty("os.arch"));
+        System.out.println("Operating System  : " + System.getProperty("os.name"));
+        System.out.println("Available Cores   : " + Runtime.getRuntime().availableProcessors());
+        System.out.println("Total JVM Memory  : " + (Runtime.getRuntime().totalMemory() / (1024 * 1024)) + " MB");
+        System.out.println("Max Memory Limit  : " + (Runtime.getRuntime().maxMemory() / (1024 * 1024)) + " MB");
+    }
+}`,
+            output: `=== JVM Environment Information ===
+Java Version      : 17.0.20.1
+JVM Architecture  : amd64
+Operating System  : Windows 11
+Available Cores   : 8
+Total JVM Memory  : 256 MB
+Max Memory Limit  : 4096 MB`
+          },
+          mcqs: [
+            {
+              id: "u2_t1_mcq1",
+              question: "Which component of the Java execution environment is responsible for dynamically converting frequently executed bytecode into native machine code at runtime?",
+              options: [
+                "The Java Compiler (javac)",
+                "The ClassLoader Subsystem",
+                "The Just-In-Time (JIT) Compiler",
+                "The Bytecode Verifier"
+              ],
+              correct: 2,
+              explanation: "The Just-In-Time (JIT) compiler, part of the JVM execution engine, analyzes execution 'hotspots' and compiles frequently called bytecode into native machine instructions to achieve near-native performance."
+            },
+            {
+              id: "u2_t1_mcq2",
+              question: "Which memory area in the JVM is shared across all concurrent application threads and stores all allocated Objects and Arrays?",
+              options: [
+                "Java Thread Stack",
+                "Program Counter (PC) Register",
+                "Heap Memory",
+                "Native Method Stack"
+              ],
+              correct: 2,
+              explanation: "Heap Memory is the universal, shared memory area in the JVM where all objects and arrays reside. In contrast, Stack Memory and PC Registers are private to each individual thread."
+            }
+          ]
+        },
+        {
+          id: "u2-t2",
+          title: "Data Types, Literals, Type Casting & Operators",
+          image: "images/unit2_datatypes_typecasting.jpg",
+          imageCaption: "Technical Diagram: 8 Java Primitives Memory Hierarchy, Widening vs Narrowing Type Casting & Short-Circuit Gates",
+          analogyImages: [
+            {
+              src: "images/unit2_typecasting_water_buckets_analogy.jpg",
+              caption: "Real-World Mental Models: Pouring Liquid from Small Cup into Large Pitcher (Safe Widening) vs Oversized Water into Espresso Cup (Overflow / Data Truncation)"
+            }
+          ],
+          content: `
+            <p>Java is a <strong>strongly typed</strong> language. Every variable, literal, and expression has a strict type evaluated at compile-time.</p>
+
+            <h4 style="margin-top:1rem; margin-bottom:0.5rem; color:var(--text-primary);">The 8 Java Primitive Data Types</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Size (Memory)</th>
+                    <th>Default Value</th>
+                    <th>Value Range / Representation</th>
+                    <th>Wrapper Class</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>byte</code></td><td>1 byte (8 bits)</td><td><code>0</code></td><td>-128 to +127 (-2<sup>7</sup> to 2<sup>7</sup>-1)</td><td><code>java.lang.Byte</code></td></tr>
+                  <tr><td><code>short</code></td><td>2 bytes (16 bits)</td><td><code>0</code></td><td>-32,768 to +32,767 (-2<sup>15</sup> to 2<sup>15</sup>-1)</td><td><code>java.lang.Short</code></td></tr>
+                  <tr><td><code>int</code></td><td>4 bytes (32 bits)</td><td><code>0</code></td><td>-2,147,483,648 to +2,147,483,647 (-2<sup>31</sup> to 2<sup>31</sup>-1)</td><td><code>java.lang.Integer</code></td></tr>
+                  <tr><td><code>long</code></td><td>8 bytes (64 bits)</td><td><code>0L</code></td><td>-2<sup>63</sup> to +2<sup>63</sup>-1 (Suffix: <code>L</code> or <code>l</code>)</td><td><code>java.lang.Long</code></td></tr>
+                  <tr><td><code>float</code></td><td>4 bytes (32 bits)</td><td><code>0.0f</code></td><td>IEEE 754 floating point (Suffix: <code>F</code> or <code>f</code>)</td><td><code>java.lang.Float</code></td></tr>
+                  <tr><td><code>double</code></td><td>8 bytes (64 bits)</td><td><code>0.0d</code></td><td>IEEE 754 double precision (Default for decimals)</td><td><code>java.lang.Double</code></td></tr>
+                  <tr><td><code>char</code></td><td>2 bytes (16 bits)</td><td><code>'\\u0000'</code></td><td>0 to 65,535 (Unicode UTF-16 code units)</td><td><code>java.lang.Character</code></td></tr>
+                  <tr><td><code>boolean</code></td><td>JVM-dependent (~1 bit)</td><td><code>false</code></td><td><code>true</code> or <code>false</code> (Cannot be cast to int!)</td><td><code>java.lang.Boolean</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">Type Casting & Numeric Promotion Rules</h4>
+            <ul>
+              <li><strong>Widening Conversion (Implicit / Automatic):</strong> Safe conversion from smaller to larger data type without data loss:<br>
+              <code>byte → short → int → long → float → double</code></li>
+              <li><strong>Narrowing Conversion (Explicit / Manual):</strong> Requires cast operator <code>(target_type)</code> and can cause bit truncation / wrap-around:<br>
+              <code>double → float → long → int → short → byte</code></li>
+              <li><strong>Binary Numeric Promotion:</strong> When performing arithmetic on smaller types (<code>byte</code>, <code>short</code>, <code>char</code>), Java automatically promotes operands to <code>int</code> before computation.</li>
+            </ul>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">Java Operators Taxonomy</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Operators</th>
+                    <th>Behavior / Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>Arithmetic</strong></td><td><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> (Modulus)</td><td><code>/</code> performs integer truncation division unless one operand is float/double.</td></tr>
+                  <tr><td><strong>Relational</strong></td><td><code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></td><td>Returns a <code>boolean</code> result (<code>true</code> / <code>false</code>).</td></tr>
+                  <tr><td><strong>Short-Circuit Logical</strong></td><td><code>&amp;&amp;</code> (AND), <code>||</code> (OR), <code>!</code> (NOT)</td><td>Short-circuits evaluation if first operand determines final outcome (prevents NPEs).</td></tr>
+                  <tr><td><strong>Bitwise & Shift</strong></td><td><code>&amp;</code>, <code>|</code>, <code>^</code> (XOR), <code>~</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code>, <code>&gt;&gt;&gt;</code></td><td>Operates bit-by-bit on integer representations.</td></tr>
+                  <tr><td><strong>Conditional / Ternary</strong></td><td><code>condition ? expr1 : expr2</code></td><td>Compact inline replacement for simple <code>if-else</code> blocks.</td></tr>
+                  <tr><td><strong>Assignment</strong></td><td><code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code></td><td>Compound assignment (e.g. <code>b += 1</code>) performs automatic implicit type casting!</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+          analogy: "Type Casting is like transferring liquids between containers: Pouring a small cup into a large bucket (Widening) never spills; pouring a large bucket into a small cup (Narrowing) spills data unless you intentionally force it.",
+          trap: "Why does 'byte b = 10; b = b + 1;' fail to compile, but 'b++' and 'b += 1' succeed? Because the expression 'b + 1' automatically promotes operands to int! 'b++' and compound assignments like 'b += 1' have built-in implicit casting: b = (byte)(b + 1).",
+          codeSnippet: {
+            filename: "DataTypesAndTypeCastingDemo.java",
+            code: `public class DataTypesAndTypeCastingDemo {
+    public static void main(String[] args) {
+        // 1. Implicit Widening: byte -> int -> double
+        byte b = 42;
+        int i = b;
+        double d = i;
+        System.out.println("Widened byte to double: " + d);
+
+        // 2. Explicit Narrowing (Data Loss / Wrap-around)
+        int largeInt = 130;
+        byte narrowed = (byte) largeInt; // 130 - 256 = -126
+        System.out.println("Narrowed 130 to byte : " + narrowed + " (Wrapped around 8-bit bound!)");
+
+        // 3. Short-Circuit Evaluation Guarding Null Reference
+        String str = null;
+        if (str != null && str.length() > 0) {
+            System.out.println("Valid string");
+        } else {
+            System.out.println("Short-circuit prevented NullPointerException!");
+        }
+
+        // 4. Ternary Operator
+        int score = 85;
+        String grade = (score >= 90) ? "A+" : (score >= 75) ? "A" : "B";
+        System.out.println("Score " + score + " -> Grade: " + grade);
+    }
+}`,
+            output: `Widened byte to double: 42.0
+Narrowed 130 to byte : -126 (Wrapped around 8-bit bound!)
+Short-circuit prevented NullPointerException!
+Score 85 -> Grade: A`
+          },
+          mcqs: [
+            {
+              id: "u2_t2_mcq1",
+              question: "What is the output of the expression `System.out.println(10 + 20 + \"JAVA\" + 10 + 20);` in Java?",
+              options: [
+                "60JAVA",
+                "30JAVA1020",
+                "30JAVA30",
+                "1020JAVA1020"
+              ],
+              correct: 1,
+              explanation: "Java evaluates `+` left-to-right: `10 + 20` evaluates to integer `30`. Then `30 + \"JAVA\"` converts to String `\"30JAVA\"`. From that point on, subsequent `+` operations become string concatenations: `\"30JAVA\" + 10` -> `\"30JAVA10\"` + 20 -> `\"30JAVA1020\"`."
+            },
+            {
+              id: "u2_t2_mcq2",
+              question: "Which primitive data type in Java is 16-bit unsigned and used to store Unicode characters?",
+              options: [
+                "byte",
+                "short",
+                "char",
+                "int"
+              ],
+              correct: 2,
+              explanation: "In Java, `char` is a 16-bit unsigned integer data type (0 to 65,535) capable of representing Unicode UTF-16 characters."
+            }
+          ]
+        },
+        {
+          id: "u2-t3",
+          title: "Control Flow Statements (Selection, Iteration & Jump Statements)",
+          image: "images/unit2_control_flow_switch.jpg",
+          imageCaption: "Technical Diagram: Java Decision Branching, Loops Pipeline (for/while/do-while) & Java 14+ Enhanced Switch Expressions",
+          analogyImages: [
+            {
+              src: "images/unit2_control_flow_railway_analogy.svg",
+              caption: "Real-World Mental Models: Railway Track Switch Junction (O(1) Direct Case Routing) & Express Toll Plaza Flyover (Labeled Break/Continue)"
+            }
+          ],
+          content: `
+            <p>Control flow statements govern the order in which individual statements and instructions are executed in a Java program.</p>
+
+            <h4 style="margin-top:1rem; margin-bottom:0.5rem; color:var(--text-primary);">1. Selection Statements (Decision Making)</h4>
+            <ul>
+              <li><strong><code>if</code> / <code>if-else</code> / <code>if-else-if</code> Ladder:</strong> Evaluates boolean expressions sequentially until a <code>true</code> branch is found.</li>
+              <li><strong>Traditional <code>switch</code>:</strong> Multi-way branching based on discrete values. Supported types: <code>byte</code>, <code>short</code>, <code>char</code>, <code>int</code>, <code>String</code>, and <code>enum</code>. Requires <code>break</code> to prevent fall-through.</li>
+              <li><strong>Modern Enhanced Switch Expressions (Java 14+):</strong> Uses arrow syntax <code>case X -> expr;</code> which eliminates fall-through bugs and supports yielding values.</li>
+            </ul>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">2. Iteration Statements (Loops)</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Loop Type</th>
+                    <th>Evaluation Strategy</th>
+                    <th>Minimum Executions</th>
+                    <th>Best Used For</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong><code>for</code> loop</strong></td>
+                    <td>Entry-controlled (condition checked before loop body)</td>
+                    <td>0 times</td>
+                    <td>Known number of iterations with counter/index variable.</td>
+                  </tr>
+                  <tr>
+                    <td><strong><code>while</code> loop</strong></td>
+                    <td>Entry-controlled (condition checked before loop body)</td>
+                    <td>0 times</td>
+                    <td>Indefinite iterations where condition depends on external dynamic state.</td>
+                  </tr>
+                  <tr>
+                    <td><strong><code>do-while</code> loop</strong></td>
+                    <td>Exit-controlled (condition checked AFTER body execution)</td>
+                    <td><strong>1 time guaranteed</strong></td>
+                    <td>Menu-driven CLI programs, user input validation.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Enhanced <code>for-each</code></strong></td>
+                    <td>Implicit iterator traversal</td>
+                    <td>0 times</td>
+                    <td>Read-only traversal through Arrays and Collections without index management.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">3. Jump / Branching Statements</h4>
+            <ul>
+              <li><code>break</code>: Terminates the innermost loop or <code>switch</code> statement immediately.</li>
+              <li><strong>Labeled <code>break</code>:</strong> Unconditionally breaks out of an outer nested loop construct (e.g. <code>break outerLoop;</code>).</li>
+              <li><code>continue</code>: Skips the remainder of the current iteration and jumps directly to the next loop evaluation.</li>
+              <li><code>return</code>: Exits the currently executing method and returns control (and optional value) to the caller.</li>
+            </ul>
+          `,
+          analogy: "A 'while' loop is a cinema ticket check at the door (no ticket = no entry); a 'do-while' loop is a restaurant where you enter, eat first, and the bill check happens on your way out.",
+          trap: "What happens if you omit the 'break' statement in a traditional switch case? Fall-through occurs: execution falls right through into all subsequent cases regardless of whether their condition matches until a break or end of switch is encountered!",
+          codeSnippet: {
+            filename: "ControlFlowStatementsDemo.java",
+            code: `public class ControlFlowStatementsDemo {
+    // Enhanced switch expression with arrow syntax
+    public static String getSchedule(String day) {
+        return switch (day.toUpperCase()) {
+            case "MONDAY", "TUESDAY", "WEDNESDAY" -> "Core Java Theory & Lectures";
+            case "THURSDAY", "FRIDAY" -> "Hands-on Practical Lab Sessions";
+            case "SATURDAY", "SUNDAY" -> "Weekend Revision & Project Sprint";
+            default -> "Unknown Day";
+        };
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Monday -> " + getSchedule("Monday"));
+        System.out.println("Friday -> " + getSchedule("Friday"));
+
+        // Labeled Break in 2D Matrix Search
+        int[][] matrix = {
+            {10, 20, 30},
+            {40, 50, 60},
+            {70, 80, 90}
+        };
+        int target = 50;
+
+        searchGrid:
+        for (int r = 0; r < matrix.length; r++) {
+            for (int c = 0; c < matrix[r].length; c++) {
+                if (matrix[r][c] == target) {
+                    System.out.println("Found " + target + " at [" + r + "][" + c + "]. Breaking outer loop!");
+                    break searchGrid; // Breaks outer loop
+                }
+            }
+        }
+    }
+}`,
+            output: `Monday -> Core Java Theory & Lectures
+Friday -> Hands-on Practical Lab Sessions
+Found 50 at [1][1]. Breaking outer loop!`
+          },
+          mcqs: [
+            {
+              id: "u2_t3_mcq1",
+              question: "Which of the following loops in Java is guaranteed to execute its loop body at least once, even if the condition is initially false?",
+              options: [
+                "Standard `for` loop",
+                "Enhanced `for-each` loop",
+                "`while` loop",
+                "`do-while` loop"
+              ],
+              correct: 3,
+              explanation: "`do-while` is an exit-controlled loop where the boolean test condition is evaluated at the bottom of the loop body, guaranteeing at least one execution."
+            },
+            {
+              id: "u2_t3_mcq2",
+              question: "Which data type is NOT supported as a selector expression in a traditional Java `switch` statement?",
+              options: [
+                "String",
+                "float",
+                "char",
+                "enum"
+              ],
+              correct: 1,
+              explanation: "Floating-point types (`float` and `double`) and `boolean` / `long` cannot be used in `switch` statements due to IEEE 754 precision rounding issues. Switch supports `byte`, `short`, `char`, `int`, `String`, and `enum`."
+            }
+          ]
+        },
+        {
+          id: "u2-t4",
+          title: "Arrays (1D, 2D, Jagged) & Strings (Immutability, SCP, StringBuilder)",
+          image: "images/unit2_arrays_and_string_pool.svg",
+          imageCaption: "Technical Diagram: 1D, 2D & Jagged Arrays in Heap vs String Constant Pool (SCP) Reference Equality (== vs .equals)",
+          analogyImages: [
+            {
+              src: "images/unit2_arrays_realworld_analogy.svg",
+              caption: "Real-World Mental Models: 1) Gym Lockers (1D Linear Array), 2) Classroom Desks / Chessboard (2D Regular Matrix), 3) Airplane Cabin Seating (Jagged Array with Variable Row Lengths)"
+            },
+            {
+              src: "images/unit2_string_stone_whiteboard_analogy.svg",
+              caption: "Real-World Mental Models: Engraved Stone Monument (Immutable String) vs Reusable Classroom Whiteboard (Mutable StringBuilder)"
+            }
+          ],
+          content: `
+            <p>Arrays and Strings are the two most fundamental contiguous data structures used in Java application programming.</p>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">1. Java Arrays Architecture (1D, 2D &amp; Jagged)</h4>
+            <p>An array is an indexed, fixed-length container of homogeneous data elements dynamically allocated in <strong>Heap memory</strong>:</p>
+
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:0.85rem 1rem; margin:0.75rem 0;">
+              <h5 style="color:#4338ca; margin-bottom:0.35rem; font-size:0.92rem;">A. 1D Array (Linear Sequence)</h5>
+              <p style="font-size:0.85rem; margin-bottom:0.4rem;">Elements stored consecutively in memory like a row of lockers:</p>
+              <pre class="language-java" style="padding:0.5rem; font-size:0.82rem; background:#1e293b; color:#f8fafc; border-radius:6px;"><code>int[] marks = { 85, 92, 78, 90, 88 }; // length = 5
+int first = marks[0]; // 85 (0-indexed instant access in O(1) time)</code></pre>
+            </div>
+
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:0.85rem 1rem; margin:0.75rem 0;">
+              <h5 style="color:#059669; margin-bottom:0.35rem; font-size:0.92rem;">B. 2D Regular Matrix (Uniform Grid)</h5>
+              <p style="font-size:0.85rem; margin-bottom:0.4rem;">Rectangular symmetric table where each row has equal columns (<code>R × C</code>):</p>
+              <pre class="language-java" style="padding:0.5rem; font-size:0.82rem; background:#1e293b; color:#f8fafc; border-radius:6px;"><code>int[][] matrix = {
+    { 10, 20, 30 },
+    { 40, 50, 60 },
+    { 70, 80, 90 }
+}; // 3 rows x 3 columns</code></pre>
+            </div>
+
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:0.85rem 1rem; margin:0.75rem 0;">
+              <h5 style="color:#7c3aed; margin-bottom:0.35rem; font-size:0.92rem;">C. Jagged / Ragged Array (Variable Row Lengths)</h5>
+              <p style="font-size:0.85rem; margin-bottom:0.4rem;">Multi-dimensional array where each row has its own custom column length, eliminating wasted space:</p>
+              <pre class="language-java" style="padding:0.5rem; font-size:0.82rem; background:#1e293b; color:#f8fafc; border-radius:6px;"><code>int[][] batches = new int[3][]; // Declare 3 rows
+batches[0] = new int[]{ 95, 88 };             // Row 0 has 2 elements
+batches[1] = new int[]{ 72, 85, 90, 94 };     // Row 1 has 4 elements
+batches[2] = new int[]{ 60, 75, 80 };         // Row 2 has 3 elements</code></pre>
+            </div>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">1D Array vs. 2D Regular Array vs. Jagged Array Comparison</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Architecture Dimension</th>
+                    <th>1D Array (Linear)</th>
+                    <th>2D Regular Matrix (Uniform Grid)</th>
+                    <th>Jagged / Ragged Array (Dynamic Row Columns)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Data Structure</strong></td>
+                    <td>Single-dimensional linear sequence of homogeneous elements.</td>
+                    <td>Symmetric rectangular matrix where every row has identical column lengths (<code>R × C</code>).</td>
+                    <td>Multi-dimensional array where individual rows have differing, customized column capacities.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Heap Memory Layout</strong></td>
+                    <td>Single contiguous block of memory cells in Heap.</td>
+                    <td>Primary array storing row reference pointers, pointing to equal-sized sub-arrays in Heap.</td>
+                    <td>Primary array storing row reference pointers, pointing to independently sized sub-arrays in Heap.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Declaration &amp; Instantiation</strong></td>
+                    <td><code>int[] a = new int[5];</code></td>
+                    <td><code>int[][] m = new int[3][4];</code></td>
+                    <td><code>int[][] j = new int[3][];</code><br><code>j[0] = new int[2]; j[1] = new int[5];</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Row Length Uniformity</strong></td>
+                    <td>Fixed length: <code>a.length</code></td>
+                    <td>Uniform: <code>m[0].length == m[1].length</code></td>
+                    <td>Variable: <code>j[0].length != j[1].length</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Memory Efficiency</strong></td>
+                    <td>High (No overhead pointers).</td>
+                    <td>May waste memory if table has varying data per row (sparse matrix).</td>
+                    <td><strong>Maximum Efficiency</strong> (Allocates exact memory required per row, zero waste).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Real-World Analogy</strong></td>
+                    <td>Row of numbered gym lockers (indices 0 to N-1).</td>
+                    <td>Uniform classroom seating grid or standard 8×8 chessboard.</td>
+                    <td>Commercial airplane cabin seating (First Class 2 seats, Business 4, Economy 6).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">2. String Immutability &amp; String Constant Pool (SCP)</h4>
+            <p>In Java, objects of <code>java.lang.String</code> are <strong>immutable</strong> (their state cannot be modified once constructed in Heap memory).</p>
+            <ul>
+              <li><strong>Why String is Immutable:</strong> Security (storing passwords/network ports), Thread-safety (stateless sharing), Caching (HashCode computed once), and String Constant Pool memory optimization.</li>
+              <li><strong>String Constant Pool (SCP):</strong> A dedicated memory region inside Heap. When creating string literals (<code>String s = "Java";</code>), the JVM reuses existing pooled instances instead of allocating duplicate objects.</li>
+              <li><strong><code>==</code> vs. <code>.equals()</code>:</strong> <code>==</code> compares Stack memory addresses (reference identity), whereas <code>.equals()</code> compares character-by-character text content.</li>
+            </ul>
+
+            <h4 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--text-primary);">3. String vs. StringBuilder vs. StringBuffer</h4>
+            <div class="comparison-table-wrapper">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th><code>String</code></th>
+                    <th><code>StringBuilder</code></th>
+                    <th><code>StringBuffer</code></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>Mutability</strong></td><td><strong>Immutable</strong> (Creates new Heap object on edit)</td><td><strong>Mutable</strong> (Modifies in-place internal buffer)</td><td><strong>Mutable</strong> (Modifies in-place internal buffer)</td></tr>
+                  <tr><td><strong>Thread Safety</strong></td><td>Thread-Safe (Stateless / Read-only)</td><td><strong>Not Thread-Safe</strong></td><td><strong>Thread-Safe</strong> (All methods <code>synchronized</code>)</td></tr>
+                  <tr><td><strong>Performance</strong></td><td>Slow for repeated string concatenations</td><td><strong>Fastest</strong> (Recommended for single thread)</td><td>Slower due to lock acquisition overhead</td></tr>
+                  <tr><td><strong>Introduction</strong></td><td>Java 1.0</td><td>Java 5.0</td><td>Java 1.0</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+          analogy: "A 1D array is a row of gym lockers; a 2D array is a uniform classroom seating grid; a Jagged array is an airplane cabin with 2 VIP seats, 4 Business seats, and 6 Economy seats.",
+          trap: "Why should you NEVER use String concatenation ('s += str') inside a large loop? Because String is immutable, each loop iteration instantiates a brand new intermediate String object in Heap, rapidly generating tons of garbage and triggering heavy GC pauses! Always use StringBuilder.",
+          codeSnippet: {
+            filename: "Arrays1D2DJaggedDemo.java",
+            code: `public class Arrays1D2DJaggedDemo {
+    public static void main(String[] args) {
+        // 1. 1D ARRAY (Linear Storage)
+        int[] marks = { 85, 92, 78, 90, 88 };
+        int sum1D = 0;
+        for (int i = 0; i < marks.length; i++) {
+            System.out.println("  marks[" + i + "] = " + marks[i]);
+            sum1D += marks[i];
+        }
+        System.out.printf("  -> Total: %d | Average: %.2f%n%n", sum1D, (double) sum1D / marks.length);
+
+        // 2. 2D REGULAR ARRAY (Uniform 3x3 Matrix Grid)
+        int[][] matrix = {
+            { 10, 20, 30 },
+            { 40, 50, 60 },
+            { 70, 80, 90 }
+        };
+        int diagonalSum = 0;
+        for (int r = 0; r < matrix.length; r++) {
+            for (int c = 0; c < matrix[r].length; c++) {
+                System.out.printf("[%d][%d]: %-3d  ", r, c, matrix[r][c]);
+                if (r == c) diagonalSum += matrix[r][c]; // 10 + 50 + 90
+            }
+            System.out.println();
+        }
+        System.out.println("  -> Diagonal Sum = " + diagonalSum + "\\n");
+
+        // 3. JAGGED ARRAY (Custom Column Capacities)
+        int[][] batches = new int[3][];
+        batches[0] = new int[]{ 95, 88 };             // Batch 1 (2 students)
+        batches[1] = new int[]{ 72, 85, 90, 94 };     // Batch 2 (4 students)
+        batches[2] = new int[]{ 60, 75, 80 };         // Batch 3 (3 students)
+
+        for (int b = 0; b < batches.length; b++) {
+            int batchTotal = 0, topScore = batches[b][0];
+            System.out.printf("  Batch #%d (Size: %d) -> ", (b + 1), batches[b].length);
+            for (int score : batches[b]) {
+                System.out.print(score + " ");
+                batchTotal += score;
+                if (score > topScore) topScore = score;
+            }
+            System.out.printf("| Avg: %.2f | Top: %d%n", (double) batchTotal / batches[b].length, topScore);
+        }
+    }
+}`,
+            output: `  marks[0] = 85
+  marks[1] = 92
+  marks[2] = 78
+  marks[3] = 90
+  marks[4] = 88
+  -> Total: 433 | Average: 86.60
+
+[0][0]: 10   [0][1]: 20   [0][2]: 30  
+[1][0]: 40   [1][1]: 50   [1][2]: 60  
+[2][0]: 70   [2][1]: 80   [2][2]: 90  
+  -> Diagonal Sum = 150
+
+  Batch #1 (Size: 2) -> 95 88 | Avg: 91.50 | Top: 95
+  Batch #2 (Size: 4) -> 72 85 90 94 | Avg: 85.25 | Top: 94
+  Batch #3 (Size: 3) -> 60 75 80 | Avg: 71.67 | Top: 80`
+          },
+          mcqs: [
+            {
+              id: "u2_t4_mcq1",
+              question: "What is the result of executing `String s1 = \"Java\"; String s2 = new String(\"Java\"); System.out.println(s1 == s2);`?",
+              options: [
+                "`true` because both strings hold identical characters.",
+                "`false` because `s1` references the String Constant Pool while `s2` references a distinct Heap object.",
+                "`true` because the compiler automatically interns all String instances.",
+                "Compilation error because `==` cannot be applied to objects."
+              ],
+              correct: 1,
+              explanation: "`s1` refers to the interned literal in the String Constant Pool (SCP), while `s2` explicitly creates a new object on the Heap. The `==` operator checks reference memory addresses, which are different, evaluating to `false`. To compare content, use `s1.equals(s2)`."
+            },
+            {
+              id: "u2_t4_mcq2",
+              question: "Which of the following classes is MUTABLE and NOT thread-safe, making it the fastest choice for heavy single-threaded string manipulations?",
+              options: [
+                "`java.lang.String`",
+                "`java.lang.StringBuffer`",
+                "`java.lang.StringBuilder`",
+                "`java.lang.CharSequence`"
+              ],
+              correct: 2,
+              explanation: "`StringBuilder` is mutable and unsynchronized (not thread-safe), making it significantly faster than `StringBuffer` for single-threaded string modification operations."
+            }
+          ]
+        }
+      ]
+    },
     {
       id: "unit3-oops",
       unitNumber: 3,
@@ -77,7 +1209,7 @@ const COURSE_DATA = {
     }
 
     public static void main(String[] args) {
-        BankAccount acc = new BankAccount("LNMI-MCA-101", 5000.0);
+        BankAccount acc = new BankAccount("ACC-MCA-101", 5000.0);
         System.out.println("Initial Balance: ₹" + acc.getBalance());
         acc.deposit(2500.0);
     }
@@ -305,7 +1437,7 @@ After call:  Rahul Kumar (Caller pointer untouched!)`
           codeSnippet: {
             filename: "StaticCrossClassDemo.java",
             code: `class InstituteConfig {
-    public static String INSTITUTE_NAME = "LNMI Patna (C-DAC ACTS Center)";
+    public static String INSTITUTE_NAME = "MCA Postgraduate Department";
     public static int enrolledCount = 0;
 
     public static void registerCandidate(String name) {
@@ -322,7 +1454,7 @@ public class StaticCrossClassDemo {
         InstituteConfig.registerCandidate("Sneha Roy");
     }
 }`,
-            output: `Center: LNMI Patna (C-DAC ACTS Center)
+            output: `Center: MCA Postgraduate Department
 Enrolled: Aman Verma | Total: 1
 Enrolled: Sneha Roy | Total: 2`
           },
@@ -466,11 +1598,11 @@ public class PolymorphismDemo {
 
 public class FileReadWriteDemo {
     public static void main(String[] args) {
-        File file = new File("cdac_students.txt");
+        File file = new File("mca_students.txt");
 
         // 1. Character Stream: BufferedWriter with Try-With-Resources
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write("C-DAC ACTS & LNMI Patna - MCA Batch 2026\\n");
+            writer.write("MCA Postgraduate Program - Advanced Java Batch 2026\\n");
             writer.write("Course: MC101 - Problem Solving & Java\\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -487,7 +1619,7 @@ public class FileReadWriteDemo {
         }
     }
 }`,
-            output: `Read: C-DAC ACTS & LNMI Patna - MCA Batch 2026
+            output: `Read: MCA Postgraduate Program - Advanced Java Batch 2026
 Read: Course: MC101 - Problem Solving & Java`
           },
           mcqs: [
@@ -563,7 +1695,7 @@ class UserAccount implements Serializable {
 
 public class SerializationCloningDemo {
     public static void main(String[] args) throws Exception {
-        UserAccount user = new UserAccount("aniket_sme", "PIN#9944", new Address("Patna"));
+        UserAccount user = new UserAccount("aniket_sme", "PIN#9944", new Address("Bengaluru"));
 
         // Serialization
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -581,7 +1713,7 @@ public class SerializationCloningDemo {
 }`,
             output: `Username: aniket_sme
 Secret PIN: null (Skipped by transient!)
-City: Patna`
+City: Bengaluru`
           },
           mcqs: [
             {
@@ -772,7 +1904,7 @@ Cleanup executed in finally block guaranteed!`
               <li><strong>Custom Unchecked Exception:</strong> Extend <code>java.lang.RuntimeException</code>. Used for invalid internal business state violations.</li>
             </ul>
           `,
-          analogy: "Creating a custom traffic fine ticket specifically for 'LNMI Parking Violation' instead of a generic fine.",
+          analogy: "Creating a specialized system alert specifically for 'LowBalanceViolation' instead of a generic exception.",
           trap: "Always provide constructors taking `(String message)` and `(String message, Throwable cause)` to preserve the exception cause chain.",
           codeSnippet: {
             filename: "CustomBankingExceptionDemo.java",
@@ -878,7 +2010,7 @@ Shortfall amount: ₹3000.0`
 
 public class ListAndSetDemo {
     public static void main(String[] args) {
-        List<String> list = new ArrayList<>(Arrays.asList("Java", "C-DAC", "LNMI", "Java"));
+        List<String> list = new ArrayList<>(Arrays.asList("Java", "Spring", "Docker", "Java"));
         System.out.println("ArrayList (Preserves Order + Duplicates): " + list);
 
         Set<String> set = new HashSet<>(list);
@@ -888,9 +2020,9 @@ public class ListAndSetDemo {
         System.out.println("TreeSet (Deduplicated & Red-Black Tree Sorted): " + treeSet);
     }
 }`,
-            output: `ArrayList (Preserves Order + Duplicates): [Java, C-DAC, LNMI, Java]
-HashSet (Deduplicated Unordered): [LNMI, C-DAC, Java]
-TreeSet (Deduplicated & Red-Black Tree Sorted): [C-DAC, Java, LNMI]`
+            output: `ArrayList (Preserves Order + Duplicates): [Java, Spring, Docker, Java]
+HashSet (Deduplicated Unordered): [Docker, Java, Spring]
+TreeSet (Deduplicated & Red-Black Tree Sorted): [Docker, Java, Spring]`
           },
           mcqs: [
             {
@@ -1275,8 +2407,72 @@ public class ProducerConsumerDemo {
     }
   ],
 
-  // Placement & Viva Vault (32 Comprehensive Questions across Units 3, 4, 5)
+  // Placement & Viva Vault (40 Comprehensive Questions across Units 1 to 5)
   interviewVault: [
+    {
+      id: "u1_q1",
+      category: "Unit 1: Problem Solving",
+      difficulty: "easy",
+      question: "What is the structural difference between an Algorithm, a Flowchart, and Pseudocode?",
+      answer: "An **Algorithm** is an abstract, language-independent finite sequence of well-defined computational instructions. A **Flowchart** is the formal graphical / visual representation of an algorithm using standard ANSI/ISO geometric symbols (rectangles for processing, diamonds for decisions, parallelograms for I/O). **Pseudocode** is an informal, high-level textual representation that mimics structured programming constructs (IF-ELSE, WHILE) without getting bound to specific compiler syntax.",
+      trap: "Writing executable compiler keywords like 'public static void main' in pseudocode is an academic anti-pattern. Pseudocode must remain language-agnostic."
+    },
+    {
+      id: "u1_q2",
+      category: "Unit 1: Number Systems",
+      difficulty: "medium",
+      question: "Why do modern computer processors use 2's Complement for negative integer representation?",
+      answer: "2's Complement provides two decisive hardware advantages: 1) **Unique Zero Representation:** Unlike Sign-Magnitude and 1's Complement which produce redundant `+0` and `-0`, 2's Complement has exactly one unique zero (`00000000`). 2) **Hardware Simplicity:** Subtraction is implemented as standard binary addition: `A - B = A + (2's Complement of B)`. This allows ALUs to reuse existing binary adder circuits without requiring separate subtractor hardware.",
+      trap: "Interviewers often ask: 'What is the 2's complement of 0 in an 8-bit word?' Inverting gives 11111111, adding 1 gives 100000000. Truncating the 9th carry bit yields 00000000, proving 0 is unique!"
+    },
+    {
+      id: "u1_q3",
+      category: "Unit 1: Number Systems",
+      difficulty: "medium",
+      question: "Why does adding 1 to a byte variable holding 127 evaluate to -128 in Java?",
+      answer: "In Java, `byte` is an 8-bit signed integer using 2's complement representation with a valid range of **-128 to +127**. Binary for +127 is `01111111`. Adding 1 results in `10000000`. In 2's complement, an MSB of `1` signifies a negative number, and `10000000` corresponds precisely to the lowest boundary: `-128`. This is standard **hardware integer overflow wrap-around**.",
+      trap: "In Java, expressions like `b = b + 1` fail to compile because `b + 1` promotes to `int`. You must cast `(byte)(b + 1)` or use `b++` / `b += 1` to witness this wrap-around."
+    },
+    {
+      id: "u1_q4",
+      category: "Unit 1: Number Systems",
+      difficulty: "hard",
+      question: "What is the technical difference between `>>` (Signed Right Shift) and `>>>` (Unsigned Right Shift) in Java?",
+      answer: "The `>>` operator performs an **arithmetic right shift**, copying the Most Significant Bit (sign bit) into the vacated leftmost positions to preserve the number's sign (e.g. `-16 >> 2` remains `-4`). The `>>>` operator performs a **logical unsigned right shift**, always inserting zeros into the vacated leftmost bit positions regardless of whether the original number was positive or negative (e.g. `-16 >>> 2` becomes a huge positive number: `1073741820`).",
+      trap: "`>>>` is only meaningful for integer types (`int` and `long`). Applying it to `byte` or `short` causes automatic promotion to 32-bit `int` before shifting!"
+    },
+    {
+      id: "u2_q1",
+      category: "Unit 2: Java Basics",
+      difficulty: "easy",
+      question: "What is the fundamental architectural distinction between JDK, JRE, and JVM?",
+      answer: "**JVM (Java Virtual Machine)** is the abstract execution engine that loads, verifies, and executes Java Bytecode (`.class`). **JRE (Java Runtime Environment)** = JVM + Core Class Libraries (`rt.jar` / `java.base`) required to run existing programs. **JDK (Java Development Kit)** = JRE + Development Tools (`javac` compiler, `jar`, `javadoc`, `jdb`) required by developers to write and compile source code.",
+      trap: "Bytecode is platform independent, but the JVM implementation itself is strictly platform-dependent (different native C/C++ builds for Windows, Linux, macOS)."
+    },
+    {
+      id: "u2_q2",
+      category: "Unit 2: Java Basics",
+      difficulty: "medium",
+      question: "Why are String objects immutable in Java, and what is the role of the String Constant Pool (SCP)?",
+      answer: "Strings are immutable (state cannot change after creation) for four key reasons: 1) **Security:** String parameters for database URLs, file paths, and network sockets cannot be maliciously altered. 2) **Thread Safety:** Stateless, read-only instances can be safely shared across concurrent threads without locks. 3) **Caching:** `hashCode()` is calculated once on creation and cached. 4) **String Constant Pool (SCP):** The JVM saves Heap memory by reusing identical string literals from the SCP rather than allocating duplicate objects.",
+      trap: "Using `new String(\"ABC\")` creates TWO objects if \"ABC\" wasn't in SCP already: one in the String Constant Pool and one in regular Heap memory!"
+    },
+    {
+      id: "u2_q3",
+      category: "Unit 2: Java Basics",
+      difficulty: "hard",
+      question: "Explain the difference between `==` and `.equals()` when comparing Java Strings and Wrapper Objects.",
+      answer: "The `==` operator performs **reference comparison** (checks whether two variable pointers point to the exact same memory address in Stack/Heap). The `.equals()` method performs **content comparison** (checks whether the sequence of characters or values are identical). For String literals, `s1 == s2` is `true` because both point to the same pooled SCP address; for `new String()`, `s1 == s3` is `false` because they occupy distinct Heap memory locations, but `s1.equals(s3)` is `true`.",
+      trap: "Integer caching (-128 to 127) causes `Integer a = 100, b = 100; a == b` to be `true`, but `Integer c = 200, d = 200; c == d` to be `false`! Always use `.equals()`."
+    },
+    {
+      id: "u2_q4",
+      category: "Unit 2: Java Basics",
+      difficulty: "medium",
+      question: "What are Jagged Arrays in Java and how are they stored in Heap memory?",
+      answer: "A **Jagged (or Ragged) Array** is a multi-dimensional array where each individual row array can have a different length / column dimension. In Java, multi-dimensional arrays are represented as *arrays of array references*. The outer array holds pointers to distinct single-dimensional array objects on the Heap, allowing dynamic allocation of rows with differing sizes (e.g., `int[][] jagged = new int[3][]; jagged[0] = new int[2]; jagged[1] = new int[5];`).",
+      trap: "If you declare `int[][] arr = new int[3][];` and try to access `arr[0][0]` before initializing `arr[0] = new int[2];`, it throws a `NullPointerException` because `arr[0]` is initialized to `null`!"
+    },
     {
       id: "q1",
       category: "Unit 3: OOPs",
@@ -1387,7 +2583,7 @@ public class ProducerConsumerDemo {
       difficulty: "easy",
       question: "What is the difference between `final`, `finally`, and `finalize()`?",
       answer: "**`final`** is a keyword used to create constants (variables), prevent method overriding (methods), or prevent inheritance (classes). **`finally`** is a control block in exception handling that always executes for cleanup. **`finalize()`** was a method in `Object` invoked by the Garbage Collector before reclaiming an object (deprecated in Java 9+).",
-      trap: "Never rely on `finalize()` for resource cleanup (closing files/sockets) because GC execution timing is non-deterministic. Always use Try-with-Resources!"
+      trap: "Never rely on `finalize()` for resource cleanup (closing files/sockets) because GC execution is non-deterministic. Always use Try-with-Resources!"
     },
     {
       id: "q15",
@@ -1535,9 +2731,281 @@ public class ProducerConsumerDemo {
     }
   ],
 
-  // Lab Assignments (12 Assignments: 7 Easy, 3 Medium, 2 Advanced across Units 3, 4, 5)
+  // Lab Assignments (16 Comprehensive Assignments across Units 1 to 5)
   labs: [
-    // --- EASY LEVEL LABS ---
+    {
+      id: "lab_u1_base_converter",
+      title: "Lab 1A [EASY]: Universal Positional Number Base Converter (Unit 1)",
+      unit: "Unit 1",
+      difficulty: "easy",
+      task: "Implement a universal base conversion utility that converts any positive decimal integer into Binary (Base 2), Octal (Base 8), and Hexadecimal (Base 16) using the Repeated Division Algorithm from scratch (without using built-in methods like Integer.toBinaryString). Also implement the reverse conversion using Positional Polynomial Expansion.",
+      testCase: "Input Decimal: 254 -> Convert to Base 2, 8, 16. Verify output produces '11111110', '376', and 'FE'. Reverse convert 'FE' to verify 254.",
+      solutionCode: `public class BaseConverterLab {
+    private static final char[] DIGITS = "0123456789ABCDEF".toCharArray();
+
+    // Repeated division by base
+    public static String decimalToBase(long num, int base) {
+        if (num == 0) return "0";
+        StringBuilder sb = new StringBuilder();
+        while (num > 0) {
+            sb.append(DIGITS[(int)(num % base)]);
+            num /= base;
+        }
+        return sb.reverse().toString();
+    }
+
+    // Positional expansion: Sum(d_i * base^i)
+    public static long baseToDecimal(String str, int base) {
+        long result = 0;
+        for (char ch : str.toUpperCase().toCharArray()) {
+            int val = (ch >= '0' && ch <= '9') ? (ch - '0') : (10 + ch - 'A');
+            result = result * base + val;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        long decimalInput = 254;
+        System.out.println("=== Universal Number Base Converter ===");
+        System.out.println("Decimal Input : " + decimalInput);
+        System.out.println("Binary  (Base 2)  : " + decimalToBase(decimalInput, 2));
+        System.out.println("Octal   (Base 8)  : " + decimalToBase(decimalInput, 8));
+        System.out.println("Hex     (Base 16) : " + decimalToBase(decimalInput, 16));
+
+        String hexInput = "FE";
+        System.out.println("Reverse Check: Hex '" + hexInput + "' -> Decimal: " + baseToDecimal(hexInput, 16));
+    }
+}`,
+      output: `=== Universal Number Base Converter ===
+Decimal Input : 254
+Binary  (Base 2)  : 11111110
+Octal   (Base 8)  : 376
+Hex     (Base 16) : FE
+Reverse Check: Hex 'FE' -> Decimal: 254`
+    },
+    {
+      id: "lab_u1_twos_complement",
+      title: "Lab 1B [MEDIUM]: 2's Complement Subtraction & Overflow Engine (Unit 1)",
+      unit: "Unit 1",
+      difficulty: "medium",
+      task: "Simulate 8-bit signed ALU hardware subtraction using 2's Complement addition: A - B = A + (~B + 1). Display the 8-bit binary representation at every step. Also demonstrate computer arithmetic overflow by adding 1 to Byte.MAX_VALUE (127).",
+      testCase: "Perform (25 - 14) and (14 - 25). Show binary steps. Show 127 + 1 wraps to -128.",
+      solutionCode: `public class TwosComplementLab {
+    public static String to8Bit(int val) {
+        String s = Integer.toBinaryString(val & 0xFF);
+        return String.format("%8s", s).replace(' ', '0');
+    }
+
+    public static void subtractUsingTwosComp(int a, int b) {
+        int twosCompB = (-b) & 0xFF; // ~B + 1
+        int sum = (a + twosCompB) & 0xFF;
+        byte result = (byte) sum;
+
+        System.out.printf("Computing %d - %d via 2's Complement:%n", a, b);
+        System.out.printf("  A (%2d)               : %s%n", a, to8Bit(a));
+        System.out.printf("  B (%2d)               : %s%n", b, to8Bit(b));
+        System.out.printf("  2's Comp of B (-%2d)   : %s%n", b, to8Bit(twosCompB));
+        System.out.printf("  Sum [A + 2'sComp(B)] : %s = %d%n%n", to8Bit(sum), result);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("=== 2's Complement ALU Simulator ===");
+        subtractUsingTwosComp(25, 14); // Positive Result
+        subtractUsingTwosComp(14, 25); // Negative Result
+
+        // Hardware Overflow
+        byte max = 127;
+        byte overflow = (byte)(max + 1);
+        System.out.println("Overflow Test: 127 + 1 = " + overflow + " (Binary: " + to8Bit(overflow) + ")");
+    }
+}`,
+      output: `=== 2's Complement ALU Simulator ===
+Computing 25 - 14 via 2's Complement:
+  A (25)               : 00011001
+  B (14)               : 00001110
+  2's Comp of B (-14)   : 11110010
+  Sum [A + 2'sComp(B)] : 00001011 = 11
+
+Computing 14 - 25 via 2's Complement:
+  A (14)               : 00001110
+  B (25)               : 00011001
+  2's Comp of B (-25)   : 11100111
+  Sum [A + 2'sComp(B)] : 11110101 = -11
+
+Overflow Test: 127 + 1 = -128 (Binary: 10000000)`
+    },
+    {
+      id: "lab_u2_easy_arrays",
+      title: "Lab 2A [EASY]: Hands-On 1D, 2D Matrix & Jagged Array Fundamentals (Unit 2)",
+      unit: "Unit 2",
+      difficulty: "easy",
+      task: "Develop a beginner-friendly Java program that demonstrates all three array architectures: 1) 1D Array: Store 5 student subject marks, compute their total and average, 2) 2D Regular Array (Matrix): Create a 3x3 matrix, display it in a clean grid format, and calculate the sum of its main diagonal elements, and 3) Jagged Array: Create a jagged array to store test scores for 3 project teams with variable member counts (Team 1 has 2, Team 2 has 3, Team 3 has 4), printing each team's score list, team average, and highest individual score.",
+      testCase: "1D marks [78, 85, 92, 88, 95] -> Total: 438, Avg: 87.60. 2D 3x3 diagonal sum: 1 + 5 + 9 = 15. Jagged teams: Team 1 max = 92, Team 2 max = 89, Team 3 max = 96.",
+      solutionCode: `public class ArraysFundamentalsLab {
+    public static void main(String[] args) {
+        // Part 1: 1D Array (Student Marks)
+        System.out.println("=== 1. 1D Array Analysis ===");
+        int[] marks = { 78, 85, 92, 88, 95 };
+        int sum = 0;
+        for (int m : marks) sum += m;
+        System.out.printf("Marks: %s | Total: %d | Average: %.2f%n%n",
+                java.util.Arrays.toString(marks), sum, (double) sum / marks.length);
+
+        // Part 2: 2D Regular Array (3x3 Grid & Diagonal Sum)
+        System.out.println("=== 2. 2D Regular Matrix (3x3) ===");
+        int[][] matrix = {
+            { 1, 2, 3 },
+            { 4, 5, 6 },
+            { 7, 8, 9 }
+        };
+        int diagSum = 0;
+        for (int r = 0; r < matrix.length; r++) {
+            System.out.print("  | ");
+            for (int c = 0; c < matrix[r].length; c++) {
+                System.out.printf("%d ", matrix[r][c]);
+                if (r == c) diagSum += matrix[r][c]; // 1 + 5 + 9
+            }
+            System.out.println("|");
+        }
+        System.out.println("Main Diagonal Sum = " + diagSum + "\\n");
+
+        // Part 3: Jagged Array (3 Project Teams)
+        System.out.println("=== 3. Jagged Array (Project Teams) ===");
+        int[][] teams = new int[3][];
+        teams[0] = new int[]{ 88, 92 };             // Team 1: 2 members
+        teams[1] = new int[]{ 75, 84, 89 };         // Team 2: 3 members
+        teams[2] = new int[]{ 90, 82, 96, 91 };     // Team 3: 4 members
+
+        for (int i = 0; i < teams.length; i++) {
+            int teamSum = 0, maxScore = teams[i][0];
+            for (int score : teams[i]) {
+                teamSum += score;
+                if (score > maxScore) maxScore = score;
+            }
+            double teamAvg = (double) teamSum / teams[i].length;
+            System.out.printf("Team #%d (Size: %d, Scores: %s) -> Top: %d | Avg: %.2f%n",
+                    (i + 1), teams[i].length, java.util.Arrays.toString(teams[i]), maxScore, teamAvg);
+        }
+    }
+}`,
+      output: `=== 1. 1D Array Analysis ===
+Marks: [78, 85, 92, 88, 95] | Total: 438 | Average: 87.60
+
+=== 2. 2D Regular Matrix (3x3) ===
+  | 1 2 3 |
+  | 4 5 6 |
+  | 7 8 9 |
+Main Diagonal Sum = 15
+
+=== 3. Jagged Array (Project Teams) ===
+Team #1 (Size: 2, Scores: [88, 92]) -> Top: 92 | Avg: 90.00
+Team #2 (Size: 3, Scores: [75, 84, 89]) -> Top: 89 | Avg: 82.67
+Team #3 (Size: 4, Scores: [90, 82, 96, 91]) -> Top: 96 | Avg: 89.75`
+    },
+    {
+      id: "lab_u2_matrix_jagged",
+      title: "Lab 2B [MEDIUM]: 2D Matrix Multiplication & Jagged Array Batch Tracker (Unit 2)",
+      unit: "Unit 2",
+      difficulty: "medium",
+      task: "Develop a Java program to: 1) Multiply two 2x2 integer matrices using nested control loops, and 2) Create a Jagged (Ragged) Array to store exam scores for 3 student batches with differing numbers of students (3, 2, and 4), calculating the average score per batch.",
+      testCase: "Matrix A = [[1,2],[3,4]], B = [[5,6],[7,8]]. Product = [[19,22],[43,50]]. Compute averages for jagged batches.",
+      solutionCode: `import java.util.Arrays;
+
+public class MatrixAndJaggedLab {
+    public static int[][] multiply(int[][] a, int[][] b) {
+        int rA = a.length, cA = a[0].length, cB = b[0].length;
+        int[][] res = new int[rA][cB];
+        for (int i = 0; i < rA; i++) {
+            for (int j = 0; j < cB; j++) {
+                for (int k = 0; k < cA; k++) {
+                    res[i][j] += a[i][k] * b[k][j];
+                }
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        // 1. Matrix Multiplication
+        int[][] A = {{1, 2}, {3, 4}};
+        int[][] B = {{5, 6}, {7, 8}};
+        int[][] C = multiply(A, B);
+        System.out.println("=== 2D Matrix Multiplication (A x B) ===");
+        for (int[] row : C) System.out.println("  " + Arrays.toString(row));
+
+        // 2. Jagged Array
+        System.out.println("\\n=== Jagged Array Batch Score Analysis ===");
+        int[][] batches = new int[3][];
+        batches[0] = new int[]{85, 90, 78};     // Batch 1 (3 students)
+        batches[1] = new int[]{92, 88};         // Batch 2 (2 students)
+        batches[2] = new int[]{76, 81, 95, 89}; // Batch 3 (4 students)
+
+        for (int i = 0; i < batches.length; i++) {
+            int sum = 0;
+            for (int score : batches[i]) sum += score;
+            double avg = (double) sum / batches[i].length;
+            System.out.printf("Batch #%d (Size: %d, Scores: %s) -> Average: %.2f%n",
+                    (i + 1), batches[i].length, Arrays.toString(batches[i]), avg);
+        }
+    }
+}`,
+      output: `=== 2D Matrix Multiplication (A x B) ===
+  [19, 22]
+  [43, 50]
+
+=== Jagged Array Batch Score Analysis ===
+Batch #1 (Size: 3, Scores: [85, 90, 78]) -> Average: 84.33
+Batch #2 (Size: 2, Scores: [92, 88]) -> Average: 90.00
+Batch #3 (Size: 4, Scores: [76, 81, 95, 89]) -> Average: 85.25`
+    },
+    {
+      id: "lab_u2_string_evaluator",
+      title: "Lab 2C [EASY]: String Palindrome & StringBuilder Anagram Evaluator (Unit 2)",
+      unit: "Unit 2",
+      difficulty: "easy",
+      task: "Create a Java text processing application that: 1) Checks if a string is a Palindrome (ignoring case and whitespace), 2) Checks if two strings are Anagrams, and 3) Uses `StringBuilder` to perform efficient in-place reversal and formatting without creating intermediate heap garbage.",
+      testCase: "Test 'Madam' (Palindrome -> true), 'listen' vs 'silent' (Anagrams -> true), and reverse 'Java MCA'.",
+      solutionCode: `import java.util.Arrays;
+
+public class StringEvaluatorLab {
+    public static boolean isPalindrome(String s) {
+        String clean = s.replaceAll("\\\\s+", "").toLowerCase();
+        int left = 0, right = clean.length() - 1;
+        while (left < right) {
+            if (clean.charAt(left++) != clean.charAt(right--)) return false;
+        }
+        return true;
+    }
+
+    public static boolean areAnagrams(String s1, String s2) {
+        char[] a1 = s1.toLowerCase().toCharArray();
+        char[] a2 = s2.toLowerCase().toCharArray();
+        Arrays.sort(a1);
+        Arrays.sort(a2);
+        return Arrays.equals(a1, a2);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("=== String & StringBuilder Evaluator ===");
+        String word = "Madam";
+        System.out.printf("Is '%s' a Palindrome? -> %b%n", word, isPalindrome(word));
+
+        String w1 = "listen", w2 = "silent";
+        System.out.printf("Are '%s' and '%s' Anagrams? -> %b%n", w1, w2, areAnagrams(w1, w2));
+
+        // StringBuilder in-place operations
+        StringBuilder sb = new StringBuilder("Java MCA");
+        sb.append(" - Advanced 2026");
+        System.out.println("Appended   : " + sb.toString());
+        System.out.println("Reversed   : " + sb.reverse().toString());
+    }
+}`,
+      output: `=== String & StringBuilder Evaluator ===
+Is 'Madam' a Palindrome? -> true
+Are 'listen' and 'silent' Anagrams? -> true
+Appended   : Java MCA - Advanced 2026
+Reversed   : 6202 decnavdA - ACM avaJ`
+    },
     {
       id: "lab1_easy_student",
       title: "Lab 1 [EASY]: Student Class & Static Enrollment Tracker (Unit 3)",
@@ -1581,7 +3049,7 @@ public class StudentEnrollmentDemo {
         Student s2 = new Student(102, "Sneha Sinha", "MCA", 45000.0);
         Student s3 = new Student(103, "Rohan Verma", "MCA", 45000.0);
 
-        System.out.println("=== LNMI MCA STUDENT ENROLLMENT PROFILES ===");
+        System.out.println("=== MCA STUDENT ENROLLMENT PROFILES ===");
         s1.displayProfile();
         s2.displayProfile();
         s3.displayProfile();
@@ -1590,7 +3058,7 @@ public class StudentEnrollmentDemo {
         System.out.println("Total Students Enrolled: " + Student.getTotalEnrollments());
     }
 }`,
-      output: `=== LNMI MCA STUDENT ENROLLMENT PROFILES ===
+      output: `=== MCA STUDENT ENROLLMENT PROFILES ===
 Roll: 101 | Name: Aarav Kumar  | Course: MCA    | Fee: ₹45000.00
 Roll: 102 | Name: Sneha Sinha  | Course: MCA    | Fee: ₹45000.00
 Roll: 103 | Name: Rohan Verma  | Course: MCA    | Fee: ₹45000.00
@@ -1781,7 +3249,7 @@ public class FileCounterDemo {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write("MCA Masterclass on Object Oriented Programming with Java.");
             writer.newLine();
-            writer.write("Delivered by SME Aniket at LNMI Patna with CDAC ACTS.");
+            writer.write("Enterprise Java Masterclass - MCA Professional Curriculum.");
             writer.newLine();
             writer.write("Mastering Core Java streams collections and multithreading.");
             writer.newLine();
@@ -1818,7 +3286,7 @@ public class FileCounterDemo {
 }`,
       output: `=== READING FILE: syllabus_notes.txt ===
 Line 1: MCA Masterclass on Object Oriented Programming with Java.
-Line 2: Delivered by SME Aniket at LNMI Patna with CDAC ACTS.
+Line 2: Enterprise Java Masterclass - MCA Professional Curriculum.
 Line 3: Mastering Core Java streams collections and multithreading.
 --------------------------------------------
 Total Lines:      3
@@ -1940,7 +3408,7 @@ Is 'Priya Sharma' enrolled? true
       title: "Lab 8 [MEDIUM]: Polymorphic Payroll Architecture (Unit 3)",
       unit: "Unit 3",
       difficulty: "medium",
-      task: "Create an abstract class `Employee` with an abstract method `calculateSalary()`. Implement child classes `FullTimeEmployee` (base salary + allowance) and `Contractor` (hourly rate × hours). Implement dynamic method dispatch and track total employees using a `static` counter.",
+      task: "Create an abstract class `Employee` with an abstract method `calculateSalary()`. Implement child classes `FullTimeEmployee` (base salary + allowance) and `Contractor` (daily rate × days worked). Implement dynamic method dispatch and track total employees using a `static` counter.",
       testCase: "Create polymorphic array of Employees, calculate total company expenditure via polymorphic loop, and print static count.",
       solutionCode: `abstract class Employee {
     protected String name;
@@ -1974,18 +3442,18 @@ class FullTimeEmployee extends Employee {
 }
 
 class Contractor extends Employee {
-    private double hourlyRate;
-    private int hoursWorked;
+    private double dailyRate;
+    private int daysWorked;
 
-    public Contractor(String name, int id, double hourlyRate, int hoursWorked) {
+    public Contractor(String name, int id, double dailyRate, int daysWorked) {
         super(name, id);
-        this.hourlyRate = hourlyRate;
-        this.hoursWorked = hoursWorked;
+        this.dailyRate = dailyRate;
+        this.daysWorked = daysWorked;
     }
 
     @Override
     public double calculateSalary() {
-        return hourlyRate * hoursWorked;
+        return dailyRate * daysWorked;
     }
 }
 
@@ -1993,7 +3461,7 @@ public class PayrollDemo {
     public static void main(String[] args) {
         Employee[] staff = {
             new FullTimeEmployee("Rahul Sharma", 101, 50000, 15000),
-            new Contractor("Sneha Roy", 102, 500, 80)
+            new Contractor("Sneha Roy", 102, 2000, 20)
         };
 
         double totalPayroll = 0;
@@ -2051,7 +3519,7 @@ class SecureAccount {
 
 public class CustomExceptionDemo {
     public static void main(String[] args) {
-        SecureAccount acc = new SecureAccount("LNMI-MCA-101", 10000.0);
+        SecureAccount acc = new SecureAccount("ACC-MCA-101", 10000.0);
         System.out.println("Account Initialized with ₹10,000.00");
 
         try {
@@ -2111,11 +3579,11 @@ public class PlacementEngine {
             .thenComparing(s -> s.name);
 
         list.sort(placementRule);
-        System.out.println("=== PLACEMENT MERIT LIST (CDAC ACTS @ LNMI) ===");
+        System.out.println("=== PLACEMENT MERIT LIST (MCA COHORT) ===");
         list.forEach(System.out::println);
     }
 }`,
-      output: `=== PLACEMENT MERIT LIST (CDAC ACTS @ LNMI) ===
+      output: `=== PLACEMENT MERIT LIST (MCA COHORT) ===
 [102] Ananya     (CGPA: 9.20, Backlogs: 0)
 [103] Rohan      (CGPA: 9.20, Backlogs: 0)
 [104] Priya      (CGPA: 8.80, Backlogs: 0)
@@ -2242,15 +3710,67 @@ CONSUMER consumed: 3 (Queue size: 0)`
   slides: [
     {
       title: "MC101: Problem Solving & OOPs with Java",
-      badge: "C-DAC ACTS @ LNMI Patna • MCA Sem-I",
+      badge: "Problem Solving & Java Programming • MCA Sem-I",
       bullets: [
-        "Certificate Course in Intelligent Systems & Emerging Technologies",
+        "Master of Computer Applications (MCA) Program",
         "Subject Matter Expert (SME): Aniket",
-        "Syllabus Units: Unit 3 (OOPs), Unit 4 (I/O & Exceptions), Unit 5 (Collections & Threads)",
+        "Comprehensive 5-Unit Curriculum: Units 1 to 5",
         "Focus: Hands-on Programming, Visual Memory Models & Industry Best Practices"
       ],
-      code: `// Welcome MCA Batch 2026!
-System.out.println("C-DAC ACTS @ LNMI Patna Initialized!");`
+      code: `// Welcome MCA Cohort!
+System.out.println("Java Curriculum Masterclass Initialized!");`
+    },
+    {
+      title: "Unit 1: Problem Solving & Number Systems",
+      badge: "Unit 1 • Fundamentals",
+      bullets: [
+        "Problem-Solving Process: Analysis -> Algorithm -> Flowchart -> Pseudocode -> Java Implementation",
+        "Number Bases: Binary (Base 2), Octal (Base 8), Decimal (Base 10), Hexadecimal (Base 16)",
+        "Base Conversions: Repeated Division (Integers), Repeated Multiplication (Fractions)",
+        "Direct Grouping: 3 bits <-> 1 Octal digit; 4 bits <-> 1 Hexadecimal digit"
+      ],
+      code: `// Number Literals in Java
+int bin = 0b11111110; // Binary 254
+int oct = 0376;       // Octal 254
+int hex = 0xFE;       // Hex 254`
+    },
+    {
+      title: "Unit 1: Binary Arithmetic & 2's Complement",
+      badge: "Unit 1 • Computer Arithmetic",
+      bullets: [
+        "2's Complement: 1's Complement (~x) + 1 (Unique Zero & simplified hardware addition)",
+        "Subtraction: A - B = A + (2's Complement of B)",
+        "Signed Range (n-bit word): -2^(n-1) to +(2^(n-1) - 1)",
+        "Hardware Overflow: 8-bit byte wraps around: 127 + 1 = -128"
+      ],
+      code: `byte b = 127;
+b++; // Overflows to -128 (Byte.MIN_VALUE)`
+    },
+    {
+      title: "Unit 2: Java Basics & JVM Architecture",
+      badge: "Unit 2 • Architecture",
+      bullets: [
+        "Core Philosophy: 'Write Once, Run Anywhere' (WORA) via platform-neutral Bytecode (.class)",
+        "JDK vs JRE vs JVM: JDK (Tools) -> JRE (Libraries) -> JVM (Execution Engine)",
+        "JVM Memory: Method Area / Metaspace, Heap (Objects), Thread Stack (Frames), PC Registers",
+        "Execution: HotSpot JIT compiler translates hotspot bytecode into native machine instructions"
+      ],
+      code: `// Java compilation & execution pipeline:
+// MyProg.java -> [javac] -> MyProg.class (Bytecode) -> [JVM/JIT] -> Native CPU Code`
+    },
+    {
+      title: "Unit 2: Data Types, Casting & Strings",
+      badge: "Unit 2 • Syntax & Memory",
+      bullets: [
+        "8 Primitives: byte, short, int, long, float, double, char, boolean",
+        "Casting: Implicit Widening (Safe) vs Explicit Narrowing (Possible truncation / wrap-around)",
+        "String Immutability: Read-only instances stored in String Constant Pool (SCP)",
+        "Reference (==) vs Content (.equals()): Use StringBuilder for high-performance string mutations"
+      ],
+      code: `String s1 = "Java";
+String s2 = new String("Java");
+System.out.println(s1 == s2);      // false (SCP vs Heap)
+System.out.println(s1.equals(s2));  // true (Content match)`
     },
     {
       title: "Unit 3: Core OOP Principles in Java",
@@ -2301,7 +3821,7 @@ Student s = new Student(); // 's' in Stack -> Student object in Heap`
         "Cross-class static access: Access via 'ClassName.staticMethod()'"
       ],
       code: `class Institute {
-    public static String NAME = "LNMI Patna (C-DAC ACTS)";
+    public static String NAME = "MCA Department";
 }
 // Cross-class access:
 System.out.println(Institute.NAME);`

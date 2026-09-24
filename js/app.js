@@ -18,10 +18,22 @@ const App = {
     this.renderLabs();
     this.setupEventListeners();
     this.setupSlideDeck();
+    this.setupImageLightbox();
+    this.setupTopZoomAndMagnifier();
+    this.setupSearchEngine();
+    this.setupScrollSpy();
+    Visualizers.updateNumberConverter("42");
     Visualizers.selectOOPPillar("abstraction");
     Visualizers.renderMemoryVisualizer();
     Visualizers.selectCollectionNode("ArrayList");
     Visualizers.selectThreadState("RUNNABLE");
+
+    if (window.location.hash) {
+      const hashId = window.location.hash.substring(1);
+      setTimeout(() => {
+        this.handleInitialHash(hashId);
+      }, 150);
+    }
   },
 
   // 1. Render Curriculum Modules
@@ -162,8 +174,10 @@ const App = {
       // Render Sidebar Navigation for this module
       let navListHtml = mod.topics.map((t, idx) => `
         <li>
-          <a href="#${t.id}" class="topic-nav-link ${idx === 0 ? 'active' : ''}">
-            <span>${t.title}</span>
+          <a href="#${t.id}" class="topic-nav-link ${idx === 0 ? 'active' : ''}" data-topic-id="${t.id}" onclick="App.scrollToTopic('${t.id}', event)">
+            <span class="topic-nav-num">${String(idx + 1).padStart(2, '0')}</span>
+            <span class="topic-nav-text">${t.title}</span>
+            <span class="topic-nav-active-dot"></span>
           </a>
         </li>
       `).join("");
@@ -172,10 +186,15 @@ const App = {
         <div class="curriculum-grid">
           <aside class="sidebar-syllabus">
             <div class="sidebar-sticky">
-              <div class="sidebar-title">Module Topics</div>
-              <ul class="topic-nav-list">
-                ${navListHtml}
-              </ul>
+              <div class="sidebar-header">
+                <div class="sidebar-title">Module Topics</div>
+                <span class="sidebar-count">${mod.topics.length} Concepts</span>
+              </div>
+              <div class="sidebar-scroll-area">
+                <ul class="topic-nav-list">
+                  ${navListHtml}
+                </ul>
+              </div>
             </div>
           </aside>
           <div class="topic-content-wrapper">
@@ -436,18 +455,11 @@ const App = {
         this.switchTab(tabTarget);
       });
     });
-
-    const searchInput = document.getElementById("globalSearchInput");
-    if (searchInput) {
-      searchInput.addEventListener("input", (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        this.performSearch(query);
-      });
-    }
   },
 
   switchTab: function (tabId) {
     this.activeTab = tabId;
+    this._currentActiveTopicId = null;
     document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
     document.querySelectorAll(".tab-pane").forEach(p => p.style.display = "none");
 
@@ -458,6 +470,145 @@ const App = {
     if (activePane) {
       activePane.style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // Refresh ScrollSpy for newly visible module
+      setTimeout(() => {
+        this.setupScrollSpy();
+      }, 60);
+    }
+  },
+
+  // Smooth Topic Jump Navigation & Target Highlight
+  scrollToTopic: function (topicId, e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const targetEl = document.getElementById(topicId);
+    if (!targetEl) return;
+
+    // Immediately update active status in sidebar
+    this.setActiveTopic(topicId);
+
+    // Calculate precise offset to accommodate sticky header
+    const headerOffset = 90;
+    const elementPosition = targetEl.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top: Math.max(0, offsetPosition),
+      behavior: "smooth"
+    });
+
+    // Add glowing pulse animation to destination card
+    document.querySelectorAll(".topic-section").forEach(s => s.classList.remove("topic-highlight-active"));
+    targetEl.classList.add("topic-highlight-active");
+    setTimeout(() => {
+      targetEl.classList.remove("topic-highlight-active");
+    }, 2000);
+
+    // Update URL hash quietly
+    if (window.history && window.history.pushState) {
+      window.history.pushState(null, null, `#${topicId}`);
+    }
+  },
+
+  // Dynamic ScrollSpy to track currently running / in-view concept
+  setupScrollSpy: function () {
+    if (this._scrollHandler) {
+      window.removeEventListener("scroll", this._scrollHandler);
+    }
+
+    const handleScroll = () => {
+      if (this._scrollTicking) return;
+      this._scrollTicking = true;
+
+      window.requestAnimationFrame(() => {
+        this._scrollTicking = false;
+        const activePane = document.getElementById(`tab-${this.activeTab}`);
+        if (!activePane || activePane.style.display === "none") return;
+
+        const sections = Array.from(activePane.querySelectorAll(".topic-section"));
+        if (sections.length === 0) return;
+
+        const scrollPos = window.scrollY || window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight;
+
+        // If scrolled to bottom of document, activate the last visible section
+        if (scrollPos + windowHeight >= docHeight - 60) {
+          const lastSection = sections[sections.length - 1];
+          if (lastSection) {
+            this.setActiveTopic(lastSection.id);
+            return;
+          }
+        }
+
+        // Active topic detection point (below sticky header/nav)
+        const triggerPoint = 140;
+        let currentActiveId = sections[0].id;
+
+        for (let i = 0; i < sections.length; i++) {
+          const section = sections[i];
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= triggerPoint) {
+            currentActiveId = section.id;
+          }
+        }
+
+        this.setActiveTopic(currentActiveId);
+      });
+    };
+
+    this._scrollHandler = handleScroll;
+    window.addEventListener("scroll", this._scrollHandler, { passive: true });
+    handleScroll();
+  },
+
+  setActiveTopic: function (topicId) {
+    if (this._currentActiveTopicId === topicId) return;
+    this._currentActiveTopicId = topicId;
+
+    const activePane = document.getElementById(`tab-${this.activeTab}`);
+    if (!activePane) return;
+
+    const navLinks = activePane.querySelectorAll(".topic-nav-link");
+    let activeLink = null;
+
+    navLinks.forEach(link => {
+      if (link.getAttribute("data-topic-id") === topicId) {
+        link.classList.add("active");
+        activeLink = link;
+      } else {
+        link.classList.remove("active");
+      }
+    });
+
+    // Auto-scroll sidebar list so active item is always visible
+    if (activeLink) {
+      const scrollArea = activeLink.closest(".sidebar-scroll-area");
+      if (scrollArea) {
+        const linkRect = activeLink.getBoundingClientRect();
+        const areaRect = scrollArea.getBoundingClientRect();
+
+        if (linkRect.top < areaRect.top || linkRect.bottom > areaRect.bottom) {
+          activeLink.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+      }
+    }
+  },
+
+  handleInitialHash: function (hashId) {
+    if (!hashId) return;
+    for (const mod of COURSE_DATA.modules) {
+      const topic = mod.topics.find(t => t.id === hashId);
+      if (topic) {
+        this.switchTab(mod.id);
+        setTimeout(() => {
+          this.scrollToTopic(hashId);
+        }, 200);
+        return;
+      }
     }
   },
 
@@ -492,22 +643,345 @@ const App = {
     });
   },
 
-  performSearch: function (query) {
-    if (!query) {
-      document.querySelectorAll(".qa-card").forEach(c => c.style.display = "block");
-      document.querySelectorAll(".topic-section").forEach(s => s.style.display = "block");
+  // -------------------------------------------------------------
+  // Top Website Page Zoom & Webpage Magnifier System
+  // -------------------------------------------------------------
+  pageZoomLevel: 100,
+  pageMagnifierActive: false,
+
+  zoomPageIn: function () {
+    const nextLevels = [80, 90, 100, 110, 120, 130, 140, 150];
+    const curr = this.pageZoomLevel;
+    const next = nextLevels.find(l => l > curr) || 150;
+    this.setPageZoom(next);
+  },
+
+  zoomPageOut: function () {
+    const prevLevels = [150, 140, 130, 120, 110, 100, 90, 80];
+    const curr = this.pageZoomLevel;
+    const prev = prevLevels.find(l => l < curr) || 80;
+    this.setPageZoom(prev);
+  },
+
+  resetPageZoom: function () {
+    this.setPageZoom(100);
+  },
+
+  setPageZoom: function (level) {
+    this.pageZoomLevel = level;
+    document.body.style.zoom = level / 100;
+    const indicator = document.getElementById("pageZoomIndicator");
+    if (indicator) {
+      indicator.textContent = `${level}%`;
+    }
+  },
+
+  togglePageMagnifier: function () {
+    this.pageMagnifierActive = !this.pageMagnifierActive;
+    const btn = document.getElementById("btnPageMagnifier");
+    const lens = document.getElementById("pageMagnifierLens");
+
+    if (this.pageMagnifierActive) {
+      if (btn) btn.classList.add("active");
+      if (lens) lens.style.display = "flex";
+    } else {
+      if (btn) btn.classList.remove("active");
+      if (lens) lens.style.display = "none";
+    }
+  },
+
+  setupTopZoomAndMagnifier: function () {
+    const lens = document.getElementById("pageMagnifierLens");
+    const lensContent = document.getElementById("pageLensContent");
+
+    // Keyboard Shortcuts: Alt + M to toggle page magnifier, Esc to exit
+    document.addEventListener("keydown", (e) => {
+      if (e.altKey && e.key.toLowerCase() === "m") {
+        this.togglePageMagnifier();
+      } else if (e.key === "Escape" && this.pageMagnifierActive) {
+        this.togglePageMagnifier();
+      }
+    });
+
+    // Move page magnifier lens and capture preview
+    window.addEventListener("mousemove", (e) => {
+      if (!this.pageMagnifierActive || !lens) return;
+
+      lens.style.left = `${e.clientX}px`;
+      lens.style.top = `${e.clientY}px`;
+
+      // Find element directly under cursor
+      lens.style.pointerEvents = "none";
+      const targetEl = document.elementFromPoint(e.clientX, e.clientY);
+      if (targetEl && lensContent) {
+        const closestCard = targetEl.closest(".topic-section, .qa-card, .lab-card, .comparison-table-wrapper, .concept-visual-container, .code-terminal-grid, .site-header, .brand-wrapper") || targetEl;
+        if (closestCard) {
+          const headerText = closestCard.querySelector("h3, h4, h2, strong")?.innerText || "";
+          const pText = closestCard.querySelector("p, code, pre, .topic-description")?.innerText || closestCard.innerText || "";
+          lensContent.innerHTML = `
+            <div style="padding: 16px 12px; font-size: 0.9rem; color: #0f172a; line-height: 1.45; transform: scale(1.12); transform-origin: top left;">
+              ${headerText ? `<div style="font-weight:800; color:#4338ca; margin-bottom:4px; font-size:0.95rem;">${App.escapeHtml(headerText.slice(0, 65))}</div>` : ''}
+              <div style="font-size:0.82rem; color:#334155;">${App.escapeHtml(pText.slice(0, 200))}...</div>
+            </div>
+          `;
+        }
+      }
+    });
+  },
+
+  // -------------------------------------------------------------
+  // Global Real-Time Search Engine with Live Dropdown & Navigation
+  // -------------------------------------------------------------
+  searchIndex: [],
+
+  buildSearchIndex: function () {
+    const index = [];
+
+    // 1. Index all curriculum topics across 5 units
+    COURSE_DATA.modules.forEach(mod => {
+      mod.topics.forEach(t => {
+        index.push({
+          type: "topic",
+          category: "📘 Curriculum Concept",
+          unitId: mod.id,
+          unitTitle: mod.title,
+          targetId: t.id,
+          title: t.title,
+          content: `${t.title} ${t.content || ''} ${t.analogy || ''} ${t.trap || ''} ${t.codeSnippet?.code || ''}`,
+          badge: mod.unitCode || "UNIT"
+        });
+      });
+    });
+
+    // 2. Index all interview questions
+    if (COURSE_DATA.interviewQuestions) {
+      COURSE_DATA.interviewQuestions.forEach(q => {
+        index.push({
+          type: "qa",
+          category: "❓ Interview Viva & Traps",
+          unitId: "interview-vault",
+          unitTitle: "Viva & Interview Vault",
+          targetId: q.id,
+          title: q.q,
+          content: `${q.q} ${q.a || ''} ${q.tags?.join(' ') || ''} ${q.company || ''}`,
+          badge: q.company ? `🏢 ${q.company}` : "VIVA"
+        });
+      });
+    }
+
+    // 3. Index all practical labs
+    if (COURSE_DATA.labs) {
+      COURSE_DATA.labs.forEach(l => {
+        index.push({
+          type: "lab",
+          category: "🧪 Practical Lab Assignment",
+          unitId: "lab-assignments",
+          unitTitle: "Practical Lab Exercises",
+          targetId: l.id,
+          title: l.title,
+          content: `${l.title} ${l.task || ''} ${l.hints || ''} ${l.solutionCode || ''}`,
+          badge: l.unit || "LAB"
+        });
+      });
+    }
+
+    this.searchIndex = index;
+  },
+
+  setupSearchEngine: function () {
+    this.buildSearchIndex();
+
+    const searchInput = document.getElementById("globalSearchInput");
+    const resultsDropdown = document.getElementById("globalSearchResults");
+    const clearBtn = document.getElementById("searchClearBtn");
+
+    if (!searchInput || !resultsDropdown) return;
+
+    let debounceTimer = null;
+    let selectedIndex = -1;
+
+    searchInput.addEventListener("input", (e) => {
+      const query = e.target.value.trim().toLowerCase();
+      if (clearBtn) clearBtn.style.display = query.length > 0 ? "flex" : "none";
+
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        this.executeSearch(query, resultsDropdown);
+      }, 50);
+    });
+
+    searchInput.addEventListener("focus", () => {
+      const query = searchInput.value.trim().toLowerCase();
+      if (query.length > 0) {
+        this.executeSearch(query, resultsDropdown);
+      }
+    });
+
+    // Keyboard navigation in search dropdown
+    searchInput.addEventListener("keydown", (e) => {
+      const items = resultsDropdown.querySelectorAll(".search-result-item");
+      if (!items.length || resultsDropdown.style.display === "none") return;
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        selectedIndex = (selectedIndex + 1) % items.length;
+        this.updateSearchSelection(items, selectedIndex);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+        this.updateSearchSelection(items, selectedIndex);
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (selectedIndex >= 0 && items[selectedIndex]) {
+          items[selectedIndex].click();
+        } else if (items.length > 0) {
+          items[0].click();
+        }
+      } else if (e.key === "Escape") {
+        this.closeSearchDropdown();
+      }
+    });
+
+    // Close dropdown on outside click
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".search-box")) {
+        this.closeSearchDropdown();
+      }
+    });
+  },
+
+  executeSearch: function (query, dropdown) {
+    if (!query || query.length < 1) {
+      this.closeSearchDropdown();
       return;
     }
 
-    document.querySelectorAll(".qa-card").forEach(card => {
-      const searchData = card.getAttribute("data-search") || "";
-      if (searchData.includes(query)) {
-        card.style.display = "block";
-        card.classList.add("open");
-      } else {
-        card.style.display = "none";
+    const cleanQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const queryTokens = cleanQuery.split(/\s+/).filter(Boolean);
+    const queryRegex = new RegExp(`(${queryTokens.join('|')})`, 'gi');
+
+    // Score and filter results
+    const matches = [];
+    this.searchIndex.forEach(item => {
+      const titleLower = item.title.toLowerCase();
+      const contentLower = item.content.toLowerCase();
+
+      let score = 0;
+      let matchedTokens = 0;
+
+      queryTokens.forEach(token => {
+        if (titleLower.includes(token)) {
+          score += 15;
+          matchedTokens++;
+        } else if (contentLower.includes(token)) {
+          score += 3;
+          matchedTokens++;
+        }
+      });
+
+      if (matchedTokens > 0) {
+        matches.push({ ...item, score });
       }
     });
+
+    matches.sort((a, b) => b.score - a.score);
+    const topResults = matches.slice(0, 10);
+
+    if (topResults.length === 0) {
+      dropdown.innerHTML = `
+        <div class="search-empty-state">
+          <span>🔍 No matching concepts found for "<strong>${App.escapeHtml(query)}</strong>"</span>
+          <p style="font-size:0.75rem; color:#94a3b8; margin-top:4px;">Try searching for "arrays", "jagged", "polymorphism", "stringbuilder", or "locks"</p>
+        </div>
+      `;
+      dropdown.style.display = "block";
+      return;
+    }
+
+    // Group results by category
+    const grouped = {};
+    topResults.forEach(r => {
+      if (!grouped[r.category]) grouped[r.category] = [];
+      grouped[r.category].push(r);
+    });
+
+    let html = '';
+    for (const [category, items] of Object.entries(grouped)) {
+      html += `<div class="search-group-header">${category}</div>`;
+      items.forEach(item => {
+        const rawText = item.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+        const firstToken = queryTokens[0];
+        const matchIdx = rawText.toLowerCase().indexOf(firstToken);
+        const start = Math.max(0, matchIdx - 35);
+        const end = Math.min(rawText.length, matchIdx + 110);
+        let snippet = (start > 0 ? '...' : '') + rawText.substring(start, end) + (end < rawText.length ? '...' : '');
+
+        const highlightedTitle = item.title.replace(queryRegex, '<mark>$1</mark>');
+        const highlightedSnippet = App.escapeHtml(snippet).replace(queryRegex, '<mark>$1</mark>');
+
+        html += `
+          <div class="search-result-item" onclick="App.navigateToSearchResult('${item.type}', '${item.unitId}', '${item.targetId}')">
+            <div class="search-result-top">
+              <div class="search-result-title">${highlightedTitle}</div>
+              <span class="search-result-badge">${item.badge}</span>
+            </div>
+            <div class="search-result-snippet">${highlightedSnippet}</div>
+          </div>
+        `;
+      });
+    }
+
+    dropdown.innerHTML = html;
+    dropdown.style.display = "block";
+  },
+
+  updateSearchSelection: function (items, index) {
+    items.forEach((it, idx) => {
+      it.classList.toggle("selected", idx === index);
+      if (idx === index) {
+        it.scrollIntoView({ block: "nearest" });
+      }
+    });
+  },
+
+  closeSearchDropdown: function () {
+    const dropdown = document.getElementById("globalSearchResults");
+    if (dropdown) dropdown.style.display = "none";
+  },
+
+  clearSearch: function () {
+    const input = document.getElementById("globalSearchInput");
+    const clearBtn = document.getElementById("searchClearBtn");
+    if (input) {
+      input.value = "";
+      input.focus();
+    }
+    if (clearBtn) clearBtn.style.display = "none";
+    this.closeSearchDropdown();
+  },
+
+  navigateToSearchResult: function (type, tabId, targetId) {
+    this.closeSearchDropdown();
+    this.switchTab(tabId);
+
+    setTimeout(() => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        if (el.classList.contains("qa-card")) {
+          el.classList.add("open");
+        }
+
+        el.classList.remove("search-target-highlight");
+        void el.offsetWidth;
+        el.classList.add("search-target-highlight");
+
+        setTimeout(() => {
+          el.classList.remove("search-target-highlight");
+        }, 3200);
+      }
+    }, 180);
   },
 
   checkMCQ: function (topicId, mcqIdx, selectedOptIdx, btnEl) {
@@ -573,5 +1047,316 @@ const App = {
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
+  },
+
+  // 6. Universal Image Zoom & Magnifier Lightbox Controller
+  lightboxState: {
+    isOpen: false,
+    scale: 1,
+    minScale: 0.5,
+    maxScale: 5.0,
+    posX: 0,
+    posY: 0,
+    isDragging: false,
+    startX: 0,
+    startY: 0,
+    lensActive: false,
+    lensZoomRatio: 2.5,
+    currentSrc: ""
+  },
+
+  setupImageLightbox: function () {
+    // A. Global click handler for all concept diagram images and visualizer photos across the whole website
+    document.addEventListener("click", (e) => {
+      const imgTarget = e.target.closest(".concept-diagram-img, .concept-visual-container img");
+      if (imgTarget && !this.lightboxState.isOpen) {
+        const src = imgTarget.getAttribute("src");
+        const alt = imgTarget.getAttribute("alt") || "Technical Diagram";
+        this.openImageLightbox(src, alt);
+      }
+    });
+
+    const viewport = document.getElementById("lightboxViewport");
+    const canvas = document.getElementById("lightboxCanvas");
+    const imgEl = document.getElementById("lightboxImg");
+    const lensEl = document.getElementById("lightboxLens");
+
+    if (!viewport || !canvas || !imgEl || !lensEl) return;
+
+    // B. Mouse Wheel Smooth Zooming (Centered toward cursor)
+    viewport.addEventListener("wheel", (e) => {
+      if (!this.lightboxState.isOpen) return;
+      e.preventDefault();
+
+      const rect = viewport.getBoundingClientRect();
+      const pointerX = e.clientX - rect.left - rect.width / 2;
+      const pointerY = e.clientY - rect.top - rect.height / 2;
+
+      const zoomFactor = e.deltaY < 0 ? 1.2 : 0.833;
+      const newScale = Math.min(Math.max(this.lightboxState.scale * zoomFactor, this.lightboxState.minScale), this.lightboxState.maxScale);
+
+      if (newScale !== this.lightboxState.scale) {
+        const scaleChange = newScale / this.lightboxState.scale;
+        this.lightboxState.posX = pointerX - (pointerX - this.lightboxState.posX) * scaleChange;
+        this.lightboxState.posY = pointerY - (pointerY - this.lightboxState.posY) * scaleChange;
+        this.lightboxState.scale = newScale;
+        this.applyLightboxTransform();
+      }
+    }, { passive: false });
+
+    // C. Mouse Drag Panning
+    viewport.addEventListener("mousedown", (e) => {
+      if (!this.lightboxState.isOpen) return;
+      if (this.lightboxState.lensActive) return;
+
+      this.lightboxState.isDragging = true;
+      this.lightboxState.startX = e.clientX - this.lightboxState.posX;
+      this.lightboxState.startY = e.clientY - this.lightboxState.posY;
+      viewport.classList.add("is-dragging");
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!this.lightboxState.isOpen) return;
+
+      if (this.lightboxState.isDragging) {
+        this.lightboxState.posX = e.clientX - this.lightboxState.startX;
+        this.lightboxState.posY = e.clientY - this.lightboxState.startY;
+        this.applyLightboxTransform();
+      }
+
+      if (this.lightboxState.lensActive) {
+        this.updateMagnifierLens(e);
+      }
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (this.lightboxState.isDragging) {
+        this.lightboxState.isDragging = false;
+        viewport.classList.remove("is-dragging");
+      }
+    });
+
+    // D. Double-Click Quick Zoom (Toggle 1x <-> 2.5x)
+    viewport.addEventListener("dblclick", () => {
+      if (!this.lightboxState.isOpen) return;
+      if (this.lightboxState.scale > 1.2) {
+        this.lightboxResetZoom();
+      } else {
+        this.lightboxSetScale(2.5);
+      }
+    });
+
+    // E. Touch Gestures for Mobile & Tablets (Pinch Zoom & Drag Pan)
+    let initialTouchDist = null;
+    let initialTouchScale = 1;
+    let touchStartX = 0, touchStartY = 0;
+
+    viewport.addEventListener("touchstart", (e) => {
+      if (!this.lightboxState.isOpen) return;
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX - this.lightboxState.posX;
+        touchStartY = e.touches[0].clientY - this.lightboxState.posY;
+        this.lightboxState.isDragging = true;
+      } else if (e.touches.length === 2) {
+        initialTouchDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        initialTouchScale = this.lightboxState.scale;
+      }
+    }, { passive: true });
+
+    viewport.addEventListener("touchmove", (e) => {
+      if (!this.lightboxState.isOpen) return;
+      if (e.touches.length === 1 && this.lightboxState.isDragging) {
+        this.lightboxState.posX = e.touches[0].clientX - touchStartX;
+        this.lightboxState.posY = e.touches[0].clientY - touchStartY;
+        this.applyLightboxTransform();
+      } else if (e.touches.length === 2 && initialTouchDist) {
+        const currentDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        const touchFactor = currentDist / initialTouchDist;
+        const newScale = Math.min(Math.max(initialTouchScale * touchFactor, this.lightboxState.minScale), this.lightboxState.maxScale);
+        this.lightboxState.scale = newScale;
+        this.applyLightboxTransform();
+      }
+    }, { passive: true });
+
+    viewport.addEventListener("touchend", () => {
+      this.lightboxState.isDragging = false;
+      initialTouchDist = null;
+    });
+
+    // F. Keyboard Controls for Zoom, Pan, Lens & Exit
+    document.addEventListener("keydown", (e) => {
+      if (!this.lightboxState.isOpen) return;
+
+      if (e.key === "Escape") {
+        this.closeImageLightbox();
+      } else if (e.key === "+" || e.key === "=") {
+        this.lightboxZoomIn();
+      } else if (e.key === "-" || e.key === "_") {
+        this.lightboxZoomOut();
+      } else if (e.key === "0" || e.key.toLowerCase() === "r") {
+        this.lightboxResetZoom();
+      } else if (e.key.toLowerCase() === "m") {
+        this.lightboxToggleLens();
+      } else if (e.key === "ArrowUp") {
+        this.lightboxState.posY += 40;
+        this.applyLightboxTransform();
+      } else if (e.key === "ArrowDown") {
+        this.lightboxState.posY -= 40;
+        this.applyLightboxTransform();
+      } else if (e.key === "ArrowLeft") {
+        this.lightboxState.posX += 40;
+        this.applyLightboxTransform();
+      } else if (e.key === "ArrowRight") {
+        this.lightboxState.posX -= 40;
+        this.applyLightboxTransform();
+      }
+    });
+  },
+
+  openImageLightbox: function (src, title = "Diagram Inspector") {
+    const modal = document.getElementById("imageLightboxModal");
+    const imgEl = document.getElementById("lightboxImg");
+    const titleEl = document.getElementById("lightboxTitle");
+    const lensEl = document.getElementById("lightboxLens");
+
+    if (!modal || !imgEl) return;
+
+    this.lightboxState.isOpen = true;
+    this.lightboxState.scale = 1;
+    this.lightboxState.posX = 0;
+    this.lightboxState.posY = 0;
+    this.lightboxState.lensActive = false;
+    this.lightboxState.currentSrc = src;
+
+    imgEl.src = src;
+    if (titleEl) titleEl.textContent = title;
+    if (lensEl) {
+      lensEl.style.display = "none";
+      lensEl.style.backgroundImage = `url("${src}")`;
+    }
+
+    const lensBtn = document.getElementById("btnToggleLens");
+    const lensLabel = document.getElementById("lensBtnLabel");
+    if (lensBtn) lensBtn.classList.remove("active");
+    if (lensLabel) lensLabel.textContent = "🔎 Loupe Lens: OFF";
+
+    const viewport = document.getElementById("lightboxViewport");
+    if (viewport) viewport.classList.remove("lens-active");
+
+    this.applyLightboxTransform();
+
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  },
+
+  closeImageLightbox: function () {
+    const modal = document.getElementById("imageLightboxModal");
+    if (!modal) return;
+
+    this.lightboxState.isOpen = false;
+    this.lightboxState.lensActive = false;
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "auto";
+  },
+
+  lightboxZoomIn: function () {
+    this.lightboxSetScale(Math.min(this.lightboxState.scale * 1.25, this.lightboxState.maxScale));
+  },
+
+  lightboxZoomOut: function () {
+    this.lightboxSetScale(Math.max(this.lightboxState.scale * 0.8, this.lightboxState.minScale));
+  },
+
+  lightboxResetZoom: function () {
+    this.lightboxState.scale = 1;
+    this.lightboxState.posX = 0;
+    this.lightboxState.posY = 0;
+    this.applyLightboxTransform();
+  },
+
+  lightboxSetScale: function (newScale) {
+    this.lightboxState.scale = Math.min(Math.max(newScale, this.lightboxState.minScale), this.lightboxState.maxScale);
+    this.applyLightboxTransform();
+  },
+
+  applyLightboxTransform: function () {
+    const canvas = document.getElementById("lightboxCanvas");
+    const zoomText = document.getElementById("lightboxZoomLevel");
+
+    if (canvas) {
+      canvas.style.transform = `translate(${this.lightboxState.posX}px, ${this.lightboxState.posY}px) scale(${this.lightboxState.scale})`;
+    }
+    if (zoomText) {
+      zoomText.textContent = `${Math.round(this.lightboxState.scale * 100)}%`;
+    }
+  },
+
+  lightboxToggleLens: function () {
+    this.lightboxState.lensActive = !this.lightboxState.lensActive;
+    const lensEl = document.getElementById("lightboxLens");
+    const lensBtn = document.getElementById("btnToggleLens");
+    const lensLabel = document.getElementById("lensBtnLabel");
+    const viewport = document.getElementById("lightboxViewport");
+
+    if (this.lightboxState.lensActive) {
+      this.lightboxResetZoom();
+      if (lensEl) lensEl.style.display = "block";
+      if (lensBtn) lensBtn.classList.add("active");
+      if (lensLabel) lensLabel.textContent = "🔎 Loupe Lens: ON";
+      if (viewport) viewport.classList.add("lens-active");
+    } else {
+      if (lensEl) lensEl.style.display = "none";
+      if (lensBtn) lensBtn.classList.remove("active");
+      if (lensLabel) lensLabel.textContent = "🔎 Loupe Lens: OFF";
+      if (viewport) viewport.classList.remove("lens-active");
+    }
+  },
+
+  updateMagnifierLens: function (e) {
+    const imgEl = document.getElementById("lightboxImg");
+    const lensEl = document.getElementById("lightboxLens");
+    if (!imgEl || !lensEl) return;
+
+    const imgRect = imgEl.getBoundingClientRect();
+    const canvas = document.getElementById("lightboxCanvas");
+    const canvasRect = canvas ? canvas.getBoundingClientRect() : imgRect;
+
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    if (
+      mouseX < imgRect.left - 30 ||
+      mouseX > imgRect.right + 30 ||
+      mouseY < imgRect.top - 30 ||
+      mouseY > imgRect.bottom + 30
+    ) {
+      lensEl.style.display = "none";
+      return;
+    } else {
+      lensEl.style.display = "block";
+    }
+
+    const relX = mouseX - imgRect.left;
+    const relY = mouseY - imgRect.top;
+
+    lensEl.style.left = `${mouseX - canvasRect.left}px`;
+    lensEl.style.top = `${mouseY - canvasRect.top}px`;
+
+    const zoomRatio = this.lightboxState.lensZoomRatio || 2.5;
+    const bgWidth = imgRect.width * zoomRatio;
+    const bgHeight = imgRect.height * zoomRatio;
+
+    lensEl.style.backgroundSize = `${bgWidth}px ${bgHeight}px`;
+    const bgX = relX * zoomRatio - lensEl.offsetWidth / 2;
+    const bgY = relY * zoomRatio - lensEl.offsetHeight / 2;
+    lensEl.style.backgroundPosition = `-${bgX}px -${bgY}px`;
   }
 };

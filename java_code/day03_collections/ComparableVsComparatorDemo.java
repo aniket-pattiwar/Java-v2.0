@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Demo 4: Comparable (Natural Sorting) vs Comparator (Multiple Custom Sorts)
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 class StudentRecord implements Comparable<StudentRecord> {
     int rollNo;

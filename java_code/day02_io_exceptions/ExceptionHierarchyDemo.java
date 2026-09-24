@@ -5,7 +5,7 @@ import java.io.IOException;
 
 /**
  * Demo 3: Exception Hierarchy, Checked vs Unchecked, Multi-Catch & Call-Stack Propagation
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 public class ExceptionHierarchyDemo {
 

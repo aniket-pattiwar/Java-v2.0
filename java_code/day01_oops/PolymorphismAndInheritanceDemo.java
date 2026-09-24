@@ -2,7 +2,7 @@ package day01_oops;
 
 /**
  * Demo 4: Inheritance, Upcasting & Dynamic Method Dispatch (Polymorphism)
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 abstract class PaymentMethod {
     protected String transactionId;
@@ -66,7 +66,7 @@ public class PolymorphismAndInheritanceDemo {
         System.out.println("\n=== 2. Runtime Polymorphism (Dynamic Method Dispatch via Upcasting) ===");
         // Parent Reference holding diverse Child Objects
         PaymentMethod[] batchPayments = {
-            new UPIPayment("TXN1002", 5000.0, "fees@lnmc"),
+            new UPIPayment("TXN1002", 5000.0, "fees@portal.ac.in"),
             new CreditCardPayment("TXN1003", 25000.0, "4111222233334444"),
             new UPIPayment("TXN1004", 750.0, "canteen@upi")
         };

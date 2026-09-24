@@ -2,9 +2,9 @@ package day04_multithreading;
 
 /**
  * Demo 2: Race Conditions & Thread Synchronization (Methods vs Blocks)
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
-class CollegeFeeCounter {
+class FeeCounter {
     private int collectedTotal = 0;
 
     // 1. Unsafe Method (Suffers from Race Condition)
@@ -38,7 +38,7 @@ class CollegeFeeCounter {
 
 public class SynchronizationAndLocksDemo {
     public static void main(String[] args) throws InterruptedException {
-        CollegeFeeCounter counter = new CollegeFeeCounter();
+        FeeCounter counter = new FeeCounter();
 
         System.out.println("=== 1. Simulating Unsynchronized Concurrent Access (Race Condition) ===");
         Thread[] unsafeThreads = new Thread[10];
@@ -49,14 +49,15 @@ public class SynchronizationAndLocksDemo {
         for (Thread t : unsafeThreads) t.join();
         System.out.println("Expected: ₹10,000 | Actual (Corrupted due to Race Condition): ₹" + counter.getCollectedTotal());
 
-        System.out.println("\n=== 2. Simulating Synchronized Counter (Thread-Safe) ===");
         counter.reset();
+
+        System.out.println("\n=== 2. Simulating Synchronized Concurrent Access (Thread-Safe) ===");
         Thread[] safeThreads = new Thread[10];
         for (int i = 0; i < 10; i++) {
             safeThreads[i] = new Thread(() -> counter.recordPaymentSafe(1000));
             safeThreads[i].start();
         }
         for (Thread t : safeThreads) t.join();
-        System.out.println("Expected: ₹10,000 | Actual (Thread-Safe): ₹" + counter.getCollectedTotal());
+        System.out.println("Expected: ₹10,000 | Actual (Protected by Monitor Lock): ₹" + counter.getCollectedTotal());
     }
 }

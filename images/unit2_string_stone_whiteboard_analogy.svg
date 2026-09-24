@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="50%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#1f2937"/>
+    </linearGradient>
+    <linearGradient id="stoneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="50%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="boardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bgGrad3)"/>
+
+  <!-- Main Banner -->
+  <rect x="50" y="25" width="1100" height="65" rx="16" fill="#1f2937" stroke="#4b5563" stroke-width="2"/>
+  <text x="600" y="65" fill="#f9fafb" font-size="24" font-weight="bold" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+    REAL-WORLD ANALOGY: STRING IMMUTABILITY vs. STRINGBUILDER
+  </text>
+
+  <!-- Left Side: Immutable String = Carved Stone Monument -->
+  <g transform="translate(60, 115)">
+    <rect width="520" height="510" rx="18" fill="#1e293b" stroke="#64748b" stroke-width="2.5" filter="url(#shadow)"/>
+    
+    <!-- Header -->
+    <rect x="20" y="20" width="480" height="48" rx="10" fill="#334155"/>
+    <text x="35" y="51" fill="#f1f5f9" font-size="17" font-weight="bold" font-family="sans-serif">
+      🗿 1. JAVA STRING: CARVED STONE MONUMENT (IMMUTABLE)
+    </text>
+
+    <!-- Stone Visual Card -->
+    <g transform="translate(30, 85)">
+      <!-- Stone Slab 1 (Original) -->
+      <rect x="20" y="10" width="200" height="130" rx="12" fill="url(#stoneGrad)" stroke="#94a3b8" stroke-width="3" filter="url(#shadow)"/>
+      <text x="120" y="45" fill="#f8fafc" font-size="14" font-weight="bold" text-anchor="middle" font-family="serif">ORIGINAL STONE</text>
+      <rect x="40" y="60" width="160" height="35" rx="6" fill="#0f172a" opacity="0.6"/>
+      <text x="120" y="83" fill="#38bdf8" font-size="16" font-weight="bold" text-anchor="middle" font-family="monospace">"Java"</text>
+      <text x="120" y="120" fill="#94a3b8" font-size="11" text-anchor="middle">Permanent (Read-Only)</text>
+
+      <!-- Concatenation Operation -->
+      <text x="235" y="80" fill="#f59e0b" font-size="24" font-weight="bold" text-anchor="middle">+</text>
+      <text x="235" y="105" fill="#cbd5e1" font-size="12" text-anchor="middle">" MCA"</text>
+
+      <!-- Stone Slab 2 (Brand New Instance!) -->
+      <rect x="260" y="10" width="200" height="130" rx="12" fill="url(#stoneGrad)" stroke="#f43f5e" stroke-width="3" filter="url(#shadow)"/>
+      <text x="360" y="45" fill="#f8fafc" font-size="14" font-weight="bold" text-anchor="middle" font-family="serif">NEW SEPARATE STONE</text>
+      <rect x="275" y="60" width="170" height="35" rx="6" fill="#881337" opacity="0.6"/>
+      <text x="360" y="83" fill="#fda4af" font-size="16" font-weight="bold" text-anchor="middle" font-family="monospace">"Java MCA"</text>
+      <text x="360" y="120" fill="#f43f5e" font-size="11" font-weight="bold" text-anchor="middle">Allocates New Heap Object!</text>
+
+      <!-- Waste / Discard Indicator -->
+      <path d="M 120 145 C 120 185, 200 190, 200 190" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4,4"/>
+      <text x="240" y="195" fill="#94a3b8" font-size="11">Original stone becomes garbage</text>
+    </g>
+
+    <!-- Technical Takeaways Box -->
+    <rect x="20" y="315" width="480" height="170" rx="12" fill="#0f172a" stroke="#334155"/>
+    <text x="35" y="345" fill="#38bdf8" font-size="14" font-weight="bold" font-family="sans-serif">Why Strings are Immutable in Java:</text>
+    <text x="35" y="375" fill="#cbd5e1" font-size="13" font-family="sans-serif">• 🔒 <strong>Security:</strong> Cannot be corrupted by malicious callers.</text>
+    <text x="35" y="400" fill="#cbd5e1" font-size="13" font-family="sans-serif">• 🧵 <strong>Thread-Safety:</strong> Multiple threads can share strings without locks.</text>
+    <text x="35" y="425" fill="#cbd5e1" font-size="13" font-family="sans-serif">• ⚡ <strong>Caching:</strong> Hashcode is cached once for fast HashMap lookups.</text>
+    <text x="35" y="450" fill="#cbd5e1" font-size="13" font-family="sans-serif">• 🏊 <strong>SCP Optimization:</strong> Reuses identical literals across the JVM.</text>
+    <text x="35" y="475" fill="#f87171" font-size="12" font-weight="bold" font-family="sans-serif">⚠️ Never concatenate strings inside loops (Generates heavy GC waste)!</text>
+  </g>
+
+  <!-- Right Side: Mutable StringBuilder = Classroom Whiteboard -->
+  <g transform="translate(620, 115)">
+    <rect width="520" height="510" rx="18" fill="#1e293b" stroke="#059669" stroke-width="2.5" filter="url(#shadow)"/>
+    
+    <!-- Header -->
+    <rect x="20" y="20" width="480" height="48" rx="10" fill="#065f46"/>
+    <text x="35" y="51" fill="#ecfdf5" font-size="17" font-weight="bold" font-family="sans-serif">
+      📋 2. STRINGBUILDER: ERASABLE WHITEBOARD (MUTABLE)
+    </text>
+
+    <!-- Whiteboard Visual Card -->
+    <g transform="translate(30, 85)">
+      <rect x="20" y="10" width="440" height="150" rx="14" fill="url(#boardGrad)" stroke="#0f172a" stroke-width="5" filter="url(#shadow)"/>
+      <rect x="35" y="25" width="410" height="120" rx="8" fill="#ffffff"/>
+      
+      <!-- In-place Mutations on same board -->
+      <text x="50" y="55" fill="#0f172a" font-size="14" font-weight="bold" font-family="sans-serif">Interactive Workspace (Single Memory Buffer):</text>
+      
+      <g transform="translate(50, 70)">
+        <rect x="0" y="0" width="70" height="30" rx="4" fill="#dbeafe" stroke="#3b82f6"/>
+        <text x="35" y="20" fill="#1d4ed8" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">"Java"</text>
+
+        <text x="85" y="20" fill="#059669" font-size="16" font-weight="bold">→</text>
+        <text x="110" y="20" fill="#059669" font-size="12" font-weight="bold">.append(" MCA")</text>
+
+        <text x="235" y="20" fill="#059669" font-size="16" font-weight="bold">→</text>
+        <rect x="255" y="0" width="135" height="30" rx="4" fill="#d1fae5" stroke="#10b981"/>
+        <text x="322" y="20" fill="#047857" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">"Java MCA"</text>
+      </g>
+
+      <text x="50" y="130" fill="#047857" font-size="12" font-weight="bold" font-family="sans-serif">
+        ✨ In-Place Reversal, Deletion &amp; Insertion without any new Object creation!
+      </text>
+    </g>
+
+    <!-- Technical Comparison Box -->
+    <rect x="20" y="315" width="480" height="170" rx="12" fill="#0f172a" stroke="#334155"/>
+    <text x="35" y="345" fill="#34d399" font-size="14" font-weight="bold" font-family="sans-serif">When to use StringBuilder vs StringBuffer:</text>
+    <text x="35" y="375" fill="#cbd5e1" font-size="13" font-family="sans-serif">• ⚡ <strong>StringBuilder:</strong> Fast, non-synchronized internal char array.</text>
+    <text x="35" y="400" fill="#cbd5e1" font-size="13" font-family="sans-serif">• 🚀 <strong>Recommended:</strong> For 99% of single-threaded string building tasks.</text>
+    <text x="35" y="425" fill="#cbd5e1" font-size="13" font-family="sans-serif">• 🛡️ <strong>StringBuffer:</strong> Thread-safe (all methods synchronized).</text>
+    <text x="35" y="450" fill="#cbd5e1" font-size="13" font-family="sans-serif">• 🐢 <strong>Overhead:</strong> Slower due to synchronized lock acquisition.</text>
+    <text x="35" y="475" fill="#86efac" font-size="12" font-weight="bold" font-family="sans-serif">💡 Best Practice: Use StringBuilder in loops &amp; formatting pipelines!</text>
+  </g>
+</svg>

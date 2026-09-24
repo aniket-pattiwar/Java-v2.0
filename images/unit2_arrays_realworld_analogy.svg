@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bgGradArr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="cardGradArr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="shadowArr" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.5"/>
+    </filter>
+    <filter id="glowArr" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bgGradArr)"/>
+
+  <!-- Title Banner -->
+  <rect x="50" y="25" width="1100" height="65" rx="16" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+  <text x="600" y="65" fill="#f8fafc" font-size="24" font-weight="bold" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+    REAL-WORLD MENTAL MODELS: 1D vs. 2D vs. JAGGED ARRAYS IN JAVA
+  </text>
+
+  <!-- Section 1: 1D Array (Linear Storage Lockers) -->
+  <g transform="translate(50, 110)">
+    <rect width="345" height="520" rx="16" fill="url(#cardGradArr)" stroke="#0ea5e9" stroke-width="2" filter="url(#shadowArr)"/>
+    
+    <!-- Header -->
+    <rect x="15" y="15" width="315" height="42" rx="8" fill="#0369a1" opacity="0.3"/>
+    <text x="25" y="42" fill="#38bdf8" font-size="15" font-weight="bold" font-family="sans-serif">
+      📦 1. 1D ARRAY: GYM LOCKERS
+    </text>
+
+    <!-- Visual Diagram Area -->
+    <g transform="translate(20, 75)">
+      <rect width="305" height="190" rx="10" fill="#090d16" stroke="#1e293b"/>
+      <text x="15" y="25" fill="#94a3b8" font-size="12" font-family="monospace">int[] lockers = new int[4];</text>
+
+      <!-- Lockers Row -->
+      <g transform="translate(15, 45)">
+        <!-- Locker 0 -->
+        <rect x="0" y="0" width="65" height="110" rx="6" fill="#1e293b" stroke="#0284c7" stroke-width="2"/>
+        <rect x="25" y="15" width="15" height="6" rx="2" fill="#38bdf8"/>
+        <circle cx="32" cy="55" r="5" fill="#f59e0b"/>
+        <text x="32" y="90" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">[0]</text>
+        <text x="32" y="105" fill="#cbd5e1" font-size="10" text-anchor="middle">Val: 10</text>
+
+        <!-- Locker 1 -->
+        <rect x="70" y="0" width="65" height="110" rx="6" fill="#1e293b" stroke="#0284c7" stroke-width="2"/>
+        <rect x="95" y="15" width="15" height="6" rx="2" fill="#38bdf8"/>
+        <circle cx="102" cy="55" r="5" fill="#f59e0b"/>
+        <text x="102" y="90" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">[1]</text>
+        <text x="102" y="105" fill="#cbd5e1" font-size="10" text-anchor="middle">Val: 20</text>
+
+        <!-- Locker 2 -->
+        <rect x="140" y="0" width="65" height="110" rx="6" fill="#1e293b" stroke="#0284c7" stroke-width="2"/>
+        <rect x="165" y="15" width="15" height="6" rx="2" fill="#38bdf8"/>
+        <circle cx="172" cy="55" r="5" fill="#f59e0b"/>
+        <text x="172" y="90" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">[2]</text>
+        <text x="172" y="105" fill="#cbd5e1" font-size="10" text-anchor="middle">Val: 30</text>
+
+        <!-- Locker 3 -->
+        <rect x="210" y="0" width="65" height="110" rx="6" fill="#1e293b" stroke="#0284c7" stroke-width="2"/>
+        <rect x="235" y="15" width="15" height="6" rx="2" fill="#38bdf8"/>
+        <circle cx="242" cy="55" r="5" fill="#f59e0b"/>
+        <text x="242" y="90" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">[3]</text>
+        <text x="242" y="105" fill="#cbd5e1" font-size="10" text-anchor="middle">Val: 40</text>
+      </g>
+    </g>
+
+    <!-- Characteristics -->
+    <rect x="20" y="280" width="305" height="220" rx="10" fill="#090d16" stroke="#1e293b"/>
+    <text x="35" y="308" fill="#38bdf8" font-size="13" font-weight="bold" font-family="sans-serif">Linear Sequence (1 Index):</text>
+    <text x="35" y="335" fill="#cbd5e1" font-size="12" font-family="sans-serif">• Single contiguous block in Heap.</text>
+    <text x="35" y="360" fill="#cbd5e1" font-size="12" font-family="sans-serif">• Fixed capacity once allocated.</text>
+    <text x="35" y="385" fill="#cbd5e1" font-size="12" font-family="sans-serif">• O(1) Instant index access `arr[i]`.</text>
+    <text x="35" y="415" fill="#f59e0b" font-size="12" font-weight="bold" font-family="sans-serif">Real-World Examples:</text>
+    <text x="35" y="440" fill="#94a3b8" font-size="12" font-family="sans-serif">• Gym Lockers / Book Chapters</text>
+    <text x="35" y="465" fill="#94a3b8" font-size="12" font-family="sans-serif">• Student Roll Number List</text>
+    <text x="35" y="490" fill="#86efac" font-size="11" font-weight="bold" font-family="sans-serif">✓ Simple, low memory overhead</text>
+  </g>
+
+  <!-- Section 2: 2D Regular Array (Classroom Grid / Chessboard) -->
+  <g transform="translate(425, 110)">
+    <rect width="350" height="520" rx="16" fill="url(#cardGradArr)" stroke="#10b981" stroke-width="2" filter="url(#shadowArr)"/>
+    
+    <!-- Header -->
+    <rect x="15" y="15" width="320" height="42" rx="8" fill="#047857" opacity="0.3"/>
+    <text x="25" y="42" fill="#34d399" font-size="15" font-weight="bold" font-family="sans-serif">
+      🏫 2. 2D REGULAR: CLASSROOM DESKS
+    </text>
+
+    <!-- Visual Diagram Area -->
+    <g transform="translate(20, 75)">
+      <rect width="310" height="190" rx="10" fill="#090d16" stroke="#1e293b"/>
+      <text x="15" y="25" fill="#94a3b8" font-size="12" font-family="monospace">int[][] m = new int[3][3]; // 3x3 Grid</text>
+
+      <!-- 3x3 Desk Matrix -->
+      <g transform="translate(40, 45)">
+        <!-- Row 0 -->
+        <rect x="0" y="0" width="65" height="32" rx="4" fill="#064e3b" stroke="#10b981"/>
+        <text x="32" y="20" fill="#a7f3d0" font-size="11" text-anchor="middle" font-family="monospace">[0][0]</text>
+        <rect x="75" y="0" width="65" height="32" rx="4" fill="#064e3b" stroke="#10b981"/>
+        <text x="107" y="20" fill="#a7f3d0" font-size="11" text-anchor="middle" font-family="monospace">[0][1]</text>
+        <rect x="150" y="0" width="65" height="32" rx="4" fill="#064e3b" stroke="#10b981"/>
+        <text x="182" y="20" fill="#a7f3d0" font-size="11" text-anchor="middle" font-family="monospace">[0][2]</text>
+
+        <!-- Row 1 -->
+        <rect x="0" y="40" width="65" height="32" rx="4" fill="#064e3b" stroke="#10b981"/>
+        <text x="32" y="60" fill="#a7f3d0" font-size="11" text-anchor="middle" font-family="monospace">[1][0]</text>
+        <rect x="75" y="40" width="65" height="32" rx="4" fill="#064e3b" stroke="#10b981"/>
+        <text x="107" y="60" fill="#a7f3d0" font-size="11" text-anchor="middle" font-family="monospace">[1][1]</text>
+        <rect x="150" y="40" width="65" height="32" rx="4" fill="#064e3b" stroke="#10b981"/>
+        <text x="182" y="60" fill="#a7f3d0" font-size="11" text-anchor="middle" font-family="monospace">[1][2]</text>
+
+        <!-- Row 2 -->
+        <rect x="0" y="80" width="65" height="32" rx="4" fill="#064e3b" stroke="#10b981"/>
+        <text x="32" y="100" fill="#a7f3d0" font-size="11" text-anchor="middle" font-family="monospace">[2][0]</text>
+        <rect x="75" y="80" width="65" height="32" rx="4" fill="#064e3b" stroke="#10b981"/>
+        <text x="107" y="100" fill="#a7f3d0" font-size="11" text-anchor="middle" font-family="monospace">[2][1]</text>
+        <rect x="150" y="80" width="65" height="32" rx="4" fill="#064e3b" stroke="#10b981"/>
+        <text x="182" y="100" fill="#a7f3d0" font-size="11" text-anchor="middle" font-family="monospace">[2][2]</text>
+      </g>
+    </g>
+
+    <!-- Characteristics -->
+    <rect x="20" y="280" width="310" height="220" rx="10" fill="#090d16" stroke="#1e293b"/>
+    <text x="35" y="308" fill="#34d399" font-size="13" font-weight="bold" font-family="sans-serif">Uniform Rows &amp; Columns (R × C):</text>
+    <text x="35" y="335" fill="#cbd5e1" font-size="12" font-family="sans-serif">• All rows have EQUAL column count.</text>
+    <text x="35" y="360" fill="#cbd5e1" font-size="12" font-family="sans-serif">• Array of references to equal rows.</text>
+    <text x="35" y="385" fill="#cbd5e1" font-size="12" font-family="sans-serif">• Two indices: `matrix[row][col]`.</text>
+    <text x="35" y="415" fill="#f59e0b" font-size="12" font-weight="bold" font-family="sans-serif">Real-World Examples:</text>
+    <text x="35" y="440" fill="#94a3b8" font-size="12" font-family="sans-serif">• Chessboard / Tic-Tac-Toe Grid</text>
+    <text x="35" y="465" fill="#94a3b8" font-size="12" font-family="sans-serif">• Standard Matrix Multiplication</text>
+    <text x="35" y="490" fill="#86efac" font-size="11" font-weight="bold" font-family="sans-serif">✓ Ideal for symmetric tables &amp; games</text>
+  </g>
+
+  <!-- Section 3: Jagged Array (Airplane Cabin Seats / Variable Batches) -->
+  <g transform="translate(805, 110)">
+    <rect width="345" height="520" rx="16" fill="url(#cardGradArr)" stroke="#8b5cf6" stroke-width="2" filter="url(#shadowArr)"/>
+    
+    <!-- Header -->
+    <rect x="15" y="15" width="315" height="42" rx="8" fill="#5b21b6" opacity="0.3"/>
+    <text x="25" y="42" fill="#a78bfa" font-size="15" font-weight="bold" font-family="sans-serif">
+      ✈️ 3. JAGGED: AIRLINE CABIN SEATS
+    </text>
+
+    <!-- Visual Diagram Area -->
+    <g transform="translate(20, 75)">
+      <rect width="305" height="190" rx="10" fill="#090d16" stroke="#1e293b"/>
+      <text x="15" y="25" fill="#94a3b8" font-size="12" font-family="monospace">int[][] cabin = new int[3][];</text>
+
+      <!-- Variable Length Rows -->
+      <g transform="translate(15, 45)">
+        <!-- Row 0: First Class (2 seats) -->
+        <rect x="0" y="0" width="130" height="30" rx="4" fill="#312e81" stroke="#818cf8"/>
+        <text x="65" y="19" fill="#c7d2fe" font-size="11" text-anchor="middle" font-family="monospace">Row 0 (VIP): 2 Seats</text>
+        <text x="145" y="19" fill="#818cf8" font-size="11">[2]</text>
+
+        <!-- Row 1: Business (4 seats) -->
+        <rect x="0" y="40" width="200" height="30" rx="4" fill="#4c1d95" stroke="#a78bfa"/>
+        <text x="100" y="59" fill="#ddd6fe" font-size="11" text-anchor="middle" font-family="monospace">Row 1 (Business): 4 Seats</text>
+        <text x="215" y="59" fill="#a78bfa" font-size="11">[4]</text>
+
+        <!-- Row 2: Economy (6 seats) -->
+        <rect x="0" y="80" width="265" height="30" rx="4" fill="#581c87" stroke="#c084fc"/>
+        <text x="132" y="99" fill="#f3e8ff" font-size="11" text-anchor="middle" font-family="monospace">Row 2 (Economy): 6 Seats</text>
+        <text x="278" y="99" fill="#c084fc" font-size="11">[6]</text>
+      </g>
+    </g>
+
+    <!-- Characteristics -->
+    <rect x="20" y="280" width="305" height="220" rx="10" fill="#090d16" stroke="#1e293b"/>
+    <text x="35" y="308" fill="#c084fc" font-size="13" font-weight="bold" font-family="sans-serif">Variable Column Lengths per Row:</text>
+    <text x="35" y="335" fill="#cbd5e1" font-size="12" font-family="sans-serif">• Each row allocates exact size needed.</text>
+    <text x="35" y="360" fill="#cbd5e1" font-size="12" font-family="sans-serif">• ZERO memory wasted on unused slots.</text>
+    <text x="35" y="385" fill="#cbd5e1" font-size="12" font-family="sans-serif">• `cabin[row].length` varies per row.</text>
+    <text x="35" y="415" fill="#f59e0b" font-size="12" font-weight="bold" font-family="sans-serif">Real-World Examples:</text>
+    <text x="35" y="440" fill="#94a3b8" font-size="12" font-family="sans-serif">• Aircraft Seating (First / Business / Econ)</text>
+    <text x="35" y="465" fill="#94a3b8" font-size="12" font-family="sans-serif">• Batch students count (Batch 1, 2, 3)</text>
+    <text x="35" y="490" fill="#86efac" font-size="11" font-weight="bold" font-family="sans-serif">✓ Maximum memory efficiency</text>
+  </g>
+</svg>

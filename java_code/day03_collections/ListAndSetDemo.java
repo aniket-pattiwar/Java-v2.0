@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Demo 1: List (ArrayList vs LinkedList) & Set (HashSet vs TreeSet)
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 public class ListAndSetDemo {
 

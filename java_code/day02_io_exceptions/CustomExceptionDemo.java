@@ -2,7 +2,7 @@ package day02_io_exceptions;
 
 /**
  * Demo 4: Creating User-Defined Checked and Unchecked Exceptions
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 
 // 1. User-Defined Checked Exception (Extends Exception)

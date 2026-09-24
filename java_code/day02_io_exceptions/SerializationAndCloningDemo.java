@@ -4,7 +4,7 @@ import java.io.*;
 
 /**
  * Demo 2: Serialization, Transient fields & Shallow vs Deep Copy
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 class Address implements Serializable, Cloneable {
     String city;
@@ -59,14 +59,14 @@ class StudentAccount implements Serializable, Cloneable {
 public class SerializationAndCloningDemo {
     public static void main(String[] args) {
         System.out.println("=== 1. Shallow Copy vs Deep Copy Demonstration ===");
-        Address originalAddress = new Address("Patna", "Bihar");
+        Address originalAddress = new Address("Bengaluru", "Karnataka");
         StudentAccount originalStudent = new StudentAccount("Rohan Verma", "9944", originalAddress);
 
         StudentAccount shallowStudent = originalStudent.shallowCopy();
         StudentAccount deepStudent = originalStudent.deepCopy();
 
         // Mutate original address
-        originalAddress.city = "Muzaffarpur";
+        originalAddress.city = "Mysuru";
 
         System.out.println("Original: " + originalStudent);
         System.out.println("Shallow:  " + shallowStudent + " (City changed because reference is shared!)");

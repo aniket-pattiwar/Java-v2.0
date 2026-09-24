@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="boxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="scpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#312e81"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <filter id="glow2" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bgGrad2)"/>
+
+  <!-- Title Banner -->
+  <rect x="50" y="25" width="1100" height="65" rx="16" fill="#1e293b" stroke="#3730a3" stroke-width="2"/>
+  <text x="600" y="65" fill="#f8fafc" font-size="24" font-weight="bold" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+    JAVA MEMORY ARCHITECTURE: ARRAYS &amp; STRING CONSTANT POOL (SCP)
+  </text>
+
+  <!-- Left Half: Array Memory Structures (1D, 2D, Jagged Arrays) -->
+  <g transform="translate(50, 110)">
+    <rect width="530" height="520" rx="16" fill="url(#boxGrad)" stroke="#0ea5e9" stroke-width="2"/>
+    
+    <!-- Title -->
+    <rect x="20" y="20" width="490" height="42" rx="8" fill="#0369a1" opacity="0.3"/>
+    <text x="35" y="47" fill="#38bdf8" font-size="16" font-weight="bold" font-family="sans-serif">
+      📊 1. ARRAYS IN HEAP (1D, 2D &amp; JAGGED ARRAYS)
+    </text>
+
+    <!-- 1D Array Diagram -->
+    <g transform="translate(25, 75)">
+      <text x="0" y="20" fill="#94a3b8" font-size="13" font-weight="bold" font-family="monospace">1D Array: int[] arr = new int[4];</text>
+      <!-- Array cells -->
+      <g transform="translate(0, 30)">
+        <rect x="0" y="0" width="80" height="38" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="40" y="24" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle" font-family="monospace">[0]: 10</text>
+        <rect x="80" y="0" width="80" height="38" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="120" y="24" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle" font-family="monospace">[1]: 20</text>
+        <rect x="160" y="0" width="80" height="38" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="200" y="24" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle" font-family="monospace">[2]: 30</text>
+        <rect x="240" y="0" width="80" height="38" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+        <text x="280" y="24" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle" font-family="monospace">[3]: 40</text>
+        <text x="340" y="24" fill="#64748b" font-size="12" font-family="sans-serif">← Contiguous Heap Block</text>
+      </g>
+    </g>
+
+    <!-- Jagged Array (Variable Column Lengths) -->
+    <g transform="translate(25, 175)">
+      <text x="0" y="20" fill="#a855f7" font-size="13" font-weight="bold" font-family="monospace">Jagged Array: int[][] j = new int[3][];</text>
+      <text x="0" y="38" fill="#cbd5e1" font-size="11" font-family="sans-serif">Main array holds references to independent sub-arrays in Heap:</text>
+
+      <!-- Primary Reference Array -->
+      <g transform="translate(0, 50)">
+        <!-- Row pointers -->
+        <rect x="0" y="0" width="90" height="32" fill="#3b0764" stroke="#c084fc" stroke-width="1.5"/>
+        <text x="45" y="21" fill="#f3e8ff" font-size="12" text-anchor="middle" font-family="monospace">j[0] •-&gt;</text>
+        
+        <rect x="0" y="38" width="90" height="32" fill="#3b0764" stroke="#c084fc" stroke-width="1.5"/>
+        <text x="45" y="59" fill="#f3e8ff" font-size="12" text-anchor="middle" font-family="monospace">j[1] •-&gt;</text>
+
+        <rect x="0" y="76" width="90" height="32" fill="#3b0764" stroke="#c084fc" stroke-width="1.5"/>
+        <text x="45" y="97" fill="#f3e8ff" font-size="12" text-anchor="middle" font-family="monospace">j[2] •-&gt;</text>
+
+        <!-- Sub-array 0: 2 elements -->
+        <path d="M 90 16 L 140 16" stroke="#c084fc" stroke-width="2" marker-end="url(#arrow)"/>
+        <rect x="140" y="0" width="70" height="32" fill="#1e1b4b" stroke="#a855f7"/>
+        <text x="175" y="21" fill="#e9d5ff" font-size="12" text-anchor="middle">85</text>
+        <rect x="210" y="0" width="70" height="32" fill="#1e1b4b" stroke="#a855f7"/>
+        <text x="245" y="21" fill="#e9d5ff" font-size="12" text-anchor="middle">90</text>
+        <text x="290" y="21" fill="#a855f7" font-size="11">(Len: 2)</text>
+
+        <!-- Sub-array 1: 4 elements -->
+        <path d="M 90 54 L 140 54" stroke="#c084fc" stroke-width="2"/>
+        <rect x="140" y="38" width="55" height="32" fill="#1e1b4b" stroke="#a855f7"/>
+        <text x="167" y="59" fill="#e9d5ff" font-size="12" text-anchor="middle">70</text>
+        <rect x="195" y="38" width="55" height="32" fill="#1e1b4b" stroke="#a855f7"/>
+        <text x="222" y="59" fill="#e9d5ff" font-size="12" text-anchor="middle">80</text>
+        <rect x="250" y="38" width="55" height="32" fill="#1e1b4b" stroke="#a855f7"/>
+        <text x="277" y="59" fill="#e9d5ff" font-size="12" text-anchor="middle">95</text>
+        <rect x="305" y="38" width="55" height="32" fill="#1e1b4b" stroke="#a855f7"/>
+        <text x="332" y="59" fill="#e9d5ff" font-size="12" text-anchor="middle">88</text>
+        <text x="370" y="59" fill="#a855f7" font-size="11">(Len: 4)</text>
+
+        <!-- Sub-array 2: 3 elements -->
+        <path d="M 90 92 L 140 92" stroke="#c084fc" stroke-width="2"/>
+        <rect x="140" y="76" width="60" height="32" fill="#1e1b4b" stroke="#a855f7"/>
+        <text x="170" y="97" fill="#e9d5ff" font-size="12" text-anchor="middle">60</text>
+        <rect x="200" y="76" width="60" height="32" fill="#1e1b4b" stroke="#a855f7"/>
+        <text x="230" y="97" fill="#e9d5ff" font-size="12" text-anchor="middle">75</text>
+        <rect x="260" y="76" width="60" height="32" fill="#1e1b4b" stroke="#a855f7"/>
+        <text x="290" y="97" fill="#e9d5ff" font-size="12" text-anchor="middle">82</text>
+        <text x="330" y="97" fill="#a855f7" font-size="11">(Len: 3)</text>
+      </g>
+    </g>
+
+    <!-- Key Takeaway -->
+    <rect x="25" y="385" width="480" height="110" rx="10" fill="#090d16" stroke="#1e293b"/>
+    <text x="40" y="415" fill="#38bdf8" font-size="13" font-weight="bold" font-family="sans-serif">💡 Architectural Takeaway:</text>
+    <text x="40" y="440" fill="#94a3b8" font-size="12" font-family="sans-serif">• Multi-dimensional arrays in Java are technically arrays of references.</text>
+    <text x="40" y="462" fill="#94a3b8" font-size="12" font-family="sans-serif">• Jagged arrays conserve memory by allocating exact row sizes required.</text>
+    <text x="40" y="484" fill="#86efac" font-size="12" font-weight="bold" font-family="sans-serif">• Array bounds are verified at runtime (ArrayIndexOutOfBoundsException).</text>
+  </g>
+
+  <!-- Right Half: String Constant Pool (SCP) vs Heap Objects -->
+  <g transform="translate(615, 110)">
+    <rect width="535" height="520" rx="16" fill="url(#boxGrad)" stroke="#6366f1" stroke-width="2"/>
+    
+    <!-- Title -->
+    <rect x="20" y="20" width="495" height="42" rx="8" fill="#4338ca" opacity="0.3"/>
+    <text x="35" y="47" fill="#818cf8" font-size="16" font-weight="bold" font-family="sans-serif">
+      🧵 2. STRING CONSTANT POOL (SCP) &amp; EQUALITY
+    </text>
+
+    <!-- Memory Map Diagram -->
+    <g transform="translate(25, 75)">
+      <!-- Stack Region -->
+      <rect x="0" y="0" width="140" height="240" rx="10" fill="#0f172a" stroke="#64748b" stroke-width="1.5"/>
+      <text x="70" y="25" fill="#f8fafc" font-size="13" font-weight="bold" text-anchor="middle">STACK MEMORY</text>
+      
+      <rect x="15" y="45" width="110" height="32" rx="6" fill="#1e293b" stroke="#38bdf8"/>
+      <text x="70" y="66" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">s1 (ref #0x10)</text>
+
+      <rect x="15" y="85" width="110" height="32" rx="6" fill="#1e293b" stroke="#38bdf8"/>
+      <text x="70" y="106" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">s2 (ref #0x10)</text>
+
+      <rect x="15" y="130" width="110" height="32" rx="6" fill="#1e293b" stroke="#f43f5e"/>
+      <text x="70" y="151" fill="#fb7185" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">s3 (ref #0x99)</text>
+
+      <rect x="15" y="175" width="110" height="32" rx="6" fill="#1e293b" stroke="#a855f7"/>
+      <text x="70" y="196" fill="#c084fc" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">s4 (ref #0x10)</text>
+
+      <!-- Heap Outer Region -->
+      <rect x="180" y="0" width="300" height="240" rx="12" fill="#0f172a" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="330" y="25" fill="#cbd5e1" font-size="13" font-weight="bold" text-anchor="middle">HEAP MEMORY</text>
+
+      <!-- Non-Pool Heap Object (s3) -->
+      <rect x="195" y="45" width="270" height="45" rx="8" fill="#881337" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="210" y="72" fill="#ffe4e6" font-size="12" font-family="monospace">new String("Java")</text>
+      <text x="400" y="72" fill="#f43f5e" font-size="11" font-weight="bold">[#0x99]</text>
+
+      <!-- String Constant Pool (SCP) Inner Region -->
+      <rect x="195" y="105" width="270" height="120" rx="10" fill="url(#scpGrad)" stroke="#6366f1" stroke-width="2" filter="url(#glow2)"/>
+      <text x="330" y="128" fill="#a5b4fc" font-size="12" font-weight="bold" text-anchor="middle">STRING CONSTANT POOL (SCP)</text>
+
+      <!-- Pooled String Literal -->
+      <rect x="220" y="145" width="220" height="60" rx="8" fill="#1e1b4b" stroke="#38bdf8" stroke-width="2"/>
+      <text x="330" y="175" fill="#38bdf8" font-size="15" font-weight="bold" text-anchor="middle" font-family="monospace">"Java"</text>
+      <text x="330" y="195" fill="#a5b4fc" font-size="11" text-anchor="middle">Shared Instance [#0x10]</text>
+
+      <!-- Pointers from Stack to SCP & Heap -->
+      <path d="M 125 61 L 220 160" stroke="#38bdf8" stroke-width="2"/>
+      <path d="M 125 101 L 220 170" stroke="#38bdf8" stroke-width="2"/>
+      <path d="M 125 146 L 195 67" stroke="#f43f5e" stroke-width="2"/>
+      <path d="M 125 191 L 220 180" stroke="#a855f7" stroke-width="2"/>
+    </g>
+
+    <!-- Equality Comparison Truth Table -->
+    <rect x="25" y="330" width="485" height="165" rx="10" fill="#090d16" stroke="#1e293b"/>
+    <text x="40" y="355" fill="#818cf8" font-size="13" font-weight="bold" font-family="sans-serif">Equality Comparison Evaluation:</text>
+
+    <!-- Truth Table Rows -->
+    <text x="40" y="380" fill="#38bdf8" font-size="12" font-family="monospace">s1 == s2      -&gt; TRUE  </text>
+    <text x="210" y="380" fill="#94a3b8" font-size="11">(Both point to same pooled SCP address #0x10)</text>
+
+    <text x="40" y="405" fill="#f43f5e" font-size="12" font-family="monospace">s1 == s3      -&gt; FALSE </text>
+    <text x="210" y="405" fill="#94a3b8" font-size="11">(Compares Stack addresses: SCP #0x10 vs Heap #0x99)</text>
+
+    <text x="40" y="430" fill="#22c55e" font-size="12" font-family="monospace">s1.equals(s3) -&gt; TRUE  </text>
+    <text x="210" y="430" fill="#94a3b8" font-size="11">(Compares character-by-character text content "Java")</text>
+
+    <text x="40" y="455" fill="#a855f7" font-size="12" font-family="monospace">s1 == s3.intern() -&gt; TRUE </text>
+    <text x="230" y="455" fill="#94a3b8" font-size="11">(.intern() fetches canonical SCP address)</text>
+
+    <text x="40" y="480" fill="#fcd34d" font-size="11" font-weight="bold" font-family="sans-serif">⚡ StringBuilder modifies in-place buffer; String creates new objects!</text>
+  </g>
+</svg>

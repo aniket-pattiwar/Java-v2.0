@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Demo 3: java.util.Collections Utility Algorithms
- * L.N. Mishra College of Business Management - Java SME Masterclass
+ * Enterprise Java Masterclass - MCA Program
  */
 public class CollectionsUtilityDemo {
 

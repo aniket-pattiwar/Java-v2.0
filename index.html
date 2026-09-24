@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MC101: Java SME Masterclass | ACTS, C-DAC Patna & LNMI Patna</title>
-  <meta name="description" content="Certificate Course in Intelligent Systems & Emerging Technologies (MC101 - Problem Solving & OOPs with Java). Delivered by SME Aniket for MCA Sem-I.">
+  <title>MC101: Problem Solving & Programming Concepts using Java</title>
+  <meta name="description" content="Problem Solving & Programming Concepts using Java (MC101) - MCA Semester I.">
 
   <!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,19 +23,34 @@
       <div class="brand-wrapper">
         <div class="brand-badge">☕</div>
         <div class="brand-text">
-          <h1>MC101: Problem Solving & OOPs with Java</h1>
+          <h1>MC101: Problem Solving & Programming Concepts using Java</h1>
           <p>MCA Sem-I</p>
         </div>
       </div>
 
-      <!-- Quick Search Bar -->
+      <!-- Quick Search Bar with Live Results Dropdown -->
       <div class="search-box">
         <span class="search-icon">🔍</span>
-        <input type="text" id="globalSearchInput" placeholder="Search syllabus, interview traps, code...">
+        <input type="text" id="globalSearchInput" placeholder="Search syllabus, interview traps, code, arrays..." autocomplete="off">
+        <button id="searchClearBtn" class="search-clear-btn" onclick="App.clearSearch()" title="Clear Search" style="display:none;">✕</button>
+        <div id="globalSearchResults" class="search-results-dropdown" style="display:none;"></div>
       </div>
 
-      <!-- Actions -->
+      <!-- Top Zoom & Magnifier Accessibility Suite + Slide Mode -->
       <div class="header-actions">
+        <!-- Whole Website Zoom Controls -->
+        <div class="site-zoom-controls" title="Adjust Whole Website Zoom Level">
+          <button class="zoom-btn" onclick="App.zoomPageOut()" title="Zoom Out Whole Website (Ctrl + -)">A−</button>
+          <button id="pageZoomIndicator" class="zoom-reset-btn" onclick="App.resetPageZoom()" title="Reset Website Zoom to 100%">100%</button>
+          <button class="zoom-btn" onclick="App.zoomPageIn()" title="Zoom In Whole Website (Ctrl + +)">A+</button>
+        </div>
+
+        <!-- Webpage Magnifier Tool -->
+        <button id="btnPageMagnifier" class="btn btn-magnifier-mode" onclick="App.togglePageMagnifier()" title="Toggle Webpage Magnifier (Alt + M)">
+          <span>🔎 Webpage Magnifier</span>
+        </button>
+
+        <!-- Presenter Mode -->
         <button class="btn btn-slide-mode" onclick="App.openSlideDeck(0)" title="Launch Projector Presentation">
           <span>🖥️ Presenter Slide Mode</span>
         </button>
@@ -43,20 +58,32 @@
     </div>
   </header>
 
+  <!-- Webpage Magnifier Floating Lens Element -->
+  <div id="pageMagnifierLens" class="page-magnifier-lens" style="display:none;">
+    <div class="page-lens-badge">🔎 Magnifier 2.0x</div>
+    <div id="pageLensContent" class="page-lens-content"></div>
+  </div>
+
   <!-- Navigation Tabs -->
   <nav class="nav-tabs-bar">
     <div class="tabs-container">
       <button class="nav-tab active" data-tab="overview">
         <span>📋 Syllabus & Overview</span>
       </button>
+      <button class="nav-tab" data-tab="unit1-problem-solving">
+        <span>Unit 1: Problem Solving</span>
+      </button>
+      <button class="nav-tab" data-tab="unit2-java-basics">
+        <span>Unit 2: Java Basics</span>
+      </button>
       <button class="nav-tab" data-tab="unit3-oops">
-        <span>OOPs in Java</span>
+        <span>Unit 3: OOPs</span>
       </button>
       <button class="nav-tab" data-tab="unit4-io">
-        <span>I/O & Exceptions</span>
+        <span>Unit 4: I/O & Exceptions</span>
       </button>
       <button class="nav-tab" data-tab="unit5-collections-threads">
-        <span>Collections & Threads</span>
+        <span>Unit 5: Collections & Threads</span>
       </button>
       <button class="nav-tab" data-tab="visualizers">
         <span>🧠 Concept Visualizers</span>
@@ -80,47 +107,86 @@
     <div class="tab-pane" id="tab-overview" style="display: block;">
       <section class="hero-banner">
         <div class="hero-content">
-        <h3>Java</h3></div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+            <span class="college-tag">Computer Applications</span>
+            <span class="college-tag" style="background:#e0e7ff; color:#3730a3; border-color:#c7d2fe;">MCA • 1st Year (Semester I)</span>
+            <span class="college-tag" style="background:#fef3c7; color:#92400e; border-color:#fde68a;">Course Code: MC101</span>
+          </div>
+          <h2 style="font-size: 1.85rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">
+            Problem Solving & Programming Concepts using Java
+          </h2>
+          <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 900px; line-height: 1.6;">
+            A rigorous, structured masterclass covering algorithmic problem solving, binary computer arithmetic, Java core fundamentals, object-oriented design patterns, enterprise I/O streams, and multithreaded concurrency.
+          </p>
+        </div>
       </section>
 
-      <!-- Assigned Units Grid -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+      <!-- 5-Unit Complete Syllabus Grid -->
+      <h3 style="font-size: 1.25rem; color: var(--text-primary); margin-bottom: 1rem;">📖 Complete 5-Unit Curriculum Breakdown</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+        
+        <!-- UNIT 1 -->
+        <div class="lab-card" style="margin-bottom:0; border-top: 4px solid #6366f1;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <span class="college-tag" style="background:#eef2ff; color:#4338ca; border-color:#c7d2fe;">Unit 1</span>
+            <span style="font-size:1.2rem;">🔢</span>
+          </div>
+          <h4 style="font-size:1.1rem; margin-bottom:0.4rem; color:var(--text-primary);">Problem Solving & Number System</h4>
+          <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom:1rem; line-height:1.5;">Logical thinking, Problem-solving Process, Flowchart & Algorithm, Pseudo Code, Number Systems (Binary, Octal, Decimal, Hexadecimal), Positional Notation, Base Conversions, Binary Arithmetic, 1's & 2's Complement, Computer Arithmetic.</p>
+          <button class="btn btn-secondary" style="width:100%; justify-content:center;" onclick="App.switchTab('unit1-problem-solving')">Open Unit 1 Modules →</button>
+        </div>
+
+        <!-- UNIT 2 -->
+        <div class="lab-card" style="margin-bottom:0; border-top: 4px solid #0ea5e9;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <span class="college-tag" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">Unit 2</span>
+            <span style="font-size:1.2rem;">☕</span>
+          </div>
+          <h4 style="font-size:1.1rem; margin-bottom:0.4rem; color:var(--text-primary);">Java Basics</h4>
+          <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom:1rem; line-height:1.5;">Introduction to Java, Features of Java, JVM / JDK / JRE Architecture & JIT Compiler, Data Types, Type Casting & Promotion, Operators, Control Statements (Selection, Iteration, Jump), Arrays (1D, 2D, Jagged), Strings (Immutability, SCP, StringBuilder).</p>
+          <button class="btn btn-secondary" style="width:100%; justify-content:center;" onclick="App.switchTab('unit2-java-basics')">Open Unit 2 Modules →</button>
+        </div>
+
+        <!-- UNIT 3 -->
         <div class="lab-card" style="margin-bottom:0; border-top: 4px solid var(--primary-600);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-            <span class="college-tag">Core OOPs</span>
+            <span class="college-tag">Unit 3</span>
             <span style="font-size:1.2rem;">🏛️</span>
           </div>
-          <h4 style="font-size:1.15rem; margin-bottom:0.5rem; color:var(--text-primary);">Object Oriented Programming with Java</h4>
-          <p style="font-size:0.875rem; color:var(--text-secondary); margin-bottom:1rem;">OOP Principles, Classes & Objects, Pass by value v/s pass by reference, Static variables & methods, Cross-class access, Reference vs Primitive, Inheritance & Polymorphism.</p>
+          <h4 style="font-size:1.1rem; margin-bottom:0.4rem; color:var(--text-primary);">Object Oriented Programming with Java</h4>
+          <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom:1rem; line-height:1.5;">OOP Principles, Classes & Objects, Pass by value v/s pass by reference, Static variables & methods, Cross-class access, Reference vs Primitive, Reference vs Static variables, Inheritance & Polymorphism implementation.</p>
           <button class="btn btn-secondary" style="width:100%; justify-content:center;" onclick="App.switchTab('unit3-oops')">Open Unit 3 Modules →</button>
         </div>
 
+        <!-- UNIT 4 -->
         <div class="lab-card" style="margin-bottom:0; border-top: 4px solid var(--accent-emerald);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-            <span class="college-tag">Streams & Errors</span>
+            <span class="college-tag">Unit 4</span>
             <span style="font-size:1.2rem;">📁</span>
           </div>
-          <h4 style="font-size:1.15rem; margin-bottom:0.5rem; color:var(--text-primary);">Java IO and Exceptions</h4>
-          <p style="font-size:0.875rem; color:var(--text-secondary); margin-bottom:1rem;">InputStream/OutputStream, Reader/Writer, Serialization & transient, Shallow vs Deep copy, Exception hierarchy, try-catch-finally, throws/throw, Multi-catch, Custom Exceptions.</p>
+          <h4 style="font-size:1.1rem; margin-bottom:0.4rem; color:var(--text-primary);">Java IO and Exceptions</h4>
+          <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom:1rem; line-height:1.5;">InputStream/OutputStream, Reader/Writer, Serialization & transient, Shallow vs Deep copy, Exception hierarchy, try-catch-finally, throws/throw, Multi-catch, Creating user defined checked & unchecked exceptions.</p>
           <button class="btn btn-secondary" style="width:100%; justify-content:center;" onclick="App.switchTab('unit4-io')">Open Unit 4 Modules →</button>
         </div>
 
+        <!-- UNIT 5 -->
         <div class="lab-card" style="margin-bottom:0; border-top: 4px solid var(--accent-rose);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-            <span class="college-tag">Concurrency</span>
+            <span class="college-tag">Unit 5</span>
             <span style="font-size:1.2rem;">⚡</span>
           </div>
-          <h4 style="font-size:1.15rem; margin-bottom:0.5rem; color:var(--text-primary);">Java Collections & Multithreading</h4>
-          <p style="font-size:0.875rem; color:var(--text-secondary); margin-bottom:1rem;">Collection hierarchy (List, Queue, Set, Map), Collections class, Comparable/Comparator, Thread & Runnable, Deadlock, Synchronization, wait/notify/notifyAll.</p>
+          <h4 style="font-size:1.1rem; margin-bottom:0.4rem; color:var(--text-primary);">Java Collections & Multithreading</h4>
+          <p style="font-size:0.825rem; color:var(--text-secondary); margin-bottom:1rem; line-height:1.5;">Collection hierarchy (List, Queue, Set, Map), Collections class, Comparable/Comparator, Thread & Runnable, Deadlock, Synchronization, wait/notify/notifyAll methods.</p>
           <button class="btn btn-secondary" style="width:100%; justify-content:center;" onclick="App.switchTab('unit5-collections-threads')">Open Unit 5 Modules →</button>
         </div>
       </div>
 
-      <!-- Course Outcomes & References -->
+      <!-- Course Objectives, Outcomes & References -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
         <div class="topic-section" style="margin-bottom:0;">
-          <h3 style="font-size:1.15rem; margin-bottom:0.75rem; color:var(--text-primary);">🎯 Course Outcomes Addressed (SME Scope)</h3>
+          <h3 style="font-size:1.15rem; margin-bottom:0.75rem; color:var(--text-primary);">🎯 Course Objectives & Outcomes (COs)</h3>
           <ul style="font-size:0.875rem; color:var(--text-secondary); display:flex; flex-direction:column; gap:0.5rem; margin-left:1.25rem;">
+            <li><strong>CO1:</strong> Apply problem-solving techniques to analyze requirements and develop efficient algorithmic solutions for real-world problems.</li>
             <li><strong>CO2:</strong> Design and implement Object-Oriented Programming (OOP) concepts such as classes, objects, inheritance, polymorphism, encapsulation, and abstraction using Java.</li>
             <li><strong>CO3:</strong> Develop Java applications using control structures, arrays, methods, exception handling, and file handling to create robust software solutions.</li>
             <li><strong>CO4:</strong> Build and debug modular, reusable, and maintainable programs by following industry-standard coding practices and object-oriented design principles.</li>
@@ -128,16 +194,27 @@
         </div>
 
         <div class="topic-section" style="margin-bottom:0;">
-          <h3 style="font-size:1.15rem; margin-bottom:0.75rem; color:var(--text-primary);">📚 Official Textbook & E-Resource References</h3>
+          <h3 style="font-size:1.15rem; margin-bottom:0.75rem; color:var(--text-primary);">📚 Official Textbooks & Reference Books</h3>
           <ul style="font-size:0.875rem; color:var(--text-secondary); display:flex; flex-direction:column; gap:0.4rem; margin-left:1.25rem;">
+            <li>Core and Advanced Java Black Book (Dreamtech Press)</li>
+            <li>Java 8 Programming Black Book (Dreamtech Press)</li>
             <li>Core Java : Volume 1 - Fundamentals by Cay S. Horstmann (Prentice Hall)</li>
             <li>Core Java : Volume 2 - Advanced Features by Cay S. Horstmann (Prentice Hall)</li>
-            <li>Core and Advanced Java Black Book (Dreamtech Press)</li>
             <li>Programming in Java by Sachin Malhotra, Saurabh Choudhary (Oxford University Press)</li>
             <li>NPTEL E-Resources (<a href="http://nptel.ac.in/" target="_blank" rel="noreferrer">http://nptel.ac.in/</a>)</li>
           </ul>
         </div>
       </div>
+    </div>
+
+    <!-- UNIT 1: PROBLEM SOLVING & NUMBER SYSTEM TAB -->
+    <div class="tab-pane" id="tab-unit1-problem-solving" style="display: none;">
+      <div id="content-unit1-problem-solving"></div>
+    </div>
+
+    <!-- UNIT 2: JAVA BASICS TAB -->
+    <div class="tab-pane" id="tab-unit2-java-basics" style="display: none;">
+      <div id="content-unit2-java-basics"></div>
     </div>
 
     <!-- UNIT 3: OOPs TAB -->
@@ -161,8 +238,27 @@
         <div>
           <span class="college-tag" style="margin-left:0; margin-bottom:0.5rem;">Interactive Simulators</span>
           <h3 style="font-size: 1.5rem; color: var(--text-primary);">Interactive Concept Visualizers</h3>
-          <p style="font-size: 0.95rem; color: var(--text-secondary);">Interactive visual aids designed to elucidate memory mechanics, collection taxonomy, and thread state transitions.</p>
+          <p style="font-size: 0.95rem; color: var(--text-secondary);">Interactive visual aids designed to elucidate number systems, 2's complement arithmetic, memory mechanics, collection taxonomy, and thread state transitions.</p>
         </div>
+      </div>
+
+      <!-- Visualizer 0: Unit 1 Number Base & 2's Complement Simulator -->
+      <div class="visualizer-card">
+        <div class="visualizer-header">
+          <div class="visualizer-title">
+            <span class="college-tag" style="margin-left:0; margin-bottom:0.35rem;">🔢 Unit 1 Interactive Engine</span>
+            <h3>1. Universal Number Base, Positional Notation & 2's Complement Simulator</h3>
+            <p>Type any integer value to inspect its 8-bit binary register, 1's complement, 2's complement arithmetic negation, Octal, and Hexadecimal representations in real-time.</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+            <label style="font-size:0.85rem; font-weight:700; color:var(--text-secondary);">Enter Number:</label>
+            <input type="number" id="numConvInput" value="42" min="-128" max="255" oninput="Visualizers.updateNumberConverter(this.value)" style="padding:0.45rem 0.75rem; border-radius:var(--radius-md); border:1.5px solid var(--border-medium); font-family:var(--font-mono); font-size:0.95rem; font-weight:700; width:100px; background:var(--bg-surface-primary); color:var(--text-primary);">
+            <button class="btn btn-secondary" style="font-size:0.8rem; padding:0.4rem 0.65rem;" onclick="Visualizers.setNumberConverterPreset(254)">254</button>
+            <button class="btn btn-secondary" style="font-size:0.8rem; padding:0.4rem 0.65rem;" onclick="Visualizers.setNumberConverterPreset(-19)">-19</button>
+            <button class="btn btn-secondary" style="font-size:0.8rem; padding:0.4rem 0.65rem;" onclick="Visualizers.setNumberConverterPreset(127)">127 (Max Byte)</button>
+          </div>
+        </div>
+        <div id="number-converter-stage" style="margin-top:1rem;"></div>
       </div>
 
       <!-- Visualizer 1: Anime-Style OOP 4-Pillars Simulator -->
@@ -170,7 +266,7 @@
         <div class="visualizer-header">
           <div class="visualizer-title">
             <span class="college-tag" style="margin-left:0; margin-bottom:0.35rem;">🎬 Interactive 4 Pillars System</span>
-            <h3>1. OOP 4-Pillars Compact System Simulator (ATM Abstraction & Motion Graphics)</h3>
+            <h3>2. OOP 4-Pillars Compact System Simulator (ATM Abstraction & Motion Graphics)</h3>
             <p>Interactive real-world system modeling: ATM Machine Abstraction, Cyber Capsule Encapsulation, Vehicle Blueprint Inheritance, and Dynamic Polymorphic POS Terminal.</p>
           </div>
           <div class="anime-pillar-tabs">
@@ -249,23 +345,24 @@
       <div class="hero-banner" style="padding: 1.5rem 2rem;">
         <div>
           <span class="college-tag" style="margin-left:0; margin-bottom:0.5rem;">Placement & Viva Mastery</span>
-          <h3 style="font-size: 1.5rem; color: var(--text-primary);">Top 32 Java Viva & Placement Interview Questions</h3>
-          <p style="font-size: 0.95rem; color: var(--text-secondary);">Curated high-frequency conceptual questions, JVM memory mechanics, and tricky viva traps asked in MCA exams and technical recruitment drives.</p>
+          <h3 style="font-size: 1.5rem; color: var(--text-primary);">Top 40 Java Viva & Placement Interview Questions</h3>
+          <p style="font-size: 0.95rem; color: var(--text-secondary);">Curated high-frequency conceptual questions, JVM memory mechanics, 2's complement arithmetic, and tricky viva traps asked in MCA exams and technical recruitment drives.</p>
         </div>
       </div>
 
       <!-- Interview Filter Bar -->
       <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: center;">
         <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); margin-right: 0.25rem;">Filter by:</span>
-        <button class="filter-pill active" onclick="App.filterInterview('all', this)">All (32)</button>
-        <button class="filter-pill" onclick="App.filterInterview('easy', this)">🟢 Easy (8)</button>
-        <button class="filter-pill" onclick="App.filterInterview('medium', this)">🟡 Medium (15)</button>
-        <button class="filter-pill" onclick="App.filterInterview('hard', this)">🔴 Hard (9)</button>
+        <button class="filter-pill active" onclick="App.filterInterview('all', this)">All (40)</button>
+        <button class="filter-pill" onclick="App.filterInterview('easy', this)">🟢 Easy</button>
+        <button class="filter-pill" onclick="App.filterInterview('medium', this)">🟡 Medium</button>
+        <button class="filter-pill" onclick="App.filterInterview('hard', this)">🔴 Hard</button>
         <span style="color: var(--border-medium);">|</span>
-        <button class="filter-pill" onclick="App.filterInterviewCategory('Unit 3: OOPs', this)">Unit 3: OOPs</button>
-        <button class="filter-pill" onclick="App.filterInterviewCategory('Unit 4: I/O & Exceptions', this)">Unit 4: I/O & Ex</button>
-        <button class="filter-pill" onclick="App.filterInterviewCategory('Unit 5: Collections', this)">Unit 5: Collections</button>
-        <button class="filter-pill" onclick="App.filterInterviewCategory('Unit 5: Threads', this)">Unit 5: Threads</button>
+        <button class="filter-pill" onclick="App.filterInterviewCategory('Unit 1', this)">Unit 1: Numbers & Problem Solving</button>
+        <button class="filter-pill" onclick="App.filterInterviewCategory('Unit 2', this)">Unit 2: Java Basics</button>
+        <button class="filter-pill" onclick="App.filterInterviewCategory('Unit 3', this)">Unit 3: OOPs</button>
+        <button class="filter-pill" onclick="App.filterInterviewCategory('Unit 4', this)">Unit 4: I/O & Ex</button>
+        <button class="filter-pill" onclick="App.filterInterviewCategory('Unit 5', this)">Unit 5: Collections & Concurrency</button>
       </div>
 
       <div id="interview-vault-list"></div>
@@ -276,8 +373,8 @@
       <div class="hero-banner" style="padding: 1.5rem 2rem;">
         <div>
           <span class="college-tag" style="margin-left:0; margin-bottom:0.5rem;">Hands-On Activities</span>
-          <h3 style="font-size: 1.5rem; color: var(--text-primary);">Syllabus Lab Assignments & Problem Sets (12 Labs)</h3>
-          <p style="font-size: 0.95rem; color: var(--text-secondary);">Structured from beginner-friendly fundamental drills to advanced concurrency simulations with complete side-by-side runnable solutions and live terminal outputs.</p>
+          <h3 style="font-size: 1.5rem; color: var(--text-primary);">Syllabus Lab Assignments & Problem Sets (16 Labs)</h3>
+          <p style="font-size: 0.95rem; color: var(--text-secondary);">Structured from fundamental algorithmic problem sets to enterprise multithreading simulations with complete side-by-side runnable solutions and live terminal outputs.</p>
         </div>
       </div>
 
@@ -285,19 +382,17 @@
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.25rem;">
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
           <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); margin-right: 0.25rem;">Level:</span>
-          <button class="filter-pill active" onclick="App.filterLabs('all', this)">All (12)</button>
-          <button class="filter-pill" onclick="App.filterLabs('easy', this)">🟢 Easy (7)</button>
-          <button class="filter-pill" onclick="App.filterLabs('medium', this)">🟡 Medium (3)</button>
-          <button class="filter-pill" onclick="App.filterLabs('hard', this)">🔴 Advanced (2)</button>
+          <button class="filter-pill active" onclick="App.filterLabs('all', this)">All (16)</button>
+          <button class="filter-pill" onclick="App.filterLabs('easy', this)">🟢 Easy</button>
+          <button class="filter-pill" onclick="App.filterLabs('medium', this)">🟡 Medium</button>
+          <button class="filter-pill" onclick="App.filterLabs('hard', this)">🔴 Advanced</button>
           <span style="color: var(--border-medium);">|</span>
+          <button class="filter-pill" onclick="App.filterLabsUnit('Unit 1', this)">Unit 1</button>
+          <button class="filter-pill" onclick="App.filterLabsUnit('Unit 2', this)">Unit 2</button>
           <button class="filter-pill" onclick="App.filterLabsUnit('Unit 3', this)">Unit 3</button>
           <button class="filter-pill" onclick="App.filterLabsUnit('Unit 4', this)">Unit 4</button>
           <button class="filter-pill" onclick="App.filterLabsUnit('Unit 5', this)">Unit 5</button>
         </div>
-        <!-- <div style="display: flex; gap: 0.5rem;">
-          <button class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;" onclick="App.toggleAllSolutions(true)">👁️ Expand All</button>
-          <button class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;" onclick="App.toggleAllSolutions(false)">🙈 Collapse All</button>
-        </div> -->
       </div>
 
       <div id="labs-container"></div>
@@ -345,9 +440,9 @@
               <pre class="code-content-inner language-java"><code>// Run with: java -cp bin capstone_project.CollegeManagementSystem
 public class CollegeManagementSystem {
     public static void main(String[] args) {
-        CollegeService service = new CollegeService();
-        service.registerStudent(new Student(101, "Vikram Malhotra", "vikram@lnmc.ac.in", "MCA", 8.9, 45000));
-        service.registerStudent(new Student(102, "Ananya Roy", "ananya@lnmc.ac.in", "MBA", 9.6, 50000));
+        StudentService service = new StudentService();
+        service.registerStudent(new Student(101, "Vikram Malhotra", "vikram@univ.edu", "MCA", 8.9, 45000));
+        service.registerStudent(new Student(102, "Ananya Roy", "ananya@univ.edu", "MBA", 9.6, 50000));
 
         // Merit Ranking via Custom Comparator
         List&lt;Student&gt; merit = service.getMeritList();
@@ -355,9 +450,11 @@ public class CollegeManagementSystem {
 
         // Concurrent Fee Payment Gateway Simulation
         Thread t1 = new Thread(() -> {
-            Student s = service.getStudent(101);
-            s.payFee(20000);
-            service.logAudit("PAYMENT: ₹20000 by " + s.getName());
+            try {
+                Student s = service.getStudent(101);
+                s.payFee(20000);
+                service.logAudit("PAYMENT: ₹20000 by " + s.getName());
+            } catch (Exception e) {}
         });
         t1.start();
     }
@@ -366,8 +463,7 @@ public class CollegeManagementSystem {
             <div class="output-pane">
               <div class="pane-header" style="color:#34d399;">⚡ Terminal Output</div>
               <pre class="output-content-inner"><code>===============================================================
- L.N. MISHRA COLLEGE OF BUSINESS MANAGEMENT (PATNA)
- Enterprise Java SME Capstone Management System
+ Enterprise Java Capstone Management System
 ===============================================================
 
 --- 1. Enrolling Students into System ---
@@ -378,14 +474,14 @@ Rank #2 -> [STUDENT] ID: 104 | Name: Priya Kumari    | Course: MBA | CGPA: 9.60 
 Rank #3 -> [STUDENT] ID: 101 | Name: Vikram Malhotra | Course: MCA | CGPA: 8.90 | Fee Due: ₹45000.00
 
 --- 3. Testing Exception Handling ---
-[HANDLED EXPECTED ERROR] Student with ID 999 not found in LNMC registry!
+[HANDLED EXPECTED ERROR] Student with ID 999 not found in student registry!
 
 --- 4. Concurrent Fee Payment Gateway (Multithreading & Locks) ---
 [Gateway Thread 1] Payment processed for Vikram Malhotra | Remaining Due: ₹25000.0
 [Gateway Thread 2] Payment processed for Ananya Roy | Remaining Due: ₹0.0
 
 ===============================================================
- Capstone Execution Complete. Audit logs written to college_transaction_audit.txt
+ Capstone Execution Complete. Audit logs written to transaction_audit.txt
 ===============================================================</code></pre>
             </div>
           </div>
@@ -399,10 +495,10 @@ Rank #3 -> [STUDENT] ID: 101 | Name: Vikram Malhotra | Course: MCA | CGPA: 8.90 
   <div id="slideDeckModal" class="slide-deck-modal">
     <div class="slide-topbar">
       <div class="slide-title-header">
-        <span>☕ MC101: Java SME Masterclass</span>
+        <span>☕ MC101: Java Masterclass</span>
       </div>
       <div class="slide-controls">
-        <span id="slideCounter" class="slide-counter">Slide 1 / 16</span>
+        <span id="slideCounter" class="slide-counter">Slide 1 / 20</span>
         <button class="btn btn-secondary" onclick="App.closeSlideDeck()" style="background:#334155; color:white; border-color:#475569;">
           ✕ Exit Presenter Mode [ESC]
         </button>
@@ -411,10 +507,63 @@ Rank #3 -> [STUDENT] ID: 101 | Name: Vikram Malhotra | Course: MCA | CGPA: 8.90 
     <div class="slide-canvas" id="slideCanvas"></div>
   </div>
 
+  <!-- High-Precision Image Zoom & Magnifier Lightbox Modal -->
+  <div id="imageLightboxModal" class="image-lightbox-modal" aria-hidden="true" role="dialog" aria-label="Image Magnifier & Zoom Inspector">
+    <div class="lightbox-overlay" onclick="App.closeImageLightbox()"></div>
+    <div class="lightbox-container">
+      <div class="lightbox-header">
+        <div class="lightbox-info">
+          <span class="lightbox-badge">🔍 Diagram Inspector</span>
+          <span id="lightboxTitle" class="lightbox-title">Technical Diagram</span>
+        </div>
+        <div class="lightbox-toolbar">
+          <div class="zoom-pill-group">
+            <button class="lightbox-btn" id="btnZoomOut" onclick="App.lightboxZoomOut()" title="Zoom Out (-)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+            </button>
+            <span id="lightboxZoomLevel" class="zoom-level-text">100%</span>
+            <button class="lightbox-btn" id="btnZoomIn" onclick="App.lightboxZoomIn()" title="Zoom In (+)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+            </button>
+          </div>
+          <button class="lightbox-btn" id="btnResetZoom" onclick="App.lightboxResetZoom()" title="Reset Zoom (0 or R)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+            <span>Reset (1x)</span>
+          </button>
+          <button class="lightbox-btn" id="btnToggleLens" onclick="App.lightboxToggleLens()" title="Toggle Magnifying Glass Loupe (M)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"></line><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"></line></svg>
+            <span id="lensBtnLabel">🔎 Loupe Lens: OFF</span>
+          </button>
+          <button class="lightbox-btn btn-close-lightbox" onclick="App.closeImageLightbox()" title="Close Inspector (Esc)">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <div class="lightbox-body" id="lightboxViewport">
+        <div class="lightbox-canvas" id="lightboxCanvas">
+          <img id="lightboxImg" src="" alt="Zoomed Diagram" draggable="false">
+          <div id="lightboxLens" class="lightbox-magnifier-lens"></div>
+        </div>
+      </div>
+
+      <div class="lightbox-footer">
+        <div class="lightbox-hints">
+          <span class="hint-item">🖱️ <strong>Scroll</strong> Zoom (0.5x – 5x)</span>
+          <span class="hint-item">✋ <strong>Drag</strong> Pan</span>
+          <span class="hint-item">⚡ <strong>Double-Click</strong> 2.5x Zoom</span>
+          <span class="hint-item">🔎 <strong>[M]</strong> Toggle Lens Loupe</span>
+          <span class="hint-item">⌨️ <strong>[+/-]</strong> Zoom Keys</span>
+          <span class="hint-item">⌨️ <strong>[ESC]</strong> Close</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="site-footer">
-    <p style="font-size:0.8rem;">MCA Semester I Course Code: MC101</p>
-    <p style="font-size:0.8rem;">© 2026 C-DAC Patna. All Rights Reserved.</p>
+    <p style="font-size:0.8rem;">MCA Semester I Course Code: MC101 — Problem Solving & Programming Concepts using Java</p>
+    <p style="font-size:0.8rem;">© 2026 Java Programming Masterclass. All Rights Reserved.</p>
   </footer>
 
   <!-- Scripts -->
